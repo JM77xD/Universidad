@@ -26,8 +26,16 @@ int main() {
     copiaOriginal->mostrar();
     delete copiaOriginal;               //Borramos la matriz copia
 
-    Matriz2D *subMatriz = MatrizOriginal.extraerSubmatriz(2, 4, 1, 3);      //Obtenemos una submatriz de la matriz
-    cout << "\nSubmatriz desde el (2,1) al (4,3):\n";
+    
+    int filaI, filaF, colI, colF;
+    cout << "\nDe que fila a que fila desea extraer la submatriz(x y)? ";
+    cin >> filaI >> filaF;
+
+    cout << "\nDe que columna a que columna desea extraer la submatriz(x y)? ";
+    cin >> colI >> colF;
+
+    Matriz2D *subMatriz = MatrizOriginal.extraerSubmatriz(filaI-1, filaF-1, colI-1, colF-1);      //Obtenemos una submatriz de la matriz
+    cout << "\nSubmatriz desde el (" << filaI << ", " << colI << ") al (" << filaF << ", " << colF << "):\n";
     subMatriz->mostrar();
     delete subMatriz;                   //Borramos la submatriz
 

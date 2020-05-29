@@ -6,14 +6,20 @@
 using namespace std;
 
 void Matriz2D::mostrar() {
+        if (this) {
             Fila *aux = this->matriz;                           //Creamos un puntero auxiliar
             while (aux != 0) {                                  //Hasta que no sea nulo
                 aux->mostrar();                                 //Mostramos el contenido de las columnas
                 aux = aux->sigF;                                //Avanzamos a la siguiente fila
             }
             aux = 0;
-            delete aux;                                         //Borramos el puntero auxiliar
+            delete aux;
         }
+        else {
+            cout << "\nLa matriz no puede mostrarse\n";
+        }
+                                                     //Borramos el puntero auxiliar
+    }
 
 Matriz2D *Matriz2D::copiarMatriz() {
             Matriz2D *copia = new Matriz2D(numFilas, numColumnas);          //Crea una nueva matriz en memoria dinámica
@@ -32,6 +38,10 @@ Matriz2D *Matriz2D::copiarMatriz() {
         }
 
 Matriz2D *Matriz2D::extraerSubmatriz(int filaInicio, int filaFinal, int columnaInicio, int columnaFinal) {
+            if (filaInicio < 1 || columnaInicio < 1 || filaFinal > this->numFilas || columnaFinal > this->numColumnas) {
+                cout << "\nValores especificados no válidos";
+                return 0;
+            }
             int tamanioFilas = filaFinal - filaInicio, tamanioColumnas = columnaFinal - columnaInicio;//Calculamos el numero de filas y columnas que tendrá la matriz
             Matriz2D *copia = new Matriz2D(tamanioFilas, tamanioColumnas);          //Creamos una copia de la matriz
             Fila *p = copia->devolverFila();                                          //Puntero auxiliar

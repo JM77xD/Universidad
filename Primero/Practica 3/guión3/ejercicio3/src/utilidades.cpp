@@ -8,7 +8,7 @@ void orden(double *array, int tamanio) {
     for (int i = 0; i < tamanio - 1; i++) {            //Utilizamos cualquier algoritmo para ordenar el array en orden ascendente (el de burbuja en este caso)
         for (int j = 0; j < tamanio - 1; j++) {
             if (*(array+j) > *(array+j+1)) {            //Comparamos los valores
-                int aux;                                //Intercambiamos los valores
+                double aux;                                //Intercambiamos los valores
                 aux = *(array+j);
                 *(array+j)= *(array+j+1);
                 *(array+j+1) = aux;

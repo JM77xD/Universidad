@@ -9,7 +9,7 @@ class Pareja {
     public:
         Pareja();
 
-        Pareja(int dato, int veces=1);
+        Pareja(int dato);
 
         inline int devolverNVeces() const {
             return nVeces;

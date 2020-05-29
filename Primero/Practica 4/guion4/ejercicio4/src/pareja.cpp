@@ -6,9 +6,9 @@ Pareja::Pareja() {
     nVeces = 0;
 }
 
-Pareja::Pareja(int dato, int veces) {
+Pareja::Pareja(int dato) {
     this->dato = dato;
-    this->nVeces = veces;
+    this->nVeces = 1;
 }
 
 Pareja Pareja::operator=(const Pareja &igualar) {       //Sobrecarga del operador "="

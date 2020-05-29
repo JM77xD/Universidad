@@ -78,10 +78,10 @@ BigInt BigInt::operator+(const BigInt &otro) const {        //Sobrecarga del ope
 
 void BigInt::agregarValores() {         //Método para inicializar desde 0 un objeto BigInt
     cout << "\nIntroduzca el número: ";     //Introducimos el número
-    string numero;                          //Creamos un string para leer el numero
+    string numero;
     getline(cin, numero);
+    this->numDigitos = numero.length();
     delete [] p;       //Borramos el 0 que le habíamos asignado a p
-    numDigitos = numero.length();
     for (int i = 0; i < numDigitos/2; i++) swap(numero[i], numero[numDigitos-i-1]);     //Invertimos el string
     p = new int[numDigitos];        //Creamos un array de enteros del tamaño pedido por el usuario
     for (int i = 0; i < numDigitos; i++) {

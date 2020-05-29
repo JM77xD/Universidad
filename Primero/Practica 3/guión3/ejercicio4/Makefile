@@ -7,14 +7,11 @@ clean:
 mrproper: clean
 	rm bin/ejercicio4
 
-obj/celda.o: src/celda.cpp include/celda.h
-	g++ -c -o obj/celda.o -Iinclude src/celda.cpp
-
 obj/lista.o: src/lista.cpp include/lista.h include/celda.h
 	g++ -c -o obj/lista.o -Iinclude src/lista.cpp
 
-lib/libformas.a: obj/lista.o obj/celda.o
-	ar rvs lib/libformas.a obj/lista.o obj/celda.o
+lib/libformas.a: obj/lista.o
+	ar rvs lib/libformas.a obj/lista.o
 
 obj/ejercicio4.o: src/ejercicio4.cpp include/lista.h include/celda.h
 	g++ -c -o obj/ejercicio4.o -Iinclude src/ejercicio4.cpp

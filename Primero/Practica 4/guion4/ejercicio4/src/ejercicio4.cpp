@@ -13,7 +13,7 @@ int main() {
     Precuencias primeraSecuencia(secuencia);
     cout << endl << primeraSecuencia;
 
-    cout << "Introduzca otra secuencia para comparar: ";
+    cout << "\n\nIntroduzca otra secuencia para comparar: ";
     getline(cin, secuencia2);
     Precuencias segundaSecuencia(secuencia2);
     cout << endl << segundaSecuencia;

@@ -12,6 +12,7 @@ Precuencias::Precuencias() {
 
 Precuencias::Precuencias(string secuencia) {        //Constructor a partir de un string
     bool coincide;  //Booleano para determinar cuando 2 dígitos son iguales
+    this->parejas = 0;
     this->nParejas = 0; //Establecemos el número de parejas a 0
     for (int i = 0; i < secuencia.length(); i++) {      //Miramos cada dígito de la secuencia
         coincide = false;   //Al comienzo de cada ciclo establecemos que no coincide
@@ -75,6 +76,7 @@ bool Precuencias::operator==(const Precuencias &otra) const {       //Sobrecarga
 
 bool Precuencias::operator!=(const Precuencias &otra) {
     bool coincide;          //Booleano para ver si coincide
+    if (this->nParejas != otra.nParejas) return true;
     for (int i = 0; i < this->nParejas; i++) {      //Recorremos todas las parejas
         coincide = false;
         for (int j = 0; j < otra.nParejas; j++) {

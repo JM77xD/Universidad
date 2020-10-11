@@ -43,34 +43,37 @@ double calcular_integral_secuencial(  )
 
 // -----------------------------------------------------------------------------
 // función que ejecuta cada hebra: recibe $i$ ==índice de la hebra, ($0\leq i<n$)
-double funcion_hebra( long i )
-{  
-   double suma = 0.0;
+double funcion_hebra( long i ) {  
+   double suma = 0.0;                        //inicializamos la variable que almacenará el valor de la integral calculado por la hebra $i
 
    if (i == 0) {
-      for (double j = 0; j < m/n; j++) {
-         suma += f((j+0.5)/m);
+      for (double j = 0; j < m/n; j++) {     //dividimos el espacio de la integral en tantas partes como hebras hay
+         suma += f((j+0.5)/m);               //Sumamos el valor de la integral en ese punto
       }
    } else {
       for (double j = i*m/n; j < (i+1)*m/n; j++) {
          suma += f((j+0.5)/m);
       }
    }
-   return suma/m; 
+
+   return suma/m;                            //Devolvemos el valor de suma dividido entre el num de partes
 }
 
 // -----------------------------------------------------------------------------
 // calculo de la integral de forma concurrente
-double calcular_integral_concurrente( )
-{
-   future<double> futures[n];
+double calcular_integral_concurrente() {
+   future<double> futures[n];                //declaramos un array de futures con tantos elementos como hebras
+
    for (int i = 0; i < n; i++) {
-      futures[i] = async(launch::async, funcion_hebra, i );
+      futures[i] = async(launch::async, funcion_hebra, i );    //lanzamos cada hebra
    }
+
    double result=0.0;
+
    for (int i = 0; i < n; i++) {
-      result += futures[i].get();
+      result += futures[i].get();            //Obtenemos el resultado de los futures
    }
+
    return result;
 }
 // -----------------------------------------------------------------------------

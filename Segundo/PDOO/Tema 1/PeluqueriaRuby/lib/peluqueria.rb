@@ -1,3 +1,5 @@
+require_relative "persona"
+
 module Basico
 
   

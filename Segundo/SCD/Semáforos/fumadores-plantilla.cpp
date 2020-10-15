@@ -9,6 +9,11 @@
 using namespace std ;
 using namespace SEM ;
 
+const int num_fumadores = 3;
+
+Semaphore   fumador[] = {0, 0, 0},
+            estanquero_libre(1);
+
 //**********************************************************************
 // plantilla de función para generar un entero aleatorio uniformemente
 // distribuido entre dos valores enteros, ambos incluidos
@@ -50,7 +55,14 @@ int producir_ingrediente()
 
 void funcion_hebra_estanquero(  )
 {
-
+   int ingrediente;
+   while (true)
+   {
+      sem_wait(estanquero_libre);
+      ingrediente = producir_ingrediente();
+      sem_signal(fumador[ingrediente]);
+      cout << "\nPuesto ingrediente " << ingrediente << ".\n";
+   }
 }
 
 //-------------------------------------------------------------------------
@@ -82,7 +94,10 @@ void  funcion_hebra_fumador( int num_fumador )
 {
    while( true )
    {
-
+      sem_wait(fumador[num_fumador]);
+      cout << "\nEl fumador " << num_fumador << " retira su ingrediente.\n";
+      sem_signal(estanquero_libre);
+      fumar(num_fumador);
    }
 }
 
@@ -90,6 +105,14 @@ void  funcion_hebra_fumador( int num_fumador )
 
 int main()
 {
-   // declarar hebras y ponerlas en marcha
-   // ......
+   thread fumador1(funcion_hebra_fumador, 0),
+          fumador2(funcion_hebra_fumador, 1),
+          fumador3(funcion_hebra_fumador, 2),
+          estanquero(funcion_hebra_estanquero);
+
+   fumador1.join();
+   fumador2.join();
+   fumador3.join();
+   estanquero.join();
+
 }

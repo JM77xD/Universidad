@@ -13,7 +13,7 @@ module Civitas
                 @numCasillaCarcel = 1
             end
             @casillas = []
-            casilla = Civitas::Casilla.new("Salida")
+            casilla = Casilla.new("Salida")
             @casillas << casilla
             @porSalida = 0
             @tieneJuez = false
@@ -68,7 +68,7 @@ module Civitas
             if (correcta(numCasilla))
                 return @casillas.at(numCasilla)
             else
-                return null
+                return nil
             end
         end
 

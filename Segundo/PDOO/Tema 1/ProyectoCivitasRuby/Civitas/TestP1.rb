@@ -2,7 +2,7 @@
 
 require_relative "Casilla"
 require_relative "Dado"
-require_relative "diario"
+require_relative "Diario"
 require_relative "Estados_juego"
 require_relative "MazoSorpresas"
 require_relative "Operaciones_juego"
@@ -29,7 +29,7 @@ module Civitas
     puts Dado.instance.ultimoResultado.to_s
 
     if (Dado.instance.salgoDeLaCarcel())
-        puts "Salgo del la carcel"
+        puts "Salgo de la carcel"
     else
         puts "No salgo de la carcel"
     end

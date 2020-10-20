@@ -24,7 +24,7 @@ public class Tablero {
             numCasillaCarcel = 1;
         }
         casillas = new ArrayList<>();
-        Casilla salida = new Casilla("Salida", TipoCasilla.DESCANSO);
+        Casilla salida = new Casilla("Salida");
         casillas.add(salida);
         porSalida = 0;
         tieneJuez = false;
@@ -58,19 +58,19 @@ public class Tablero {
     
     void añadeCasilla(Casilla casilla) {        //Añade una casilla al tablero
         if (casillas.size() == numCasillaCarcel) {
-            Casilla carcel = new Casilla("Cárcel",TipoCasilla.DESCANSO);
+            Casilla carcel = new Casilla("Cárcel");
             casillas.add(carcel);
         }
         casillas.add(casilla);
         if (casillas.size() == numCasillaCarcel) {
-            Casilla carcel = new Casilla("Cárcel", TipoCasilla.DESCANSO);
+            Casilla carcel = new Casilla("Cárcel");
             casillas.add(carcel);
         }
     }
     
     void añadeJuez() {          //Añade el juez al tablero
         if (!tieneJuez) {
-            Casilla juez = new Casilla("Juez", TipoCasilla.JUEZ);
+            Casilla juez = new Casilla(numCasillaCarcel, "Juez");
             casillas.add(juez);
             tieneJuez = true;
         }
@@ -84,7 +84,11 @@ public class Tablero {
     
     int nuevaPosicion(int actual, int tirada) {     //Calcula la nueva posicion del jugador en el tablero
         if (!correcto()) return -1;
-        return (actual+tirada) % casillas.size();
+        int nueva = (actual+tirada) % casillas.size();
+        if (nueva != actual*tirada)
+            porSalida++;
+        
+        return nueva;
     }
     
     int calcularTirada(int origen, int destino) {       //Calcula la tirada que tendrías que sacar para acabar en cierta posicion desde tu posicion actual

@@ -33,7 +33,7 @@ public class CivitasJuego {
     }
     
     void inicializaTablero(MazoSorpresas mazo) {
-        tablero = new Tablero(6);
+        tablero = new Tablero(numCasillaCarcel);
         
         for (int i = 1; i <4; i++) {
             TituloPropiedad calle = new TituloPropiedad("Calle"+i, 100*i, 1+(i/10), 150*i, 250*i, 100*i );
@@ -41,10 +41,10 @@ public class CivitasJuego {
             tablero.añadeCasilla(casilla);
         }
         
-        Casilla impuesto = new Casilla(600, "Impuestos");
+        Casilla impuesto = new Casilla(-600, "Impuestos");
         tablero.añadeCasilla(impuesto);
         
-        for (int i = 4; i <8; i++) {
+        for (int i = 4; i <7; i++) {
             TituloPropiedad calle = new TituloPropiedad("Calle"+i, 100*i, 1+(i/10), 150*i, 250*i, 100*i );
             Casilla casilla = new Casilla(calle);
             tablero.añadeCasilla(casilla);
@@ -55,7 +55,7 @@ public class CivitasJuego {
         Casilla sorpresa1 = new Casilla(mazo, "Sorpresa1");
         tablero.añadeCasilla(sorpresa1);
         
-        for (int i = 8; i <10   ; i++) {
+        for (int i = 7; i <10   ; i++) {
             TituloPropiedad calle = new TituloPropiedad("Calle"+i, 100*i, 1+(i/10), 150*i, 250*i, 100*i );
             Casilla casilla = new Casilla(calle);
             tablero.añadeCasilla(casilla);
@@ -67,7 +67,7 @@ public class CivitasJuego {
         Casilla parking = new Casilla("Parking");
         tablero.añadeCasilla(parking);
         
-        for (int i = 8; i <10   ; i++) {
+        for (int i = 10; i <12   ; i++) {
             TituloPropiedad calle = new TituloPropiedad("Calle"+i, 100*i, 1+(i/10), 150*i, 250*i, 100*i );
             Casilla casilla = new Casilla(calle);
             tablero.añadeCasilla(casilla);

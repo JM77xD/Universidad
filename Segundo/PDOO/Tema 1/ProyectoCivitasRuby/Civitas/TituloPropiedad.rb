@@ -10,19 +10,19 @@ module Civitas
         attr_reader :hipotecado
         attr_reader :nCasas
         attr_reader :nHoteles
-        attr_reader :PrecioCompra
-        attr_reader :PrecioEdificar
-        attr_reader :Propietario
-        attr_reader :PrecioBaseHipoteca
+        attr_reader :precioCompra
+        attr_reader :precioEdificar
+        attr_reader :propietario
+        attr_reader :precioBaseHipoteca
 
-        def initialize(nombre, PrecioBaseAlquiler, FactorRevalorizacion, PrecioBaseHipoteca, PrecioCompra, PrecioEdificar )
+        def initialize(nombre, precioBaseAlquiler, factorRevalorizacion, precioBaseHipoteca, precioCompra, precioEdificar )
             @nombre = nombre
-            @PrecioBaseAlquiler = PrecioBaseAlquiler
-            @FactorRevalorizacion = FactorRevalorizacion
-            @PrecioBaseHipoteca = PrecioBaseHipoteca
-            @PrecioCompra = PrecioCompra
-            @PrecioEdificar = PrecioEdificar
-            @Propietario = nil
+            @precioBaseAlquiler = precioBaseAlquiler
+            @factorRevalorizacion = factorRevalorizacion
+            @precioBaseHipoteca = precioBaseHipoteca
+            @precioCompra = precioCompra
+            @precioEdificar = precioEdificar
+            @propietario = nil
             @nCasas = 0
             @nHoteles = 0
             @hipotecado = false
@@ -30,40 +30,40 @@ module Civitas
         end
 
         def to_String
-            Devolver = "La calle "+ @nombre + " tiene un precio base de alquiler de " + @PrecioBaseAlquiler.to_s + ",\nun factor de revalorización de " + @FactorRevalorizacion.to_s
-            Devolver += ", un precio base de hipotecado de " + @PrecioBaseHipoteca.to_s + ",\nun precio de compra de " + @PrecioCompra.to_s
-            Devolver += " y un precio por edificar de " + @PrecioEdificar.to_s + ".\n\nActualmente tiene " + @nCasas.to_s + " casas y " + @nHoteles.to_s + " hoteles y se encuentra "
+            devolver = "La calle "+ @nombre + " tiene un precio base de alquiler de " + @precioBaseAlquiler.to_s + ",\nun factor de revalorización de " + @factorRevalorizacion.to_s
+            devolver += ", un precio base de hipotecado de " + @precioBaseHipoteca.to_s + ",\nun precio de compra de " + @precioCompra.to_s
+            devolver += " y un precio por edificar de " + @precioEdificar.to_s + ".\n\nActualmente tiene " + @nCasas.to_s + " casas y " + @nHoteles.to_s + " hoteles y se encuentra "
             if (@hipotecado)
-                Devolver += "hipotecada."
+                devolver += "hipotecada."
             else
-                Devolver += "no hipotecada."
+                devolver += "no hipotecada."
             end
 
-            return Devolver
+            return devolver
         end
 
         def getPrecioAlquiler
-            if (@Propietario.encarcelado || @hipotecado)
+            if (@propietario.encarcelado || @hipotecado)
                 return 0
             else
-                return @PrecioBaseAlquiler
+                return @precioBaseAlquiler
             end
         end
 
         def getImporteCancelarHipoteca
-            return @PrecioBaseHipoteca*@FactorInteresHipoteca
+            return @precioBaseHipoteca*@FactorInteresHipoteca
         end
 
         def tramitarAlquiler(jugador)
-            if (@Propietario != jugador)
+            if (@propietario != jugador)
                 precioAlq = self.getPrecioAlquiler()
                 jugador.pagaAlquiler(precioAlq)
-                @Propietario.recibe(precioAlq)
+                @propietario.recibe(precioAlq)
             end
         end
 
         def propietarioEncarcelado
-            return @Propietario.encarcelado
+            return @propietario.encarcelado
         end
 
         def cantidadCasasHoteles
@@ -71,11 +71,11 @@ module Civitas
         end
 
         def getPrecioVenta
-            return (@PrecioCompra + @PrecioEdificar*self.cantidadCasasHoteles()*@FactorRevalorizacion)
+            return (@precioCompra + @precioEdificar*self.cantidadCasasHoteles()*@factorRevalorizacion)
         end
 
         def derruirCasas(n, jugador)
-            if (jugador == @Propietario && @nCasas >= n)
+            if (jugador == @propietario && @nCasas >= n)
                 nCasas -= n
                 return true
             else
@@ -84,9 +84,9 @@ module Civitas
         end
 
         def vender(jugador)
-            if (jugador == @Propietario && !@hipotecado)
-                @Propietario.recibe(self.getPrecioVenta())
-                @Propietario = nil
+            if (jugador == @propietario && !@hipotecado)
+                @propietario.recibe(self.getPrecioVenta())
+                @propietario = nil
                 @nCasas = 0
                 @nHoteles = 0
                 return true
@@ -96,7 +96,7 @@ module Civitas
         end
 
         def tienePropietario
-            if(@Propietario != nil)
+            if(@propietario != nil)
                 return true
             else
                 return false
@@ -104,11 +104,11 @@ module Civitas
         end
 
         def actualizarPropietario(jugador)
-            @Propietario = jugador
+            @propietario = jugador
         end
 
         def esElPropietario(jugador)
-            return (@Propietario == jugador)
+            return (@propietario == jugador)
         end
         
     end

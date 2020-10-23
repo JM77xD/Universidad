@@ -187,7 +187,7 @@ public class Jugador implements Comparable<Jugador> {
     }
     
     Boolean puedoGastar(float precio) {
-        return encarcelado ? true : saldo >= precio;
+        return encarcelado ? false : saldo >= precio;
     }
     
     Boolean existeLaPropiedad(int ip) {
@@ -219,6 +219,7 @@ public class Jugador implements Comparable<Jugador> {
     Boolean salirCarcelPagando() {
         if (encarcelado && puedeSalirCarcelPagando()) {
             paga(PrecioLibertad);
+            encarcelado = false
             Diario.getInstance().ocurreEvento("El jugador " + nombre + " ha salido de la cárcel pagando el precio (" + PrecioLibertad+").");
             return true;
         } else
@@ -229,8 +230,9 @@ public class Jugador implements Comparable<Jugador> {
         if(Dado.getInstance().salgoDeLaCarcel()) {
             encarcelado = false;
             Diario.getInstance().ocurreEvento("El jugador " + nombre + " ha salido de la cárcel tirando el dado.");
-        }
-        return !encarcelado;
+            return true;
+        } else
+            return false;
     }
     
     Boolean pasaPorSalida() {

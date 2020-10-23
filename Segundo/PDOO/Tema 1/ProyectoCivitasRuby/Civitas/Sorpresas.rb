@@ -1,5 +1,5 @@
 require_relative "Tablero"
-require_relative "mazoSorpresas"
+require_relative "MazoSorpresas"
 require_relative "Jugador"
 require_relative "TipoSorpresa"
 require_relative "Diario"
@@ -11,19 +11,19 @@ module Civitas
         attr_reader :nombre
         attr_reader :TipoSorpresa
 
-        def initialize(Tipo, param1 = nil, param2 = nil)
-          @TipoSorpresa = Tipo
+        def initialize(tipo, param1 = nil, param2 = nil)
+          @TipoSorpresa = tipo
           @texto = nil
           @valor = -1
           @refT = nil
           @refMS = nil
 
-          if Tipo == TipoSorpresa::IRCARCEL
+          if tipo == TipoSorpresa::IRCARCEL
             @refT = param1
-          elsif Tipo == TipoSorpresa::IRCASILLA
+          elsif tipo == TipoSorpresa::IRCASILLA
             @refT = param1
             @valor = param2
-          elsif Tipo == TipoSorpresa::SALIRCARCEL
+          elsif tipo == TipoSorpresa::SALIRCARCEL
             @refMS = param1
           else
             @valor = param1
@@ -36,7 +36,7 @@ module Civitas
         end
 
         def informe(actual, todos)
-          Diario.instance.ocurre_evento("Se le aplica una sorpresa al jugador " todos.at(actual).nombre)
+          Diario.instance.ocurre_evento("Se le aplica una sorpresa al jugador " + todos.at(actual).nombre + " de tipo " + self.to_String + ".")
         end
 
         def aplicarAJugador(actual, todos)

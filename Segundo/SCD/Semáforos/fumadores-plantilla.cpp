@@ -14,12 +14,10 @@ const int num_fumadores = 3;
 Semaphore   fumador[] = {0, 0, 0},
             estanquero_libre(1);
 
-//**********************************************************************
-// plantilla de función para generar un entero aleatorio uniformemente
-// distribuido entre dos valores enteros, ambos incluidos
-// (ambos tienen que ser dos constantes, conocidas en tiempo de compilación)
-//----------------------------------------------------------------------
-
+/**
+ * @brief Plantilla de función para generar un entero aleatorio uniformemente distribuido entre 2 valores enteros
+ * @return Devuelve un entero aleatorio entre 2 valores conocidos en tiempo de compilación, ambos incluidos
+ */
 template< int min, int max > int aleatorio()
 {
   static default_random_engine generador( (random_device())() );
@@ -27,10 +25,10 @@ template< int min, int max > int aleatorio()
   return distribucion_uniforme( generador );
 }
 
-//-------------------------------------------------------------------------
-// Función que simula la acción de producir un ingrediente, como un retardo
-// aleatorio de la hebra (devuelve número de ingrediente producido)
-
+/**
+ * @brief Función que simula la acción de producir un ingrediente
+ * @return Devuelve el número del ingrediente que ha producido
+ */
 int producir_ingrediente()
 {
    // calcular milisegundos aleatorios de duración de la acción de fumar)
@@ -50,9 +48,9 @@ int producir_ingrediente()
    return num_ingrediente ;
 }
 
-//----------------------------------------------------------------------
-// función que ejecuta la hebra del estanquero
-
+/**
+ * @brief Función que ejecuta la hebra del estanquero
+ */
 void funcion_hebra_estanquero(  )
 {
    int ingrediente;
@@ -65,9 +63,11 @@ void funcion_hebra_estanquero(  )
    }
 }
 
-//-------------------------------------------------------------------------
-// Función que simula la acción de fumar, como un retardo aleatoria de la hebra
 
+/**
+ * @brief Función que simula la acción de fumar
+ * @param num_fumador Número del fumador que comienza a fumar
+ */
 void fumar( int num_fumador )
 {
 
@@ -88,8 +88,10 @@ void fumar( int num_fumador )
 
 }
 
-//----------------------------------------------------------------------
-// función que ejecuta la hebra del fumador
+/**
+ * @brief Función que ejecuta la hebra del fumador
+ * @param num_fumador Número del fumador que se está ejecutando
+ */
 void  funcion_hebra_fumador( int num_fumador )
 {
    while( true )
@@ -101,7 +103,6 @@ void  funcion_hebra_fumador( int num_fumador )
    }
 }
 
-//----------------------------------------------------------------------
 
 int main()
 {

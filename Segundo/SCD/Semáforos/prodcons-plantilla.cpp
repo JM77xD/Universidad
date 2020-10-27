@@ -25,12 +25,11 @@ int       cont_prod[num_items] = {0}, // contadores de verificación: producidos
 Semaphore available_read(0),              //semáforo para el proceso de lectura
           available_write(tam_vec-1);             //semáforo para el proceso de escritura
 
-//**********************************************************************
-// plantilla de función para generar un entero aleatorio uniformemente
-// distribuido entre dos valores enteros, ambos incluidos
-// (ambos tienen que ser dos constantes, conocidas en tiempo de compilación)
-//----------------------------------------------------------------------
 
+/**
+ * @brief Plantilla de función para generar un entero aleatorio uniformemente distribuido entre 2 valores enteros
+ * @return Devuelve un entero aleatorio entre 2 valores conocidos en tiempo de compilación, ambos incluidos
+ */
 template< int min, int max > int aleatorio()
 {
   static default_random_engine generador( (random_device())() );
@@ -38,10 +37,11 @@ template< int min, int max > int aleatorio()
   return distribucion_uniforme( generador );
 }
 
-//**********************************************************************
-// funciones comunes a las dos soluciones (fifo y lifo)
-//----------------------------------------------------------------------
 
+/**
+ * @brief Función que produce un dato
+ * @return Devuelve el dato producido
+ */
 int producir_dato()
 {
    static int contador = 0 ;
@@ -52,8 +52,13 @@ int producir_dato()
    cont_prod[contador] ++ ;
    return contador++ ;
 }
-//----------------------------------------------------------------------
 
+
+
+/**
+ * @brief Función que consume un dato
+ * @param dato Dato que tiene que consumir la función
+ */
 void consumir_dato( unsigned dato )
 {
    assert( dato < num_items );
@@ -65,8 +70,11 @@ void consumir_dato( unsigned dato )
 }
 
 
-//----------------------------------------------------------------------
 
+
+/**
+ * @brief Función que comprueba que se haya realizado la producción y consumición de datos de forma correcta
+ */
 void test_contadores()
 {
    bool ok = true ;
@@ -85,8 +93,11 @@ void test_contadores()
       cout << endl << flush << "solución (aparentemente) correcta." << endl << flush ;
 }
 
-//----------------------------------------------------------------------
 
+
+/**
+ * @brief Función de la hebra productora de datos
+ */
 void  funcion_hebra_productora(  )
 {
    for( unsigned i = 0 ; i < num_items ; i++ )
@@ -100,8 +111,11 @@ void  funcion_hebra_productora(  )
    }
 }
 
-//----------------------------------------------------------------------
 
+
+/**
+ * @brief Función de la hebra consumidora de datos
+ */
 void funcion_hebra_consumidora(  )
 {
    for( unsigned i = 0 ; i < num_items ; i++ )
@@ -114,7 +128,7 @@ void funcion_hebra_consumidora(  )
       sem_signal(available_write);  //Señala que puede escribir, esto hace que pueda seguir escribiendo en el buffer mientras haya espacio
     }
 }
-//----------------------------------------------------------------------
+
 
 int main()
 {

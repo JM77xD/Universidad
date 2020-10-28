@@ -126,7 +126,7 @@ void funcion_hebra_consumidora(  )
       leer = (leer+1)%tam_vec;      //Actualiza el valor del contador
       consumir_dato( dato );
       sem_signal(available_write);  //Señala que puede escribir, esto hace que pueda seguir escribiendo en el buffer mientras haya espacio
-    }
+   }
 }
 
 

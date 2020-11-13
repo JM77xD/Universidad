@@ -65,7 +65,7 @@ public class TituloPropiedad {
     }
     
     void tramitarAlquiler(Jugador jugador) {
-        if (Comprada && jugador != Propietario) {
+        if (Comprada && !esElPropietario(jugador)) {
             float precioAlq = this.getPrecioAlquiler();
             jugador.pagaAlquiler(precioAlq);
             Propietario.recibe(precioAlq);
@@ -115,7 +115,7 @@ public class TituloPropiedad {
         return Hipotecado;
     }
     
-    String getNombre() {
+    public String getNombre() {
         return nombre;
     }
     
@@ -145,5 +145,50 @@ public class TituloPropiedad {
     
     float getImporteHipoteca() {
         return PrecioBaseHipoteca;
+    }
+    
+    Boolean cancelarHipoteca(Jugador jugador) {
+        if (esElPropietario(jugador) && Hipotecado) {
+            jugador.paga(getImporteCancelarHipoteca());
+            Hipotecado = false;
+            return true;
+        } else
+            return false;
+    }
+    
+    Boolean hipotecar(Jugador jugador) {
+        if (!Hipotecado && esElPropietario(jugador)) {
+            jugador.recibe(PrecioBaseHipoteca);
+            Hipotecado = true;
+            return true;
+        }
+        return false;
+    }
+    
+    Boolean comprar(Jugador jugador) {
+        if (!tienePropietario()) {
+            actualizarPropietario(jugador);
+            jugador.paga(PrecioCompra);
+            return true;
+        }
+        return false;
+    }
+    
+    Boolean construirCasa(Jugador jugador) {
+        if (esElPropietario(jugador)) {
+            jugador.paga(PrecioEdificar);
+            nCasas++;
+            return true;
+        }
+        return false;
+    }
+    
+    Boolean construirHotel(Jugador jugador) {
+        if (esElPropietario(jugador)) {
+            jugador.paga(PrecioEdificar);
+            nHoteles++;
+            return true;
+        }
+        return false;
     }
 }

@@ -49,7 +49,7 @@ public class Dado {
         return random.nextInt(n);
     }
     
-    void setDebug(Boolean d) {
+    public void setDebug(Boolean d) {
         if (!Objects.equals(debug, d)) {    //Si el estado solicitado es distinto al actual, efectua el cambio de estado
             debug = d;
             if (d) {    //Añade una entrada al diario

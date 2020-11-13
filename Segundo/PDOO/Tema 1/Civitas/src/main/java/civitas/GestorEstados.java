@@ -10,7 +10,7 @@ class GestorEstados {
 
     switch (estado) {
       case INICIO_TURNO :
-        if (jugador.encarcelado)
+        if (jugador.isEncarcelado())
           op = OperacionesJuego.SALIR_CARCEL;
         else
           op = OperacionesJuego.AVANZAR;
@@ -21,7 +21,7 @@ class GestorEstados {
         break;
 
       case DESPUES_AVANZAR :
-        if (jugador.encarcelado)
+        if (jugador.isEncarcelado())
           op = OperacionesJuego.PASAR_TURNO;
         else if (jugador.getPuedeComprar())
           op = OperacionesJuego.COMPRAR;

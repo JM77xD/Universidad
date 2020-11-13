@@ -42,6 +42,7 @@ public class Sorpresa {
     }
     
     private void init() {
+        texto = null;
         valor = -1;
         refT = null;
         refMS = null;
@@ -59,6 +60,10 @@ public class Sorpresa {
     }
     
     void aplicarAJugador(int actual, ArrayList<Jugador> todos) {
+        String evento = "La casilla sorpresa es de tipo " + tipo.toString();
+        if (texto != null)
+            evento += " con efecto: " + texto + ".";
+        Diario.getInstance().ocurreEvento(evento);
         if (null != tipo) switch (tipo) {
             case IRCARCEL:
                 aplicarAJugador_irCarcel(actual, todos);
@@ -97,15 +102,14 @@ public class Sorpresa {
             int tirada = refT.calcularTirada(casillaAct, valor);
             int nuevaPos = refT.nuevaPosicion(casillaAct, tirada);
             todos.get(actual).moverACasilla(nuevaPos);
-            Casilla nueva = refT.getCasilla(nuevaPos);
-            nueva.recibeJugador(actual, todos);
+            refT.getCasilla(nuevaPos).recibeJugador(actual, todos);
         }
     }
     
     void aplicarAJugador_pagarCobrar(int actual, ArrayList<Jugador> todos) {
         if (jugadorCorrecto(actual, todos)) {
             informe(actual, todos);
-            todos.get(actual).modificarSaldo(valor);
+            todos.get(actual).modificarSaldo((float) valor);
         }
     }
     
@@ -113,7 +117,7 @@ public class Sorpresa {
         if (jugadorCorrecto(actual, todos)) {
             informe(actual, todos);
             int edificios = todos.get(actual).cantidadCasasHoteles();
-            todos.get(actual).modificarSaldo(valor*edificios);
+            todos.get(actual).modificarSaldo((float) valor*edificios);
         }
     }
     
@@ -164,7 +168,7 @@ public class Sorpresa {
     }
     
     public String toString() {
-        return tipo;
+        return tipo.toString();
     }
     
 }

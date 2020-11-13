@@ -31,11 +31,7 @@ public class Tablero {
     }
     
     private boolean correcto(){     //Comprueba la validez del tablero
-        if (casillas.size() > numCasillaCarcel && tieneJuez) {
-            return true;
-        } else {
-            return false;
-        }
+        return casillas.size() > numCasillaCarcel && tieneJuez;
     }
     
     private boolean correcto(int numCasilla){       //Comprueba la validez de una casilla
@@ -85,9 +81,8 @@ public class Tablero {
     int nuevaPosicion(int actual, int tirada) {     //Calcula la nueva posicion del jugador en el tablero
         if (!correcto()) return -1;
         int nueva = (actual+tirada) % casillas.size();
-        if (nueva != actual*tirada)
-            porSalida++;
-        
+        if (nueva != actual+tirada)
+            porSalida++;        
         return nueva;
     }
     

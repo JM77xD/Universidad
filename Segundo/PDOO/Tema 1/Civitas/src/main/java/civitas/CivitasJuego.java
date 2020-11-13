@@ -21,19 +21,21 @@ public class CivitasJuego {
     private Tablero tablero;
     private final int numCasillaCarcel = 5;
     
-    CivitasJuego(String []nombres) {
+    public CivitasJuego(String []nombres) {
         for (String nombre : nombres) {
             Jugador jugador = new Jugador(nombre);
             jugadores.add(jugador);
         }
+        gestorEstados = new GestorEstados();
+        mazoSorpresas = new MazoSorpresas();
+        tablero = new Tablero(numCasillaCarcel);
         estado = gestorEstados.estadoInicial();
         indiceJugadorActual = Dado.getInstance().quienEmpieza(jugadores.size());
-        inicializaTablero(mazoSorpresas);
         inicializaMazoSorpresas(tablero);
+        inicializaTablero(mazoSorpresas);
     }
     
-    void inicializaTablero(MazoSorpresas mazo) {
-        tablero = new Tablero(numCasillaCarcel);
+    private void inicializaTablero(MazoSorpresas mazo) {
         
         for (int i = 1; i <4; i++) {
             TituloPropiedad calle = new TituloPropiedad("Calle"+i, 100*i, 1+(i/10), 150*i, 250*i, 100*i );
@@ -41,7 +43,7 @@ public class CivitasJuego {
             tablero.añadeCasilla(casilla);
         }
         
-        Casilla impuesto = new Casilla(-600, "Impuestos");
+        Casilla impuesto = new Casilla((float) 600, "Impuestos");
         tablero.añadeCasilla(impuesto);
         
         for (int i = 4; i <7; i++) {
@@ -81,8 +83,7 @@ public class CivitasJuego {
         tablero.añadeCasilla(casilla12);
     }
     
-    void inicializaMazoSorpresas(Tablero tab) {
-        mazoSorpresas = new MazoSorpresas();
+    private void inicializaMazoSorpresas(Tablero tab) {
         
         Sorpresa ircarcel = new Sorpresa(TipoSorpresa.IRCARCEL, tab);
         mazoSorpresas.alMazo(ircarcel);
@@ -113,50 +114,90 @@ public class CivitasJuego {
         indiceJugadorActual = (indiceJugadorActual+1)%jugadores.size();
     }
     
-    void siguientePasoCompletado(OperacionesJuego operacion) {
+    public void siguientePasoCompletado(OperacionesJuego operacion) {
         estado = gestorEstados.siguienteEstado(jugadores.get(indiceJugadorActual), estado, operacion);
     }
     
-    Boolean construirCasa(int ip) {
+    public Boolean construirCasa(int ip) {
         return jugadores.get(indiceJugadorActual).construirCasa(ip);
     }
     
-    Boolean construirHotel(int ip) {
+    public Boolean construirHotel(int ip) {
         return jugadores.get(indiceJugadorActual).construirHotel(ip);
     }
     
-    Boolean vender(int ip) {
+    public Boolean vender(int ip) {
         return jugadores.get(indiceJugadorActual).vender(ip);
     }
     
-    Boolean hipotecar(int ip) {
+    public Boolean hipotecar(int ip) {
         return jugadores.get(indiceJugadorActual).hipotecar(ip);
     }
     
-    Boolean cancelarHipoteca(int ip) {
+    public Boolean cancelarHipoteca(int ip) {
         return jugadores.get(indiceJugadorActual).cancelarHipoteca(ip);
     }
     
-    Boolean salirCarcelTirando() {
+    public Boolean salirCarcelTirando() {
         return jugadores.get(indiceJugadorActual).salirCarcelTirando();
     }
     
-    Boolean salirCarcelPagando() {
+    public Boolean salirCarcelPagando() {
         return jugadores.get(indiceJugadorActual).salirCarcelPagando();
     }
     
-    Boolean finalDelJuego() {
-        for (Jugador jugador : jugadores) {
-            if(jugador.enBacarrota()) {
-                return true;
-            }
-        }
-        return false;
+    public Boolean finalDelJuego() {
+        return jugadores.stream().anyMatch(jugador -> (jugador.enBacarrota()));
     }
     
-    ArrayList<Jugador> ranking() {
-        Collections.sort(jugadores);
+    public ArrayList<Jugador> ranking() {
+        Collections.sort(jugadores, Collections.reverseOrder());
         return jugadores;
+    }
+    
+    
+    void avanzaJugador() {
+        Jugador jugadorActual = jugadores.get(indiceJugadorActual);
+        int posicionActual = jugadorActual.getNumCasillaActual();
+        int tirada = Dado.getInstance().tirar();
+        int posicionNueva = tablero.nuevaPosicion(posicionActual, tirada);
+        Casilla casilla = tablero.getCasilla(posicionNueva);
+        contabilizarPasosPorSalida(jugadorActual);
+        jugadorActual.moverACasilla(posicionNueva);
+        casilla.recibeJugador(indiceJugadorActual, jugadores);
+        contabilizarPasosPorSalida(jugadorActual);
+    }
+    
+    public OperacionesJuego siguientePaso() {
+        Jugador jugadorActual = jugadores.get(indiceJugadorActual);
+        OperacionesJuego operacion = gestorEstados.operacionesPermitidas(jugadorActual, estado);
+        if (operacion == OperacionesJuego.PASAR_TURNO) {
+            pasarTurno();
+            siguientePasoCompletado(operacion);
+        } else if (operacion == OperacionesJuego.AVANZAR) {
+            avanzaJugador();
+            siguientePasoCompletado(operacion);
+        }
+        return operacion;
+    }
+
+    public Boolean comprar() {
+        Boolean result = false;
+        Jugador jugadorActual = jugadores.get(indiceJugadorActual);
+        int numCasillaActual = jugadorActual.getNumCasillaActual();
+        Casilla casilla = tablero.getCasilla(numCasillaActual);
+        TituloPropiedad titulo = casilla.getTituloPropiedad();
+        result = jugadorActual.comprar(titulo);
+        return result;
+    }
+    
+    public Jugador getJugador() {
+        return jugadores.get(indiceJugadorActual);
+    }
+    
+    public Casilla getCasillaActual() {
+        int indiceCasillaActual = jugadores.get(indiceJugadorActual).getNumCasillaActual();
+        return tablero.getCasilla(indiceCasillaActual);
     }
     
 }

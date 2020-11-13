@@ -68,11 +68,20 @@ public class Casilla {
     }
     
     void informe(int actual, ArrayList<Jugador> todos) {
-        Diario.getInstance().ocurreEvento("El jugador " + todos.get(actual).getNombre() + " ha caído en la casilla " + this.toString());
+        Diario.getInstance().ocurreEvento("El jugador " + todos.get(actual).getNombre() + " ha caído en " + this.toString());
     }
     
     public String toString() {
-        return nombre + ", de tipo " + tipo.toString();
+        String ret = "la casilla ";
+        ret += this.nombre;
+        ret += ", de tipo ";
+        ret += tipo.toString();
+        if (tipo == TipoCasilla.CALLE && !titulo.tienePropietario()) {
+            ret += " con un precio de ";
+            ret += titulo.getPrecioCompra();
+        }
+        ret += ".";
+        return ret;
     }
     
     Boolean jugadorCorrecto(int actual, ArrayList<Jugador> todos) {
@@ -90,6 +99,46 @@ public class Casilla {
         if (jugadorCorrecto(actual, todos)) {
             informe(actual, todos);
             todos.get(actual).encarcelar(carcel);
+        }
+    }
+    
+    void recibeJugador_calle(int actual, ArrayList<Jugador> todos) {
+        if (jugadorCorrecto(actual, todos)) {
+            informe(actual, todos);
+            Jugador jugador = todos.get(actual);
+            if (!titulo.tienePropietario()) {
+                jugador.puedeComprarCasilla();                
+            } else {
+                titulo.tramitarAlquiler(jugador);
+            }
+        }
+    }
+    
+    void recibeJugador_sorpresa(int actual, ArrayList<Jugador> todos) {
+        if (jugadorCorrecto(actual, todos)) {
+            informe(actual, todos);
+            Sorpresa siguiente = refMS.siguiente();
+            siguiente.aplicarAJugador(actual, todos);
+        }
+    }
+    
+    void recibeJugador(int actual, ArrayList<Jugador> todos) {
+        if (null != tipo) switch (tipo) {
+            case CALLE:
+                recibeJugador_calle(actual,todos);
+                break;
+            case SORPRESA:
+                recibeJugador_sorpresa(actual,todos);
+                break;
+            case JUEZ:
+                recibeJugador_Juez(actual,todos);
+                break;
+            case IMPUESTO:
+                recibeJugador_impuesto(actual,todos);
+                break;
+            default:
+                informe(actual, todos);
+                break;
         }
     }
 }

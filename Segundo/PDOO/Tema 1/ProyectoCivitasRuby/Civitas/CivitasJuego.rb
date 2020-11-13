@@ -27,15 +27,14 @@ module Civitas
             @Gestor = Gestor_estados.new
             @estado = @Gestor.estado_inicial()
             @indiceJugadorActual = Dado.instance.quienEmpieza(@jugadores.size)
-            @mazoSorpresas
-            @tablero
+            @mazoSorpresas = MazoSorpresas.new
             @numCasillaCarcel = 5
-            inicializaTablero(@mazoSorpresas)
+            @tablero = Tablero.new(@numCasillaCarcel)
             inicializaMazoSorpresas(@tablero)
+            inicializaTablero(@mazoSorpresas)
         end
 
         def inicializaTablero(mazo)
-            @tablero = Tablero.new(@numCasillaCarcel)
 
             for i in 1..3
                 calle = TituloPropiedad.new("Calle"+i.to_s, 100*i, 1+(i/10), 150*i, 250*i, 100*i)
@@ -83,7 +82,6 @@ module Civitas
         end
 
         def inicializaMazoSorpresas(tablero)
-            @mazoSorpresas = MazoSorpresas.new
 
             ircarcel = Sorpresas.new(TipoSorpresa::IRCARCEL, tablero)
             @mazoSorpresas.alMazo(ircarcel)

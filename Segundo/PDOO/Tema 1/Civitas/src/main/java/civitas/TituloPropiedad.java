@@ -144,7 +144,7 @@ public class TituloPropiedad {
     }
     
     float getImporteHipoteca() {
-        return PrecioBaseHipoteca;
+        return (float) (PrecioBaseHipoteca*(1+(nCasas*0.5) + (nHoteles*2.5)));
     }
     
     Boolean cancelarHipoteca(Jugador jugador) {
@@ -158,7 +158,7 @@ public class TituloPropiedad {
     
     Boolean hipotecar(Jugador jugador) {
         if (!Hipotecado && esElPropietario(jugador)) {
-            jugador.recibe(PrecioBaseHipoteca);
+            jugador.recibe(getImporteHipoteca());
             Hipotecado = true;
             return true;
         }

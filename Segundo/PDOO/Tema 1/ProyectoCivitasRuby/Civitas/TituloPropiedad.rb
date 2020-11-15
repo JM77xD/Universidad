@@ -46,7 +46,7 @@ module Civitas
             if (@propietario.encarcelado || @hipotecado)
                 return 0
             else
-                return @precioBaseAlquiler
+                return (@PrecioBaseAlquiler*(1+(@nCasas*0.5) + (@nHoteles*2.5)))
             end
         end
 
@@ -56,7 +56,7 @@ module Civitas
 
         def tramitarAlquiler(jugador)
             if (@propietario != jugador)
-                precioAlq = self.getPrecioAlquiler()
+                precioAlq = getPrecioAlquiler()
                 jugador.pagaAlquiler(precioAlq)
                 @propietario.recibe(precioAlq)
             end
@@ -68,6 +68,10 @@ module Civitas
 
         def cantidadCasasHoteles
             return (@nCasas + @nHoteles)
+        end
+
+        def getImporteHipoteca
+            return (@PrecioBaseHipoteca*(1+(@nCasas*0.5) + (@nHoteles*2.5)))
         end
 
         def getPrecioVenta
@@ -109,6 +113,59 @@ module Civitas
 
         def esElPropietario(jugador)
             return (@propietario == jugador)
+        end
+
+        def cancelarHipoteca(jugador)
+            result = false
+            if @hipotecado
+                if esElPropietario(jugador)
+                    if jugador.paga(getImporteCancelarHipoteca())
+                        @hipotecado = false
+                        result = true
+                    end
+                end
+            end
+            return result
+        end
+
+        def hipotecar(jugador)
+            result = false
+            if (!@hipotecado && esElPropietario(jugador))
+                jugador.recibe(getImporteHipoteca())
+                @hipotecado = true
+                result = true
+            end
+            return result
+        end
+
+        def comprar(jugador)
+            result = false
+            if !tienePropietario()
+                @propietario = jugador
+                result = true
+                jugador.paga(@precioCompra)
+            end
+            return result
+        end
+
+        def construirHotel(jugador)
+            result = false
+            if esElPropietario(jugador)
+                jugador.paga(@precioEdificar)
+                @nHoteles++
+                result = true
+            end
+            return result
+        end
+
+        def construirCasa(jugador)
+            result = false
+            if esElPropietario(jugador)
+                jugador.paga(@precioEdificar)
+                @nCasas++
+                result = true
+            end
+            return result
         end
         
     end

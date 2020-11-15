@@ -11,7 +11,7 @@ module Civitas
             @cartasEspeciales = []
             @ultimaSorpresa
             if (d)
-                Diario.instance.ocurreEvento("Modo debug del Mazo de Sorpresas activado")
+                Diario.instance.ocurre_evento("Modo debug del Mazo de Sorpresas activado")
             end
         end
 

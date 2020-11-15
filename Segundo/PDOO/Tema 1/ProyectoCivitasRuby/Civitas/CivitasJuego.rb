@@ -153,9 +153,43 @@ module Civitas
             return false
         end
 
+        def getJugador
+            return @jugadores.at(@indiceJugadorActual)
+        end
+
+        def getCasillaActual
+            indice = getJugador().nCasillaActual
+            return @tablero.getCasilla(indice)
+        end
+
         def ranking
             @jugadores.sort { |a,b| -a <=> -b }
             return @jugadores
+        end
+
+        def avanzaJugador
+            jugadorActual = @jugadores.at(@indiceJugadorActual)
+            posicionActual = jugadorActual.nCasillaActual
+            tirada = Dado.instance.tirar()
+            posicionNueva = @tablero.nuevaPosicion(posicionActual, tirada)
+            casilla = @tablero.getCasilla(posicionNueva)
+            contabilizarPasoPorSalida(jugadorActual)
+            jugadorActual.moverACasilla(posicionNueva)
+            casilla.recibeJugador(@indiceJugadorActual, @jugadores)
+            contabilizarPasoPorSalida(jugadorActual)
+        end
+
+        def siguientePaso
+            jugadorActual = @jugadores.at(@indiceJugadorActual)
+            operacion = @Gestor.operaciones_permitidas(jugadorActual, @estado)
+            if operacion == Operaciones_juegos::PASAR_TURNO
+                pasarTurno()
+                siguientePasoCompletado(operacion)
+            elsif operacion == Operaciones_juegos::AVANZAR
+                avanzaJugador()
+                siguientePasoCompletado(operacion)
+            end
+            return operacion
         end
 
     end

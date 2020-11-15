@@ -15,7 +15,7 @@ module Civitas
         attr_accessor :nCasillaActual
         attr_reader :PrecioLibertad
         attr_reader :PasoPorSalida
-        attr_accessor :Propiedades
+        attr_accessor :propiedades
         attr_accessor :puedeComprar
         attr_accessor :saldo
         attr_accessor :encarcelado
@@ -32,10 +32,10 @@ module Civitas
             @PasoPorSalida = 1000
             @PrecioLibertad = 200
             @puedeComprar
-            @saldo
             @SaldoInicial = 7500
+            @saldo = @SaldoInicial
             @salvoconducto
-            @Propiedades = []
+            @propiedades = []
         end
 
         def self.copiaDe(otro)
@@ -44,14 +44,14 @@ module Civitas
             nuevo.encarcelado = otro.encarcelado
             nuevo.puedeComprar = otro.puedeComprar
             nuevo.saldo = otro.saldo
-            nuevo.Propiedades = otro.Propiedades
+            nuevo.propiedades = otro.propiedades
             nuevo.salvoconducto = otro.salvoconducto
             return nuevo
         end
 
         def cantidadCasasHoteles
             suma = 0
-            @Propiedades.each do |propiedad|
+            @propiedades.each do |propiedad|
                 suma += propiedad.cantidadCasasHoteles()
             end
             return suma
@@ -155,15 +155,15 @@ module Civitas
         end
 
         def existeLaPropiedad(ip)
-            return @Propiedades.size > ip
+            return @propiedades.size > ip
         end
 
         def vender(ip)
             if @encarcelado
                 return false
             elsif existeLaPropiedad(ip)
-                if @Propiedades.at(ip).vender(self)
-                    @Propiedades.delete_at(ip)
+                if @propiedades.at(ip).vender(self)
+                    @propiedades.delete_at(ip)
                     Diario.instance.ocurre_evento("El jugador " + @nombre + " ha realizado la venta de una propiedad.")
                     return true
                 else
@@ -175,7 +175,7 @@ module Civitas
         end
 
         def tieneAlgoQueGestionar
-            return @Propiedades.any?
+            return @propiedades.any?
         end
 
         def puedeSalirCarcelPagando
@@ -210,6 +210,106 @@ module Civitas
 
         def <=>(otro)
             return @saldo <=> otro.saldo
+        end
+
+        def cancelarHipoteca(ip)
+            result = false
+            if @encarcelado
+                return result
+            end
+            if existeLaPropiedad(ip)
+                propiedad = @propiedades.at(ip)
+                cantidad = propiedad.getImporteCancelarHipoteca()
+                puedoGastar = puedoGastar(cantidad)
+                if puedoGastar
+                    result = propiedad.cancelarHipoteca(self)
+                    if result
+                        Diario.instance.ocurre_evento("El jugador " + @nombre + " cancela la hipoteca de la propiedad " + propiedad.nombre)
+                    end
+                end
+            end
+            return result
+        end
+
+        def hipotecar(ip)
+            result = false
+            if @encarcelado
+                return result
+            end
+            if existeLaPropiedad(ip)
+                propiedad = @propiedades.at(ip)
+                result = propiedad.hipotecar(self)
+                if result
+                    Diario.instance.ocurre_evento("El jugador " + @nombre + " hipoteca la propiedad " + propiedad.nombre)
+                end
+            end
+            return result
+        end
+
+        def comprar(titulo)
+            result = false
+            if @encarcelado
+                return result
+            end
+            if @puedeComprar
+                precio = titulo.precioCompra
+                if puedoGastar(precio)
+                    result = titulo.comprar(self)
+                    if result 
+                        @propiedades << titulo
+                        Diario.instance.ocurre_evento("El jugador " + @nombre + " compra la propiedad " + propiedad.nombre)
+                    end
+                end
+                @puedeComprar = false
+            end
+            return result
+        end
+
+        def puedoEdificarHotel(propiedad)
+            return (propiedad.nCasas == @CasasPorHotel && propiedad.nHoteles < @HotelesMax)
+        end
+
+        def puedoEdificarCasa(propiedad)
+            return (propiedad.nCasas < @CasasMax)
+        end
+
+        def construirHotel(ip)
+            result = false
+            if @encarcelado
+                return result
+            end
+            if existeLaPropiedad(ip)
+                propiedad = @propiedades.at(ip)
+                puedoEdificar = puedoEdificarHotel(propiedad)
+                precio = propiedad.precioEdificar
+                if (puedoGastar(precio) && puedoEdificar)
+                    result = propiedad.construirHotel(self)
+                    if result
+                        propiedad.derruirCasas(@CasasPorHotel, self)
+                        Diario.instance.ocurre_evento("El jugador " + @nombre + " ha construido un hotel en la propiedad " + propiedad.nombre)
+                    end
+                end
+            end
+            return result
+        end
+
+        def construirCasa(ip)
+            result = false
+            if @encarcelado
+                return result
+            end
+            if existeLaPropiedad(ip)
+                propiedad = @propiedades.at(ip)
+                puedoEdificar = puedoEdificarCasa(propiedad)
+                precio = propiedades.precioEdificar
+                if (puedoGastar(precio) && puedoEdificar)
+                    result = propiedad.construirCasa(self)
+                    if result
+                        Diario.instance.ocurre_evento("El jugador " + @nombre + " ha construido una casa en la propiedad " + propiedad.nombre)
+                    end
+                end
+            end
+            return result
         end
 
     end

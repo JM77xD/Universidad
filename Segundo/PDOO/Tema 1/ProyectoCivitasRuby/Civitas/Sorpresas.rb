@@ -44,18 +44,18 @@ module Civitas
             informe(actual, todos)
 
             case @TipoSorpresa            
-            when TipoSorpresa::IRCARCEL
-              self.aplicarAJugador_irCarcel(actual, todos)
-            when TipoSorpresa::IRCASILLA
-              self.aplicarAJugador_irACasilla(actual, todos)
-            when TipoSorpresa::PAGARCOBRAR
-              self.aplicarAJugador_pagarCobrar(actual, todos)
-            when TipoSorpresa::PORJUGADOR
-              self.aplicarAJugador_porJugador(actual, todos)
-            when TipoSorpresa::SALIRCARCEL
-              self.aplicarAJugador_salirCarcel(actual, todos)
-            when TipoSorpresa.PORCASAHOTEL
-              self.aplicarAJugador_porCasaHotel(actual, todos)
+              when TipoSorpresa::IRCARCEL
+                self.aplicarAJugador_irCarcel(actual, todos)
+              when TipoSorpresa::IRCASILLA
+                self.aplicarAJugador_irACasilla(actual, todos)
+              when TipoSorpresa::PAGARCOBRAR
+                self.aplicarAJugador_pagarCobrar(actual, todos)
+              when TipoSorpresa::PORJUGADOR
+                self.aplicarAJugador_porJugador(actual, todos)
+              when TipoSorpresa::SALIRCARCEL
+                self.aplicarAJugador_salirCarcel(actual, todos)
+              when TipoSorpresa.PORCASAHOTEL
+                self.aplicarAJugador_porCasaHotel(actual, todos)
             end
           end
         end
@@ -69,7 +69,7 @@ module Civitas
           tirada = @refT.calcularTirada(casillaAct, valor)
           nuevaPos = @refT.nuevaPosicion(casillaAct, tirada)
           todos.at(actual).moverACAsilla(nuevaPos)
-          casilla = @refT.attr_Casilla(nuevaPos)
+          casilla = @refT.getCasilla(nuevaPos)
           casilla.recibeJugador(actual, todos)
         end
 

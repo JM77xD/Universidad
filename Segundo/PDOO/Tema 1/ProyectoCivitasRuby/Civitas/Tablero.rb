@@ -33,7 +33,7 @@ module Civitas
         end
 
 
-        def attr_porSalida  #Devuelve el numero de veces que se ha pasado por la salida
+        def getPorSalida  #Devuelve el numero de veces que se ha pasado por la salida
             if(@porSalida > 0)
                 @porSalida--
                 valor = @porSalida + 1
@@ -64,7 +64,7 @@ module Civitas
             end
         end
 
-        def attr_Casilla(numCasilla)    #Consultor de una casilla dada su posición en el tablero
+        def getCasilla(numCasilla)    #Consultor de una casilla dada su posición en el tablero
             if (correcta(numCasilla))
                 return @casillas.at(numCasilla)
             else

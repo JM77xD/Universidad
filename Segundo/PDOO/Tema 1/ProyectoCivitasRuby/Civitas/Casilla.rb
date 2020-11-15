@@ -11,6 +11,7 @@ module Civitas
 
         attr_reader :nombre
         attr_reader :titulo
+        attr_reader :cantidad
 
         def initialize(tipo, param1 = nil, param2 = nil)
             @TipoCasilla = tipo
@@ -38,7 +39,7 @@ module Civitas
         end
 
         def informe(actual, todos)
-            Diario.instance.ocurre_evento("El jugador " + todos.at(actual).nombre + " ha caído en una casilla de " + self.toString())
+            Diario.instance.ocurre_evento("El jugador " + todos.at(actual).nombre + " ha caído en una casilla de tipo " + self.toString())
         end
 
         def toString
@@ -61,6 +62,41 @@ module Civitas
                 informe(actual, todos)
                 todos.at(actual).encarcelar(@nCasillaCarcel)
             end
+        end
+
+        def recibe_jugadorCalle(actual, todos)
+            if jugadorCorrecto(actual, todos)
+                informe(actual, todos)
+                jugador = todos.at(actual)
+                if !@titulo.tienePropietario()
+                    jugador.puedeComprarCasilla()
+                else
+                    @titulo.tramitarAlquiler(self)
+                end
+            end
+        end
+
+        def recibe_jugadorSorpresa(actual, todos)
+            if jugadorCorrecto(actual, todos)
+                informe(actual, todos)
+                sorpresa = @mazo.siguiente()
+                sorpresa.aplicarAJugador(actual, todos)
+            end
+        end
+
+        def recibeJugador(actual, todos)
+            case @TipoCasilla
+            when TipoCasilla::CALLE
+                recibe_jugadorCalle(actual, todos)
+            when TipoCasilla::SORPRESA
+                recibe_jugadorSorpresa(actual, todos)
+            when TipoCasilla::JUEZ
+                recibe_jugadorJuez(actual, todos)
+            when TipoCasilla::IMPUESTO
+                recibe_jugadorImpuesto(actual, todos)
+            else
+                informe(actual, todos)
+            end               
         end
 
     end

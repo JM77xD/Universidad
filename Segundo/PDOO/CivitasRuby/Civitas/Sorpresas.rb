@@ -54,21 +54,21 @@ module Civitas
                 self.aplicarAJugador_porJugador(actual, todos)
               when TipoSorpresa::SALIRCARCEL
                 self.aplicarAJugador_salirCarcel(actual, todos)
-              when TipoSorpresa.PORCASAHOTEL
+              when TipoSorpresa::PORCASAHOTEL
                 self.aplicarAJugador_porCasaHotel(actual, todos)
             end
           end
         end
 
         def aplicarAJugador_irCarcel(actual, todos)
-          todos.at(actual).encarcelar()
+          todos.at(actual).encarcelar(@refT.numCasillaCarcel)
         end
 
         def aplicarAJugador_irACasilla(actual, todos)
-          casillaAct = todos.at(actual).casillaActual
-          tirada = @refT.calcularTirada(casillaAct, valor)
+          casillaAct = todos.at(actual).nCasillaActual
+          tirada = @refT.calcularTirada(casillaAct, @valor)
           nuevaPos = @refT.nuevaPosicion(casillaAct, tirada)
-          todos.at(actual).moverACAsilla(nuevaPos)
+          todos.at(actual).moverACasilla(nuevaPos)
           casilla = @refT.getCasilla(nuevaPos)
           casilla.recibeJugador(actual, todos)
         end
@@ -83,8 +83,8 @@ module Civitas
         end
 
         def aplicarAJugador_porJugador(actual, todos)
-          suma = Sorpresa.new(TipoSorpresa::PAGARCOBRAR, @valor*(todos.size - 1), "suma")
-          resta = Sorpresa.new(TipoSorpresa::PAGARCOBRAR, -1*@valor, "resta")
+          suma = Sorpresas.new(TipoSorpresa::PAGARCOBRAR, @valor*(todos.size - 1), "suma")
+          resta = Sorpresas.new(TipoSorpresa::PAGARCOBRAR, -1*@valor, "resta")
 
           for i in 0..todos.size-1
             if (actual != i)

@@ -102,6 +102,10 @@ module Civitas
             @mazoSorpresas.alMazo(porCasaHotel60)
         end
 
+        def setDebug(d)
+            Dado.instance.setDebug(d)
+        end
+
         def contabilizarPasoPorSalida(jugadorActual)
             while @tablero.getPorSalida() != 0
                 jugadorActual.pasaPorSalida()
@@ -169,8 +173,8 @@ module Civitas
         end
 
         def ranking
-            @jugadores.sort { |a,b| -a <=> -b }
-            return @jugadores
+            sorted = @jugadores.sort { |a,b| b <=> a }
+            return sorted
         end
 
         def avanzaJugador

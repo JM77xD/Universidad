@@ -32,7 +32,7 @@ module Civitas
             @PasoPorSalida = 1000
             @PrecioLibertad = 200
             @puedeComprar
-            @SaldoInicial = 7500
+            @SaldoInicial = 500
             @saldo = @SaldoInicial
             @salvoconducto
             @propiedades = []
@@ -117,7 +117,7 @@ module Civitas
             end
         end
 
-        def pagaAlquiles(cantidad)
+        def pagaAlquiler(cantidad)
             if @encarcelado
                 return false
             else
@@ -209,7 +209,7 @@ module Civitas
         end
 
         def <=>(otro)
-            return @saldo <=> otro.saldo
+            return @saldo.to_i <=> otro.saldo.to_i
         end
 
         def cancelarHipoteca(ip)

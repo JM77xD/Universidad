@@ -74,7 +74,7 @@ module Civitas
                 if !@titulo.tienePropietario()
                     jugador.puedeComprarCasilla()
                 else
-                    @titulo.tramitarAlquiler(self)
+                    @titulo.tramitarAlquiler(jugador)
                 end
             end
         end

@@ -1,10 +1,10 @@
 # encoding:utf-8
 
-require_relative 'CivitasJuego'
+require_relative '../Civitas/CivitasJuego'
 require_relative 'vista_textual'
-require_relative 'Respuestas'
-require_relative 'GestionesInmobiliarias'
-require_relative 'OperacionInmobiliaria'
+require_relative '../Civitas/Respuestas'
+require_relative '../Civitas/GestionesInmobiliarias'
+require_relative '../Civitas/OperacionInmobiliaria'
 
 module Civitas
 
@@ -59,23 +59,18 @@ module Civitas
 
                         when GestionesInmobiliarias::VENDER
                             @juego.vender(indicep)
-                            @juego.siguientePasoCompletado(siguientepaso)
 
                         when GestionesInmobiliarias::HIPOTECAR
                             @juego.hipotecar(indicep)
-                            @juego.siguientePasoCompletado(siguientepaso)
 
                         when GestionesInmobiliarias::CANCELAR_HIPOTECA
                             @juego.cancelarHipoteca(indicep)
-                            @juego.siguientePasoCompletado(siguientepaso)
 
                         when GestionesInmobiliarias::CONSTRUIR_CASA
                             @juego.construirCasa(indicep)
-                            @juego.siguientePasoCompletado(siguientepaso)
 
                         when GestionesInmobiliarias::CONSTRUIR_HOTEL
                             @juego.construirHotel(indicep)
-                            @juego.siguientePasoCompletado(siguientepaso)
 
                         when GestionesInmobiliarias::TERMINAR
                             @juego.siguientePasoCompletado(siguientepaso)
@@ -89,12 +84,14 @@ module Civitas
                         else
                             @juego.salirCarcelTirando()
                         end
+                        
+                        @juego.siguientePasoCompletado(siguientepaso)
 
                     end
                 end
             end
 
-            @vista.ranking(9)
+            @vista.ranking()
 
         end
 

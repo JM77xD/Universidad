@@ -35,7 +35,7 @@ module Civitas
 
         def getPorSalida  #Devuelve el numero de veces que se ha pasado por la salida
             if(@porSalida > 0)
-                @porSalida--
+                @porSalida = @porSalida - 1
                 valor = @porSalida + 1
                 return valor
             else
@@ -58,7 +58,7 @@ module Civitas
 
         def añadeJuez       #Añade el juez al tablero
             if(!@tieneJuez)
-                juez = Casilla.new(TipoCasilla::JUEZ, "Juez")
+                juez = Casilla.new(TipoCasilla::JUEZ, @numCasillaCarcel, "Juez")
                 @casillas << juez
                 @tieneJuez = true
             end
@@ -76,7 +76,11 @@ module Civitas
             if (!correcto)
                 return -1
             end
-            return (actual+tirada) % @casillas.size
+            pos = (actual+tirada) % @casillas.size
+            if pos != (actual+tirada)
+                @porSalida = @porSalida + 1
+            end
+            return pos
         end
 
         def calcularTirada(origen, destino)     #Calcula la tirada que habría sido necesaria para acabar en la posicion 'destino'

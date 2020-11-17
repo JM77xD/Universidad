@@ -1,8 +1,8 @@
 #encoding:utf-8
-require_relative 'CivitasJuego'
-require_relative 'Operaciones_juego'
-require_relative 'Respuestas'
-require_relative 'SalidasCarcel'
+require_relative '../Civitas/CivitasJuego'
+require_relative '../Civitas/Operaciones_juego'
+require_relative '../Civitas/Respuestas'
+require_relative '../Civitas/SalidasCarcel'
 require 'io/console'
 
 module Civitas
@@ -124,7 +124,9 @@ module Civitas
       casilla = @juegoModel.getCasillaActual()
       print "La casilla actual es " + casilla.nombre + " y es de tipo " + casilla.toString() + "."
       if (casilla.TipoCasilla == TipoCasilla::CALLE)
-        print " Además, tiene un precio de " + casilla.cantidad.to_s + "."
+        if (!casilla.titulo.tienePropietario)
+          print " Además, tiene un precio de " + casilla.cantidad.to_s + "."
+        end
       end
       print "\n"
     end
@@ -135,6 +137,7 @@ module Civitas
 
       jugadores.each { |j|
         puts "El jugador " + j.nombre + " ha quedado en la posición " + posicion.to_s + " con un saldo de " + j.saldo.to_s + ".\n"
+        posicion = posicion + 1
       }
     end
 

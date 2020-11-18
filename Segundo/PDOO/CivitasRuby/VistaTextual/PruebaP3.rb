@@ -7,7 +7,6 @@ require_relative 'vista_textual'
 module Civitas
     juego = CivitasJuego.new('Marco', 'Polo', 'Si', 'No')
     vista = Vista_textual.new
-    juego.setDebug(true)
     control = Controlador.new(juego, vista)
     control.juega()
 end

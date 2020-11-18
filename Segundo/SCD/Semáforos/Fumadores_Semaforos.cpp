@@ -4,51 +4,16 @@
 #include <mutex>
 #include <random> // dispositivos, generadores y distribuciones aleatorias
 #include <chrono> // duraciones (duration), unidades de tiempo
-#include "HoareMonitor.h"
+#include "Semaphore.h"
 
 using namespace std ;
-using namespace HM ;
+using namespace SEM ;
 
+const int num_fumadores = 5;
+int num_cigarros = 0;
 
-const static int num_fumadores = 3;
-
-
-class Estanco : public HoareMonitor {
-   private:
-      int ingre;
-      CondVar mostrador;
-      CondVar fumadores[num_fumadores];
-   
-   public:
-      Estanco();
-      void ObtenerIngrediente(int nFumador);
-      void PonerIngrediente(int ingrediente);
-      void esperarRecogida();
-};
-
-Estanco::Estanco() {
-   ingre = 4;
-   mostrador = newCondVar();
-   for (int i = 0; i < num_fumadores; i++)
-      fumadores[i] = newCondVar();
-}
-
-void Estanco::ObtenerIngrediente(int nFumador) {
-   if (ingre != nFumador)
-      fumadores[nFumador].wait();
-   cout << "\nEl fumador " << nFumador << " retira su ingrediente.\n";
-   mostrador.signal();
-}
-
-void Estanco::PonerIngrediente(int ingrediente) {
-   ingre = ingrediente;
-   cout << "\nPuesto ingrediente " << ingrediente << ".\n";
-   fumadores[ingrediente].signal();
-}
-
-void Estanco::esperarRecogida() {
-   mostrador.wait();
-}
+Semaphore   fumador[] = {0, 0, 0, 0, 0},
+            estanquero_libre(1);
 
 /**
  * @brief Plantilla de función para generar un entero aleatorio uniformemente distribuido entre 2 valores enteros
@@ -87,14 +52,15 @@ int producir_ingrediente()
 /**
  * @brief Función que ejecuta la hebra del estanquero
  */
-void funcion_hebra_estanquero( MRef<Estanco> monitor)
+void funcion_hebra_estanquero(  )
 {
    int ingrediente;
    while (true)
    {
+      sem_wait(estanquero_libre);
       ingrediente = producir_ingrediente();
-      monitor->PonerIngrediente(ingrediente);
-      monitor->esperarRecogida();
+      sem_signal(fumador[ingrediente]);
+      cout << "\nPuesto ingrediente " << ingrediente << ".\n";
    }
 }
 
@@ -121,34 +87,48 @@ void fumar( int num_fumador )
 
     cout << "Fumador " << num_fumador << "  : termina de fumar, comienza espera de ingrediente." << endl;
 
+    num_cigarros++;
+
 }
 
 /**
  * @brief Función que ejecuta la hebra del fumador
  * @param num_fumador Número del fumador que se está ejecutando
  */
-void  funcion_hebra_fumador( int num_fumador, MRef<Estanco> monitor )
+void  funcion_hebra_fumador( int num_fumador )
 {
    while( true )
    {
-      monitor->ObtenerIngrediente(num_fumador);
-      fumar(num_fumador);
+      sem_wait(fumador[num_fumador]);
+      cout << "\nEl fumador " << num_fumador << " retira su ingrediente.\n";
+      cout << endl << "\t" << num_cigarros << endl;
+      if (num_cigarros % 2 == 0) {
+         cout << "Fumador " << num_fumador << " avisa al estanquero\n";
+         sem_signal(estanquero_libre);
+         fumar(num_fumador);
+      } else {
+         fumar(num_fumador);
+         cout << "Fumador " << num_fumador << " avisa al estanquero\n";
+         sem_signal(estanquero_libre);
+      }
    }
 }
 
 
 int main()
 {
-   MRef<Estanco> estanco = Create<Estanco>();
-
-   thread fumador1(funcion_hebra_fumador, 0, estanco),
-          fumador2(funcion_hebra_fumador, 1, estanco),
-          fumador3(funcion_hebra_fumador, 2, estanco),
-          estanquero(funcion_hebra_estanquero, estanco);
+   thread fumador1(funcion_hebra_fumador, 0),
+          fumador2(funcion_hebra_fumador, 1),
+          fumador3(funcion_hebra_fumador, 2),
+          fumador4(funcion_hebra_fumador, 3),
+          fumador5(funcion_hebra_fumador, 4),
+          estanquero(funcion_hebra_estanquero);
 
    fumador1.join();
    fumador2.join();
    fumador3.join();
+   fumador4.join();
+   fumador5.join();
    estanquero.join();
 
 }

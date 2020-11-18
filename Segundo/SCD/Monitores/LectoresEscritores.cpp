@@ -7,13 +7,14 @@ using namespace std;
 using namespace HM;
 
 const int tam = 33;
-const int num_hebras = 3;
+const int num_hebras_lec = 5, num_hebras_esc = 3;
 
 int memoria_compartida[tam];
 
 class Lec_Esc : public HoareMonitor {
     private:
         bool escrib;
+        int n_escritor = 0;
         unsigned int n_lec;
         unsigned int dato;
         unsigned int valor;
@@ -57,21 +58,19 @@ void Lec_Esc::ini_lec() {
     
     n_lec++;
     n_datos--;
-    if (n_datos > 1)
+    if (n_datos >= 1)
         lectura.signal();
 }
 
 void Lec_Esc::leer() {
-    if (n_datos >= 0) {
-        int result = memoria_compartida[dato];
-        cout << "\tLeido el valor " << result << ".\n";
-        dato++;
-    }
+    int result = memoria_compartida[dato];
+    cout << "\tLeido el valor " << result << ".\n";
+    dato++;
 }
 
 void Lec_Esc::fin_lec() {
     n_lec--;
-    if (n_lec == 0)
+    if (n_lec <= 0)
         escritura.signal();
 }
 
@@ -83,19 +82,24 @@ void Lec_Esc::ini_esc() {
 
 
 void Lec_Esc::escribir() {
-    memoria_compartida[valor] = valor;
-    n_datos++;
-    cout << "Escrito el valor " << memoria_compartida[valor] << ".\n";
-    valor++;
+    if (valor <= tam) {
+        memoria_compartida[valor] = valor;
+        n_datos++;
+        cout << "Escrito el valor " << memoria_compartida[valor] << ".\n";
+        valor++;
+    }
 }
 
 
 void Lec_Esc::fin_esc() {
     escrib = false;
-
-    if (!lectura.empty())
+    if (n_escritor == 0) {
+        escritura.signal();
+        n_escritor++;
+    } else if (!lectura.empty()) {
         lectura.signal();
-    else
+        n_escritor = 0;
+    } else
         escritura.signal();
 }
 
@@ -118,17 +122,18 @@ void funcion_lector(MRef<Lec_Esc> monitor) {
 
 int main() {
     MRef<Lec_Esc> monitor = Create<Lec_Esc>();
-    thread escritores[num_hebras];
-    thread lectores[num_hebras];
+    thread escritores[num_hebras_esc];
+    thread lectores[num_hebras_lec];
 
-    for (int i = 0; i < num_hebras; i++)
+    for (int i = 0; i < num_hebras_esc; i++)
         escritores[i] = thread(funcion_escritor, monitor);
     
-    for (int i = 0; i < num_hebras; i++)
+    for (int i = 0; i < num_hebras_lec; i++)
         lectores[i] = thread(funcion_lector, monitor);
 
-    for (int i = 0; i < num_hebras; i++) {
+    for (int i = 0; i < num_hebras_esc; i++)
         escritores[i].join();
+
+    for (int i = 0; i < num_hebras_lec; i++)
         lectores[i].join();
-    }
 }

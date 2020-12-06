@@ -10,28 +10,28 @@ ostream& operator <<(ostream &flujo, const elemento &p){
   return flujo;
 }
 
-Pila_max::Pila_max(const Pila_max &otra):elementos(otra.elementos){}
+Pila_max_VD::Pila_max_VD(const Pila_max_VD &otra):elementos(otra.elementos){}
 
-Pila_max& Pila_max::operator= (const Pila_max& otra){
+Pila_max_VD& Pila_max_VD::operator= (const Pila_max_VD& otra){
   if(&otra != this)
     elementos=otra.elementos;
   return *this;
 }
 
-bool Pila_max::vacia() const{
+bool Pila_max_VD::vacia() const{
   return elementos.empty();
 }
 
-elemento& Pila_max:: tope(){
+elemento& Pila_max_VD:: tope(){
   assert(!elementos.empty());
   return elementos.back();
 }
 
-const elemento& Pila_max:: tope() const{
+const elemento& Pila_max_VD:: tope() const{
   return elementos.back();
 }
 
-void Pila_max:: poner(const int &n){
+void Pila_max_VD:: poner(const int &n){
 
   int mayor = n > maximo()?n:maximo();
 
@@ -42,17 +42,17 @@ void Pila_max:: poner(const int &n){
   elementos.push_back(p);
 }
 
-void Pila_max:: quitar(){
+void Pila_max_VD:: quitar(){
 
   assert(!elementos.empty());
   elementos.pop_back();
 }
 
-int Pila_max:: getNelementos() const{
+int Pila_max_VD:: getNelementos() const{
   return elementos.size();
 }
 
-int Pila_max:: maximo() const{
+int Pila_max_VD:: maximo() const{
 
   if(elementos.empty()) return INT_MIN;
     return tope().max;

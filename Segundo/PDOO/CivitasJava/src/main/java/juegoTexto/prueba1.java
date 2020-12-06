@@ -11,7 +11,7 @@ import civitas.CivitasJuego;
 public class prueba1 {
 
     public static void main(String[] args) {
-        String [] nombres = {"Marco Aurelio", "Pitufo", "Prepucio"};
+        String [] nombres = {"Mika", "Prepucio"};
         CivitasJuego juego = new CivitasJuego(nombres);
         VistaTextual vista = new VistaTextual();
         Controlador controlador = new Controlador(juego, vista);

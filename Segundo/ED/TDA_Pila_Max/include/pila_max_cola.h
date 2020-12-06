@@ -35,9 +35,9 @@ ostream& operator << (ostream &flujo, const elemento &p);
 
 
 /**
- *  @class Pila_max
+ *  @class Pila_max_cola
  * 
- *  @brief T.D.A. Pila_max
+ *  @brief T.D.A. Pila_max_cola
  *
  * Una instancia @e v del tipo de datos abstracto Pila sobre el tipo @c T es
  * una lista de elementos del mismo con un funcionamiento @e LIFO (Last In,
@@ -70,7 +70,7 @@ ostream& operator << (ostream &flujo, const elemento &p);
  * @author José María Ramírez González
  * @date Noviembre 2020
  */
-class Pila_max {
+class Pila_max_cola {
     private:
         Cola<elemento> elementos;
     
@@ -79,19 +79,19 @@ class Pila_max {
         /**
          * @brief Constructor por defecto 
          */
-        Pila_max(): elementos(){};
+        Pila_max_cola(): elementos(){};
 
         /**
          * @brief Constructor de copias
          * @param otra La pila de la que se hará la copia.
          */
-        Pila_max(const Pila_max & otra);
+        Pila_max_cola(const Pila_max_cola & otra);
 
         /**
          * @brief Sobrecarga del operador de asignación
          * @param otra La pila que se va a asignar.
          */
-        Pila_max& operator= (const Pila_max& otra);
+        Pila_max_cola& operator= (const Pila_max_cola& otra);
 
         /**
          * @brief Comprueba si la pila está vacía

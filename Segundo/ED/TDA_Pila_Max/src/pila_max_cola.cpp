@@ -4,33 +4,28 @@
 
 using namespace std;
 
-ostream& operator <<(ostream &flujo, const elemento &p){
-  flujo << "(" << p.valor << " | " << p.max << ")" << "\n";
-  return flujo;
-}
 
+Pila_max_cola::Pila_max_cola(const Pila_max_cola &otra):elementos(otra.elementos){}
 
-Pila_max::Pila_max(const Pila_max &otra):elementos(otra.elementos){}
-
-Pila_max& Pila_max::operator= (const Pila_max& otra){
+Pila_max_cola& Pila_max_cola::operator= (const Pila_max_cola& otra){
   if(&otra != this)
     elementos=otra.elementos;
   return *this;
 }
 
-bool Pila_max::vacia() const{
+bool Pila_max_cola::vacia() const{
   return elementos.vacia();
 }
 
-elemento& Pila_max:: tope(){
+elemento& Pila_max_cola:: tope(){
   return elementos.frente();
 }
 
-const elemento& Pila_max:: tope() const{
+const elemento& Pila_max_cola:: tope() const{
   return elementos.frente();
 }
 
-void Pila_max:: poner(const int &n){
+void Pila_max_cola:: poner(const int &n){
 
   int mayor = n > maximo()?n:maximo();
 
@@ -38,7 +33,7 @@ void Pila_max:: poner(const int &n){
   p.valor = n;
   p.max = mayor;
 
-  Pila_max aux(*this);
+  Pila_max_cola aux(*this);
   elementos.poner(p);
 
   int num=elementos.num_elementos()-1;
@@ -53,15 +48,15 @@ void Pila_max:: poner(const int &n){
   }
 }
 
-void Pila_max:: quitar(){
+void Pila_max_cola:: quitar(){
   elementos.quitar();
 }
 
-int Pila_max:: getNelementos() const{
+int Pila_max_cola:: getNelementos() const{
   return elementos.num_elementos();
 }
 
-int Pila_max:: maximo() const{
+int Pila_max_cola:: maximo() const{
 
   if(elementos.vacia()) return INT_MIN;
     return tope().max;

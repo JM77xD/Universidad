@@ -52,7 +52,12 @@ class Guia_Tlf{
 				 * 
 				 */
 				iterator(){}
-
+				
+				/**
+				 * @brief Destructor
+				 * 
+				 */
+				~iterator(){delete &vit;}
 				/**
 				 * @brief Constructor de copia
 				 * 
@@ -154,6 +159,11 @@ class Guia_Tlf{
 				const_iterator(){}
 
 				/**
+				 * @brief Destructor
+				 * 
+				 */
+				~const_iterator(){delete &vit;}
+				/**
 				 * @brief Constructor de copia
 				 * 
 				 * @param it Iterador a copiar
@@ -241,7 +251,7 @@ class Guia_Tlf{
 		 * @brief Destructor
 		 * 
 		 */
-		~Guia_Tlf(){}
+		~Guia_Tlf(){delete &datos;}
 
 		/**
 		 * @brief Operador de asignación

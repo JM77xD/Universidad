@@ -6,6 +6,15 @@
 using namespace std;
 istream & operator>>(istream &is,pair<string,string> &d);
 
+/**
+ * @class Guia_Tlf
+ * 
+ * @brief Permite la lectura de parejas de string y las almacena en formato de guía telefónica.
+ * Si quisieramos asignar más de un número de teléfono a un nombre tendríamos que usar un multimap en vez de un map.
+ * 
+ * Implementa operaciones como la unión de guías telefónicas.
+ * 
+ */
 class Guia_Tlf{
 	private:
 		map<string,string> datos; 	//si admites que haya nombres repetidos tendrías que usar un multimap
@@ -32,7 +41,7 @@ class Guia_Tlf{
 				 * @param it Iterador de un mapa de datos
 				 * 
 				 */
-				iterator(const typename map<string,string>::iterator it){vit=it;}
+				iterator(const typename map<string,string>::iterator &it){vit=it;}
 
 				friend class Guia_Tlf;
 
@@ -105,14 +114,14 @@ class Guia_Tlf{
 		 * 
 		 * @return Devuelve un iterador al primer elemento de datos
 		 */
-		iterator  begin();
+		Guia_Tlf::iterator begin();
 
 		/**
 		 * @brief Método end para obtener un iterador
 		 * 
 		 * @return Devuelve un iterador al último elemento de datos
 		 */
-		iterator  end();
+		Guia_Tlf::iterator end();
 
 		/**
 		 * @class Guia_Tlf::const_iterator
@@ -132,7 +141,7 @@ class Guia_Tlf{
 				 * @param it Iterador de un mapa de datos
 				 * 
 				 */
-				const_iterator(const typename map<string,string>::const_iterator it){vit=it;}
+				const_iterator(const typename map<string,string>::const_iterator &it){vit=it;}
 
 				friend class Guia_Tlf;
 
@@ -205,14 +214,14 @@ class Guia_Tlf{
 		 * 
 		 * @return Devuelve un iterador constante al primer elemento de datos
 		 */
-		const_iterator begin() const;
+		Guia_Tlf::const_iterator cbegin() const;
 
 		/**
 		 * @brief Método end para obtener un iterador
 		 * 
 		 * @return Devuelve un iterador constante al último elemento de datos
 		 */
-		const_iterator end() const;
+		Guia_Tlf::const_iterator cend() const;
 
 //------------------------------------Definición de métodos-----------------------
 		/**
@@ -284,9 +293,9 @@ class Guia_Tlf{
 		 * @brief Borrar un telefono
 		 * @param nombre: nombre que se quiere borrar
 		 * @param tlf: teléfono asociado al nombre
-		 * @note: esta funcion nos permite borrar solamente aquel que coincida en nombre y tlf 
+		 * @note: esta funcion nos permite borrar solamente aquel que coincida en nombre y tlf
+		 * @note: con map siempre hay uno con multimap puede existir mas de uno
 		 */
-		//con map siempre hay uno con multimap puede existir mas de uno
 		void borrar(const string &nombre,const string &tlf);
 
 		/**
@@ -299,15 +308,53 @@ class Guia_Tlf{
 		 * @brief Contabiliza cuantos telefonos tenemos asociados a un nombre
 		 * @param nombre: nombre sobre el que queremos consultar
 		 * @return numero de telefonos asociados a un nombre
-		 * 
+		 * @note: al ser un map debe de ser 0 o 1. Si fuese un multimap podríamos tener mas de uno
 		 */
-		//al ser un map debe de ser 0 o 1. Si fuese un multimap podríamos tener mas de uno
 		unsigned int contabiliza(const string &nombre);
 		    
 		/**
 		 * @brief Limpia la guia
 		 */
 		void clear();
+
+		/**
+		 * @brief Compara 2 guías y devuelve una guía con los repetidos
+		 * 
+		 * @param G Guía que comparar
+		 * 
+		 * @return Devuelve un elemento de la clase guía con los elementos repetidos en this y G
+		 * 
+		 */
+		Guia_Tlf interseccion(Guia_Tlf &G);
+
+		/**
+		 * @brief Modifica el teléfono asociado a un nombre
+		 * 
+		 * @param nombre nombre que modificar
+		 * @param tlf nuevo teléfono
+		 * 
+		 * @note: si es un multimap nos preguntará cúal queremos modificar
+		 */
+		void modificar(const string &nombre, const string &tlf);
+
+		/**
+		 * @brief Consulta números a partir de la primera letra del nombre
+		 * 
+		 * @param c Carácter sobre el que buscar el nombre
+		 * 
+		 * @return Devuelve un string con todos los números separados por \n
+		 */
+		string gettelefonos(char &c);
+
+		/**
+		 * @brief Consulta los número de teléfono que se encuentren en un rango determinado
+		 * 
+		 * @param nombre1 primer nombre del rango
+		 * @param nombre2 segundo nombre del rango
+		 * @return Devuelve una guía con los elementos que se encuentran en el rango dado
+		 * 
+		 */
+		Guia_Tlf rango(string &nombre1, string &nombre2);
 
 		/**
 		 * @brief Union de guias de telefonos
@@ -341,4 +388,3 @@ class Guia_Tlf{
 
 };
 #endif
-

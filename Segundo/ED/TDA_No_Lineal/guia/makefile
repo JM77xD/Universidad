@@ -1,4 +1,3 @@
-
 INC = include
 SRC = src
 BIN = bin

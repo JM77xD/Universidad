@@ -177,7 +177,7 @@ class Diccionario{
 		
 
 		/**
-		 * @class Diccionario::const_iterator
+		 * @class Diccionario<T,U>::const_iterator
 		 * 
 		 * @brief Iterador constante para recorrer la lista de datos
 		 * 

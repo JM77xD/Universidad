@@ -57,7 +57,7 @@ class Guia_Tlf{
 				 * @brief Destructor
 				 * 
 				 */
-				~iterator(){delete &vit;}
+				~iterator(){}
 				/**
 				 * @brief Constructor de copia
 				 * 
@@ -162,7 +162,7 @@ class Guia_Tlf{
 				 * @brief Destructor
 				 * 
 				 */
-				~const_iterator(){delete &vit;}
+				~const_iterator(){}
 				/**
 				 * @brief Constructor de copia
 				 * 
@@ -251,7 +251,7 @@ class Guia_Tlf{
 		 * @brief Destructor
 		 * 
 		 */
-		~Guia_Tlf(){delete &datos;}
+		~Guia_Tlf(){}
 
 		/**
 		 * @brief Operador de asignación

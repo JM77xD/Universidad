@@ -1,0 +1,9 @@
+2
+Sentencia
+2
+f. Frase o dicho que implica un juicio,una enseñanza
+Dictamen o resolución de un juez,un tribunal o un jurado.
+Compilador
+2
+Programa que traduce a lenguaje binario un lenguaje fuente o de alto nivel.
+Hola.

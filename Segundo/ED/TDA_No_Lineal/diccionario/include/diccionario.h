@@ -100,6 +100,12 @@ class Diccionario{
 				iterator(){}
 
 				/**
+				 * @brief Destructor
+				 * 
+				 */
+				~iterator(){}
+
+				/**
 				 * @brief Constructor de copia
 				 * 
 				 * @param it Iterador a copiar
@@ -186,7 +192,7 @@ class Diccionario{
 				 * 
 				 * @param it Iterador de una lista de datos
 				 */
-				const_iterator(typename list<data<T,U>>::const_iterator it){vit=it;}
+				const_iterator(const typename list<data<T,U>>::const_iterator it){vit=it;}
 
 				friend class Diccionario<T,U>;
 
@@ -197,6 +203,12 @@ class Diccionario{
 				 * 
 				 */
 				const_iterator(){}
+
+				/**
+				 * @brief Destructor
+				 * 
+				 */
+				~const_iterator(){}
 
 				/**
 				 * @brief Constructor por parámetros
@@ -322,6 +334,39 @@ class Diccionario{
 	 	 * @param info Información a insertar
 	 	 */
 	 	void Insertar(const T& clave,const list<U> &info);
+
+		/**
+		 * @brief Borra un elemento dada una clave
+		 * 
+		 * @param clave Clave del elemento a borrar
+		 * 
+		 */
+		void del(const T& clave);
+
+		/**
+		 * @brief Une la información de this y otro diccionario
+		 * 
+		 * @param D Diccionario para unir la información
+		 * @return Devuelve un diccionario con la información combinada de this y &D
+		 */
+		Diccionario<T,U> unir(Diccionario<T,U> &D);
+
+		/**
+		 * @brief Obtiene la información en un rango de claves
+		 * 
+		 * @param clave1 Limite inferior del rango
+		 * @param clave2 Limite superior del rango
+		 * @return Devuelve una lista con los elementos del rango
+		 */
+		list<data<T,U>> rango(T &clave1, T &clave2);
+
+		/**
+		 * @brief Diferencia de claves entre 2 diccionarios
+		 * 
+		 * @param D Diccionario con el que comparar las claves
+		 * @return Devuelve un diccionario con las claves de this que no estaban en &D
+		 */
+		Diccionario<T,U> diferencia(const Diccionario<T,U> &D);
 
 		/**
 		 * @brief Añade una nueva informacion asocida a una clave que está en el diccionario.

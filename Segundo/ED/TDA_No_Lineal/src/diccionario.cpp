@@ -164,33 +164,33 @@ bool Diccionario<T,U>::Esta_Clave(const T &p, typename  list<data<T,U> >::iterat
 template<class T, class U>
 void Diccionario<T,U>::Insertar(const T& clave,const list<U> &info){
 
-	typename list<data<T,U>>::iterator it;
+	Diccionario<T,U>::iterator it;
 
-	if (!Esta_Clave(clave,it)){
+	if (!Esta_Clave(clave,it.vit)){
 		data<T,U> p;
 		p.clave = clave;
 		p.info_asoci=info;
-		datos.insert(it,p);
+		datos.insert(it.vit,p);
 	}
 }
 
 template<class T, class U>
 void Diccionario<T,U>::del(const T& clave) {
-	typename  list<data<T,U>>::iterator it;
+	Diccionario<T,U>::iterator it;
 
-	if (Esta_Clave(clave, it))
-			this->datos.erase(it);
+	if (Esta_Clave(clave, it.vit))
+			this->datos.erase(it.vit);
 }
 
 template<class T, class U>
 Diccionario<T,U> Diccionario<T,U>::unir(Diccionario<T,U> &D) {
 	Diccionario<T,U> result(D);
-	typename  list<data<T,U> >::iterator it;
-	typename  list<data<T,U> >::iterator it_e = datos.end();
-	typename  list<data<T,U> >::iterator check;
+	Diccionario<T,U>::iterator it;
+	Diccionario<T,U>::iterator it_e = this->end();
+	Diccionario<T,U>::iterator check;
 
-	for (it = datos.begin(); it != it_e; ++it) {
-		if (result.Esta_Clave((*it).clave, check)) {
+	for (it = this->begin(); it != it_e; ++it) {
+		if (result.Esta_Clave((*it).clave, check.vit)) {
 				(*check).info_asoci.merge((*it).info_asoci);
 				(*check).info_asoci.sort();
 				(*check).info_asoci.unique();
@@ -198,7 +198,7 @@ Diccionario<T,U> Diccionario<T,U>::unir(Diccionario<T,U> &D) {
 			data<T,U> p;
 			p.clave = (*it).clave;
 			p.info_asoci = (*it).info_asoci;
-			result.datos.insert(check,p);
+			result.datos.insert(check.vit,p);
 		}
 	}
 
@@ -215,14 +215,14 @@ list<data<T,U>> Diccionario<T,U>::rango(T &clave1, T &clave2) {
 
 	list<data<T,U>> result;
 
-	typename  list<data<T,U> >::iterator it;
-	typename  list<data<T,U> >::iterator it_e = datos.end();
-	typename  list<data<T,U> >::iterator in;
+	Diccionario<T,U>::iterator it;
+	Diccionario<T,U>::iterator it_e = datos.end();
+	Diccionario<T,U>::iterator in;
 
-	for (it = datos.begin(); it != it_e; ++it) {
+	for (it = begin(); it != it_e; ++it) {
 		if ((*it).clave >= clave1 && (*it).clave <= clave2) {
-			in = result.end();
-			result.insert(in, *it);
+			in.vit = result.end();
+			result.insert(in.vit, *it);
 		}
 	}
 
@@ -233,13 +233,13 @@ template<class T, class U>
 Diccionario<T,U> Diccionario<T,U>::diferencia(const Diccionario<T,U> &D) {
 	Diccionario<T,U> result(*this);
 
-	typename  list<data<T,U> >::const_iterator it;
-	typename  list<data<T,U> >::const_iterator it_e = D.datos.end();
-	typename  list<data<T,U> >::iterator check;
+	Diccionario<T,U>::const_iterator it;
+	Diccionario<T,U>::const_iterator it_e = D.cend();
+	Diccionario<T,U>::iterator check;
 
-	for (it = D.datos.begin(); it != it_e; it++) {
-		if (result.Esta_Clave((*it).clave, check))
-			result.datos.erase(check);
+	for (it = D.cbegin(); it != it_e; ++it) {
+		if (result.Esta_Clave((*it).clave, check.vit))
+			result.datos.erase(check.vit);
 	}
 
 	return result;

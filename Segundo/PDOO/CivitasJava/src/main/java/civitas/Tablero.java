@@ -66,7 +66,7 @@ public class Tablero {
     
     void añadeJuez() {          //Añade el juez al tablero
         if (!tieneJuez) {
-            Casilla juez = new Casilla(numCasillaCarcel, "Juez");
+            CasillaJuez juez = new CasillaJuez(numCasillaCarcel, "Juez");
             casillas.add(juez);
             tieneJuez = true;
         }

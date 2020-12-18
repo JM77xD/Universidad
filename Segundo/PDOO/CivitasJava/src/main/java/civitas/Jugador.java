@@ -13,10 +13,10 @@ import java.util.ArrayList;
  */
 public class Jugador implements Comparable<Jugador> {
     
-    private int CasasMax = 4;
+    int CasasMax = 4;
     private int CasasPorHotel = 4;
     private Boolean encarcelado;
-    private int HotelesMax = 4;
+    int HotelesMax = 4;
     private String nombre;
     private int numCasillaActual;
     private final float PasoPorSalida = 1000;
@@ -24,9 +24,9 @@ public class Jugador implements Comparable<Jugador> {
     private Boolean puedeComprar;
     private Float saldo;
     private float SaldoInicial = 7500;
-    private Sorpresa Salvoconducto;
+    private SorpresaSalirCarcel Salvoconducto;
     private ArrayList<TituloPropiedad> propiedades = new ArrayList<>();
-
+    
     Jugador(String n) {
         nombre = n;
         saldo = SaldoInicial;
@@ -120,7 +120,7 @@ public class Jugador implements Comparable<Jugador> {
         return encarcelado;
     }
     
-    Boolean obtenerSalvoconducto(Sorpresa s) {
+    Boolean obtenerSalvoconducto(SorpresaSalirCarcel s) {
         if (encarcelado) {
             return false;
         } else {
@@ -342,5 +342,11 @@ public class Jugador implements Comparable<Jugador> {
             }
         }
         return result;
+    }
+    
+    void actualizaPropietarioPorConversion() {
+        propiedades.forEach(propiedad -> {
+            propiedad.actualizarPropietario(this);
+        });
     }
 }

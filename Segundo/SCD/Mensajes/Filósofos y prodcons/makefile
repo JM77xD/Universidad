@@ -5,7 +5,7 @@ compilador := mpicxx -std=c++11
 flagsc     := -g -Wall
 
 pcm: prodcons2-mu_exe
-	mpirun --use-hwthread-cpus --oversubscribe -np  10 ./$<
+	mpirun --oversubscribe -np  4 ./$<
 
 f: filosofos_exe
 	mpirun --use-hwthread-cpus --oversubscribe -np 10 ./$<

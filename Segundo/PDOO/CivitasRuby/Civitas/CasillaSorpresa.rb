@@ -24,7 +24,7 @@ module Civitas
         end
 
         def toString
-            return "Sorpresa"
+            return "La casilla actual es " + @nombre + " y es de tipo Sorpresa.\n"
         end
 
     end

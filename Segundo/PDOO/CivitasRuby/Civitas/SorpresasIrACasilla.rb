@@ -21,7 +21,7 @@ module Civitas
                 nuevaPos = @refT.nuevaPosicion(casillaAct, tirada)
                 todos.at(actual).moverACasilla(nuevaPos)
                 casilla = @refT.getCasilla(nuevaPos)
-                casilla.recibeJugador(actual, todos)
+                casilla.recibe_jugador(actual, todos)
             end
         end
 

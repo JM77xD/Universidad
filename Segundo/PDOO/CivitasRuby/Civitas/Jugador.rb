@@ -64,6 +64,10 @@ module Civitas
             return @saldo <= 0
         end
 
+        def toString
+            return "\nEl jugador actual es " + @nombre + " y tiene un saldo de " + @saldo.to_s + ".\n"
+        end
+
         def debeSerEncarcelado
             if @encarcelado
                 return false

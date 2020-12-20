@@ -120,19 +120,9 @@ module Civitas
 
     def actualizarVista
       jugador = @juegoModel.getJugador()
-      if jugador.is_a?(JugadorEspeculador)
-        print "\nEl jugador especulador actual es " + jugador.nombre + " y tiene un saldo de " + jugador.saldo.to_s + ".\n"
-      else
-        print "\nEl jugador actual es " + jugador.nombre + " y tiene un saldo de " + jugador.saldo.to_s + ".\n"
-      end
+      print jugador.toString()
       casilla = @juegoModel.getCasillaActual()
-      print "La casilla actual es " + casilla.nombre + " y es de tipo " + casilla.toString() + "."
-      if (casilla.is_a?(CasillaCalle))
-        if (!casilla.titulo.tienePropietario)
-          print " Además, tiene un precio de " + casilla.cantidad.to_s + "."
-        end
-      end
-      print "\n"
+      print casilla.toString()
     end
 
     def ranking

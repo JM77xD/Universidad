@@ -22,7 +22,7 @@ module Civitas
         end
 
         def toString
-            return "Juez"
+            return "La casilla actual es " + @nombre + " y es de tipo Juez.\n"
         end
 
     end

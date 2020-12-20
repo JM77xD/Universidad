@@ -84,6 +84,10 @@ module Civitas
             end
         end
 
+        def toString
+            return "\nEl jugador especulador actual es " + @nombre + " y tiene un saldo de " + @saldo.to_s + ".\n"
+        end
+
     end
 
 end

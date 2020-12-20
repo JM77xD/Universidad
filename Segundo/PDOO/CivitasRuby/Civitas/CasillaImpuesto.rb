@@ -25,7 +25,7 @@ module Civitas
         end
 
         def toString
-            return "Impuesto"
+            return "La casilla actual es " + @nombre + " y es de tipo Impuesto.\n"
         end
 
     end

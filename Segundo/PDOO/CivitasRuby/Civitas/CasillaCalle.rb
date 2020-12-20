@@ -37,7 +37,12 @@ module Civitas
         end
 
         def toString
-            return "Calle"
+            ret = "La casilla actual es " + @nombre + " y es de tipo Calle."
+            if !titulo.tienePropietario()
+                ret += " Además, tiene un precio de " + @cantidad.to_s + "."
+            end
+            ret += "\n"
+            return ret
         end
 
     end

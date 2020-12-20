@@ -6,6 +6,8 @@ module Civitas
 
     class SorpresasIrACasilla < Sorpresas
 
+        public_class_method :new
+
         def initialize(tablero, v)
             @refT = tablero
             @valor = v

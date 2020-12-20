@@ -6,6 +6,8 @@ module Civitas
 
     class SorpresasIrCarcel < Sorpresas
 
+        public_class_method :new
+
         def initialize(tablero)
             @refT = tablero
         end

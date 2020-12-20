@@ -6,6 +6,8 @@ module Civitas
 
     class SorpresasSalirCarcel < Sorpresas
 
+        public_class_method :new
+
         def initialize(mazo)
             @refMS = mazo
         end

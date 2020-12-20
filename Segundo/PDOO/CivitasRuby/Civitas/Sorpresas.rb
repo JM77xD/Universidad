@@ -5,6 +5,8 @@ module Civitas
 
     class Sorpresas
 
+        private_class_method :new
+
         def jugadorCorrecto(actual, todos)
             return todos.size > actual
         end

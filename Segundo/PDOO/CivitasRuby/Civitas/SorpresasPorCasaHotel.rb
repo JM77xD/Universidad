@@ -5,6 +5,8 @@ module Civitas
 
     class SorpresasPorCasaHotel < Sorpresas
 
+        public_class_method :new
+
         def initialize(v, text)
             @valor = v
             @texto = text

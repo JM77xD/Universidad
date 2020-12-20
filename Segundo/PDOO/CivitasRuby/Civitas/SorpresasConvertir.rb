@@ -6,6 +6,8 @@ module Civitas
 
     class SorpresasConvertir < Sorpresas
 
+        public_class_method :new
+
         def initialize(f, juego)
             @fianza = f
             @refJuego = juego

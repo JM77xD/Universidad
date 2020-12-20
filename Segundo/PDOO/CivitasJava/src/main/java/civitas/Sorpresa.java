@@ -8,10 +8,10 @@ package civitas;
 import java.util.ArrayList;
 
 public abstract class Sorpresa {
-    String texto;
-    int valor;
-    Tablero refT;
-    MazoSorpresas refMS;
+    protected String texto;
+    protected int valor;
+    protected Tablero refT;
+    protected MazoSorpresas refMS;
     
     Sorpresa(int v) {
         this.init();

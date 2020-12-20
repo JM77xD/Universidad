@@ -14,7 +14,7 @@ import java.util.Scanner;
  */
 public class JugadorEspeculador extends Jugador {
     private final int FactorEspeculador = 2;
-    private float fianza;
+    private final float fianza;
     
     JugadorEspeculador(Jugador jugador, float f) {
         super(jugador);

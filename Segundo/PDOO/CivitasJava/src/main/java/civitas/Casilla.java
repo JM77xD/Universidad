@@ -13,7 +13,7 @@ import java.util.ArrayList;
  */
 public class Casilla {
     
-    String nombre;
+    protected String nombre;
     
     Casilla(String n) {
         nombre = n;

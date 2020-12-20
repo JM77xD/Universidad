@@ -13,10 +13,10 @@ import java.util.ArrayList;
  */
 public class Jugador implements Comparable<Jugador> {
     
-    int CasasMax = 4;
+    protected int CasasMax = 4;
     private int CasasPorHotel = 4;
     private Boolean encarcelado;
-    int HotelesMax = 4;
+    protected int HotelesMax = 4;
     private String nombre;
     private int numCasillaActual;
     private final float PasoPorSalida = 1000;

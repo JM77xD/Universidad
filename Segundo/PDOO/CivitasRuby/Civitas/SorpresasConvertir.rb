@@ -15,13 +15,9 @@ module Civitas
             if jugadorCorrecto(actual, todos)
                 informe(actual,todos)
                 jugadorActual = todos.at(actual)
-                jugadores = @refJuego.jugadores
-                if jugadores.include?(jugadorActual)
-                    indice = jugadores.find_index(jugadorActual)
-                    jugadorNuevo = JugadorEspeculador.nuevoEspeculador(jugadorActual, @fianza)
-                    jugadores.delete(jugadorActual)
-                    jugadores[indice] = jugadorNuevo
-                end
+                jugadorNuevo = JugadorEspeculador.nuevoEspeculador(jugadorActual, @fianza)
+                todos.delete_at(actual)
+                todos.insert(actual, jugadorNuevo)
             end
         end
 

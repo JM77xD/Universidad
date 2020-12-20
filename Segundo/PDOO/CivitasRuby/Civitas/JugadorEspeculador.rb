@@ -6,16 +6,18 @@ module Civitas
 
     class JugadorEspeculador < Jugador
 
+        attr_accessor :FactorEspeculador
+
         def initialize (f)
             @fianza = f
             @FactorEspeculador = 2
-            @@hotelesMax = @@hotelesMax * @FactorEspeculador
-            @@casasMax = @@casasMax * @FactorEspeculador
         end
 
         def self.nuevoEspeculador(otro, f)
             nuevoJugador = self.new(f)
-            nuevoJugador = Jugador.copiaDe(otro)
+            nuevoJugador.copiaDe(otro)
+            nuevoJugador.hotelesMax = nuevoJugador.hotelesMax * nuevoJugador.FactorEspeculador
+            nuevoJugador.casasMax = nuevoJugador.casasMax * nuevoJugador.FactorEspeculador
             nuevoJugador.propiedades.each do |propiedad|
                 propiedad.actualizarPropietario(nuevoJugador)
             end

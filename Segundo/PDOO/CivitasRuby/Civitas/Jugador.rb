@@ -21,11 +21,10 @@ module Civitas
         attr_accessor :encarcelado
         attr_accessor :salvoconducto
 
-        @@hotelesMax = 4
-        @@casasMax = 4
-        @@CasasPorHotel = 4
-
         def initialize(nombre)
+            @hotelesMax = 4
+            @casasMax = 4
+            @CasasPorHotel = 4
             @nombre = nombre
             @encarcelado = false
             @nCasillaActual = 0
@@ -38,15 +37,19 @@ module Civitas
             @propiedades = []
         end
 
-        def self.copiaDe(otro)
-            nuevo = self.new(otro.nombre)
-            nuevo.nCasillaActual = otro.nCasillaActual
-            nuevo.encarcelado = otro.encarcelado
-            nuevo.puedeComprar = otro.puedeComprar
-            nuevo.saldo = otro.saldo
-            nuevo.propiedades = otro.propiedades
-            nuevo.salvoconducto = otro.salvoconducto
-            return nuevo
+        def copiaDe(otro)
+            @PasoPorSalida = 1000
+            @PrecioLibertad = 200
+            @hotelesMax = 4
+            @casasMax = 4
+            @CasasPorHotel = 4
+            @nombre = otro.nombre
+            @nCasillaActual = otro.nCasillaActual
+            @encarcelado = otro.encarcelado
+            @puedeComprar = otro.puedeComprar
+            @saldo = otro.saldo
+            @propiedades = otro.propiedades
+            @salvoconducto = otro.salvoconducto
         end
 
         def cantidadCasasHoteles
@@ -266,11 +269,11 @@ module Civitas
         end
 
         def puedoEdificarHotel(propiedad)
-            return (propiedad.nCasas == @@CasasPorHotel && propiedad.nHoteles < @@hotelesMax)
+            return (propiedad.nCasas == @CasasPorHotel && propiedad.nHoteles < @hotelesMax)
         end
 
         def puedoEdificarCasa(propiedad)
-            return (propiedad.nCasas < @@casasMax)
+            return (propiedad.nCasas < @casasMax)
         end
 
         def construirHotel(ip)
@@ -285,7 +288,7 @@ module Civitas
                 if (puedoGastar(precio) && puedoEdificar)
                     result = propiedad.construirHotel(self)
                     if result
-                        propiedad.derruirCasas(@@CasasPorHotel, self)
+                        propiedad.derruirCasas(@CasasPorHotel, self)
                         Diario.instance.ocurre_evento("El jugador " + @nombre + " ha construido un hotel en la propiedad " + propiedad.nombre)
                     end
                 end

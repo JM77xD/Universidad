@@ -94,23 +94,23 @@ module Civitas
 
         def inicializaMazoSorpresas(tablero)
 
-            #ircarcel = SorpresasIrCarcel.new(tablero)
-            #@mazoSorpresas.alMazo(ircarcel)
+            ircarcel = SorpresasIrCarcel.new(tablero)
+            @mazoSorpresas.alMazo(ircarcel)
 
-            #pagar500 = SorpresasPagarCobrar.new(-500, "Pagar 500")
-            #@mazoSorpresas.alMazo(pagar500)
+            pagar500 = SorpresasPagarCobrar.new(-500, "Pagar 500")
+            @mazoSorpresas.alMazo(pagar500)
 
-            #irCasilla12 = SorpresasIrACasilla.new(tablero, 12)
-            #@mazoSorpresas.alMazo(irCasilla12)
+            irCasilla12 = SorpresasIrACasilla.new(tablero, 12)
+            @mazoSorpresas.alMazo(irCasilla12)
 
-            #evitarCarcel = SorpresasSalirCarcel.new(@mazoSorpresas)
-            #@mazoSorpresas.alMazo(evitarCarcel)
+            evitarCarcel = SorpresasSalirCarcel.new(@mazoSorpresas)
+            @mazoSorpresas.alMazo(evitarCarcel)
 
-            #porJugador130 = SorpresasPorJugador.new(130, "Pago de 130 de cada jugador al jugador actual")
-            #@mazoSorpresas.alMazo(porJugador130)
+            porJugador130 = SorpresasPorJugador.new(130, "Pago de 130 de cada jugador al jugador actual")
+            @mazoSorpresas.alMazo(porJugador130)
 
-            #porCasaHotel60 = SorpresasPorCasaHotel.new(-60, "Pago de 60 por cada edificio.")
-            #@mazoSorpresas.alMazo(porCasaHotel60)
+            porCasaHotel60 = SorpresasPorCasaHotel.new(-60, "Pago de 60 por cada edificio.")
+            @mazoSorpresas.alMazo(porCasaHotel60)
 
             convertir = SorpresasConvertir.new(250, self)
             @mazoSorpresas.alMazo(convertir)

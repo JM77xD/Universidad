@@ -13,7 +13,7 @@ module Civitas
                 @numCasillaCarcel = 1
             end
             @casillas = []
-            casilla = Casilla.new(TipoCasilla::DESCANSO, "Salida")
+            casilla = Casilla.new("Salida")
             @casillas << casilla
             @porSalida = 0
             @tieneJuez = false
@@ -46,19 +46,19 @@ module Civitas
 
         def añadeCasilla(c)     #Añade una casilla al tablero, comprobando antes que no sea en la posicion de la casilla carcel
             if (@casillas.size == @numCasillaCarcel)
-                casilla = Civitas::Casilla.new(TipoCasilla::DESCANSO, "Cárcel")
+                casilla = Casilla.new("Cárcel")
                 @casillas<< casilla
             end
             @casillas.push(c)
             if (@casillas.size == @numCasillaCarcel)
-                casilla = Civitas::Casilla.new(TipoCasilla::DESCANSO, "Cárcel")
+                casilla = Casilla.new("Cárcel")
                 @casillas << casilla
             end
         end
 
         def añadeJuez       #Añade el juez al tablero
             if(!@tieneJuez)
-                juez = Casilla.new(TipoCasilla::JUEZ, @numCasillaCarcel, "Juez")
+                juez = CasillaJuez.new(@numCasillaCarcel, "Juez")
                 @casillas << juez
                 @tieneJuez = true
             end

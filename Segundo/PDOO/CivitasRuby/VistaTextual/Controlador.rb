@@ -40,7 +40,6 @@ module Civitas
                     
                     case siguientepaso
                     when Operaciones_juego::COMPRAR
-
                         respuesta = @vista.comprar()
                         if respuesta == Respuestas::SI
                             @juego.comprar

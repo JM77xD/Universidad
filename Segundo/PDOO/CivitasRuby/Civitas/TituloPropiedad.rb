@@ -100,7 +100,7 @@ module Civitas
         end
 
         def tienePropietario
-            if(@propietario)
+            if @propietario
                 return true
             else
                 return false

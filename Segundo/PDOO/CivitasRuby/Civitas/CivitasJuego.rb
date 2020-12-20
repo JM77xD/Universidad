@@ -1,20 +1,31 @@
 # encoding:utf-8
 
+require_relative "CasillaCalle"
+require_relative "CasillaJuez"
+require_relative "CasillaSorpresa"
+require_relative "CasillaImpuesto"
 require_relative "Casilla"
 require_relative "Jugador"
 require_relative "Tablero"
 require_relative "gestor_estados"
 require_relative "TituloPropiedad"
-require_relative "TipoCasilla"
-require_relative "TipoSorpresa"
 require_relative "MazoSorpresas"
 require_relative "Dado"
+require_relative "SorpresasIrCarcel"
+require_relative "SorpresasIrACasilla"
+require_relative "SorpresasConvertir"
+require_relative "SorpresasPagarCobrar"
+require_relative "SorpresasPorCasaHotel"
+require_relative "SorpresasPorJugador"
+require_relative "SorpresasSalirCarcel"
 
 
 
 module Civitas
 
     class CivitasJuego
+
+        attr_accessor :jugadores
         
         def initialize(*nombres)
             @jugadores = []
@@ -38,68 +49,71 @@ module Civitas
 
             for i in 1..3
                 calle = TituloPropiedad.new("Calle"+i.to_s, 100*i, 1+(i/10), 150*i, 250*i, 100*i)
-                casilla = Casilla.new(TipoCasilla::CALLE, calle)
+                casilla = CasillaCalle.new(calle)
                 @tablero.añadeCasilla(casilla)
             end
 
-            impuesto = Casilla.new(TipoCasilla::IMPUESTO, 600, "Impuestos")
+            impuesto = CasillaImpuesto.new("Impuestos", 600)
             @tablero.añadeCasilla(impuesto)
 
             for i in 4..6
                 calle = TituloPropiedad.new("Calle"+i.to_s, 100*i, 1+(i/10), 150*i, 250*i, 100*i)
-                casilla = Casilla.new(TipoCasilla::CALLE, calle)
+                casilla = CasillaCalle.new(calle)
                 @tablero.añadeCasilla(casilla)
             end
             @tablero.añadeJuez()
 
-            sorpresa1 = Casilla.new(TipoCasilla::SORPRESA, mazo, "Sorpresa1")
+            sorpresa1 = CasillaSorpresa.new(mazo, "Sorpresa1")
             @tablero.añadeCasilla(sorpresa1)
 
             for i in 7..9
                 calle = TituloPropiedad.new("Calle"+i.to_s, 100*i, 1+(i/10), 150*i, 250*i, 100*i)
-                casilla = Casilla.new(TipoCasilla::CALLE, calle)
+                casilla = CasillaCalle.new(calle)
                 @tablero.añadeCasilla(casilla)
             end
 
-            sorpresa2 = Casilla.new(TipoCasilla::SORPRESA, mazo, "Sorpresa2")
+            sorpresa2 = CasillaSorpresa.new(mazo, "Sorpresa2")
             @tablero.añadeCasilla(sorpresa2)
 
-            parking = Casilla.new(TipoCasilla::DESCANSO, "Parking")
+            parking = Casilla.new("Parking")
             @tablero.añadeCasilla(parking)
 
             for i in 10..11
                 calle = TituloPropiedad.new("Calle"+i.to_s, 100*i, 1+(i/10), 150*i, 250*i, 100*i)
-                casilla = Casilla.new(TipoCasilla::CALLE, calle)
+                casilla = CasillaCalle.new(calle)
                 @tablero.añadeCasilla(casilla)
             end
 
-            sorpresa3 = Casilla.new(TipoCasilla::SORPRESA, mazo, "Sorpresa3")
+            sorpresa3 = CasillaSorpresa.new(mazo, "Sorpresa3")
             @tablero.añadeCasilla(sorpresa3)
 
             calle12 = TituloPropiedad.new("Calle12", 1200, 2.2, 1800, 3000, 1200)
-            casilla12 = Casilla.new(TipoCasilla::CALLE, calle12)
+            casilla12 = CasillaCalle.new(calle12)
             @tablero.añadeCasilla(casilla12)
         end
 
         def inicializaMazoSorpresas(tablero)
 
-            ircarcel = Sorpresas.new(TipoSorpresa::IRCARCEL, tablero)
+            ircarcel = SorpresasIrCarcel.new(tablero)
             @mazoSorpresas.alMazo(ircarcel)
 
-            pagar500 = Sorpresas.new(TipoSorpresa::PAGARCOBRAR, -500, "Pagar 500")
+            pagar500 = SorpresasPagarCobrar.new(-500, "Pagar 500")
             @mazoSorpresas.alMazo(pagar500)
 
-            irCasilla12 = Sorpresas.new(TipoSorpresa::IRCASILLA, tablero, 12)
+            irCasilla12 = SorpresasIrACasilla.new(tablero, 12)
             @mazoSorpresas.alMazo(irCasilla12)
 
-            evitarCarcel = Sorpresas.new(TipoSorpresa::SALIRCARCEL, @mazoSorpresas)
+            evitarCarcel = SorpresasSalirCarcel.new(@mazoSorpresas)
             @mazoSorpresas.alMazo(evitarCarcel)
 
-            porJugador130 = Sorpresas.new(TipoSorpresa::PORJUGADOR, 130, "Pago de 130 de cada jugador al jugador actual")
+            porJugador130 = SorpresasPorJugador.new(130, "Pago de 130 de cada jugador al jugador actual")
             @mazoSorpresas.alMazo(porJugador130)
 
-            porCasaHotel60 = Sorpresas.new(TipoSorpresa::PORCASAHOTEL, -60, "Pago de 60 por cada edificio.")
+            porCasaHotel60 = SorpresasPorCasaHotel.new(-60, "Pago de 60 por cada edificio.")
             @mazoSorpresas.alMazo(porCasaHotel60)
+
+            convertir = SorpresasConvertir.new(250, self)
+            @mazoSorpresas.alMazo(convertir)
         end
 
         def setDebug(d)
@@ -185,7 +199,7 @@ module Civitas
             casilla = @tablero.getCasilla(posicionNueva)
             contabilizarPasoPorSalida(jugadorActual)
             jugadorActual.moverACasilla(posicionNueva)
-            casilla.recibeJugador(@indiceJugadorActual, @jugadores)
+            casilla.recibe_jugador(@indiceJugadorActual, @jugadores)
             contabilizarPasoPorSalida(jugadorActual)
         end
 

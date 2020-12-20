@@ -8,12 +8,12 @@ module Civitas
 
         include Comparable
        
-        attr_reader :CasasMax
-        attr_reader :CasasPorHotel
-        attr_reader :HotelesMax
-        attr_reader :nombre
+        attr_accessor :casasMax
+        attr_accessor :CasasPorHotel
+        attr_accessor :hotelesMax
+        attr_accessor :nombre
         attr_accessor :nCasillaActual
-        attr_reader :PrecioLibertad
+        attr_accessor :PrecioLibertad
         attr_reader :PasoPorSalida
         attr_accessor :propiedades
         attr_accessor :puedeComprar
@@ -21,18 +21,18 @@ module Civitas
         attr_accessor :encarcelado
         attr_accessor :salvoconducto
 
+        @@hotelesMax = 4
+        @@casasMax = 4
+        @@CasasPorHotel = 4
 
         def initialize(nombre)
             @nombre = nombre
-            @CasasMax = 4
-            @CasasPorHotel = 4
             @encarcelado = false
-            @HotelesMax = 4
             @nCasillaActual = 0
             @PasoPorSalida = 1000
             @PrecioLibertad = 200
             @puedeComprar
-            @SaldoInicial = 500
+            @SaldoInicial = 7500
             @saldo = @SaldoInicial
             @salvoconducto
             @propiedades = []
@@ -102,7 +102,6 @@ module Civitas
 
         def puedeComprarCasilla
             @puedeComprar = !@encarcelado
-            return @puedeComprar
         end
 
         def paga(cantidad)
@@ -186,6 +185,7 @@ module Civitas
             if @encarcelado && puedeSalirCarcelPagando()
                 paga(@PrecioLibertad)
                 Diario.instance.ocurre_evento("El jugador " + @nombre + " sale de la cárcel pagando.")
+                @encarcelado = false
                 return true
             else
                 return false
@@ -266,11 +266,11 @@ module Civitas
         end
 
         def puedoEdificarHotel(propiedad)
-            return (propiedad.nCasas == @CasasPorHotel && propiedad.nHoteles < @HotelesMax)
+            return (propiedad.nCasas == @@CasasPorHotel && propiedad.nHoteles < @@hotelesMax)
         end
 
         def puedoEdificarCasa(propiedad)
-            return (propiedad.nCasas < @CasasMax)
+            return (propiedad.nCasas < @@casasMax)
         end
 
         def construirHotel(ip)
@@ -285,7 +285,7 @@ module Civitas
                 if (puedoGastar(precio) && puedoEdificar)
                     result = propiedad.construirHotel(self)
                     if result
-                        propiedad.derruirCasas(@CasasPorHotel, self)
+                        propiedad.derruirCasas(@@CasasPorHotel, self)
                         Diario.instance.ocurre_evento("El jugador " + @nombre + " ha construido un hotel en la propiedad " + propiedad.nombre)
                     end
                 end

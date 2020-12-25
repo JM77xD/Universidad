@@ -13,6 +13,7 @@
 
 #include "ruta.h"
 #include <set>
+#include <map>
 
 using namespace std;
 
@@ -34,6 +35,21 @@ class Almacen_Rutas{
 		 * 
 		 */
     	set<Ruta> datos;
+		
+		/**
+		 * @brief Numero de puntos de interés de las diferentes rutas
+		 * 
+		 */
+		int nInteres = 0;
+
+
+		/**
+		 * @brief Puntos de interes de las rutas
+		 * 
+		 * @see Punto
+		 * 
+		 */
+		map<Punto, string> puntosInteres;
 
   	public:
 
@@ -336,20 +352,35 @@ class Almacen_Rutas{
 		 * @return Devuelve un flujo de entrada, permitiendo la concatenación de entradas
 		 */
 		friend istream & operator>>(istream & is, Almacen_Rutas & R){
-		      Almacen_Rutas rlocal;
-		      //leemos el comentario
-		      if (is.peek()=='#'){
-			string a;
-			getline(is,a);
-		      }	
+		    Almacen_Rutas rlocal;
+		    //leemos el comentario
+		    if (is.peek()=='#'){
+				string a;
+				getline(is,a);
+		    }
 
-		      Ruta P;
-		      while (is>>P){
-			  rlocal.Insertar(P);
+		    Ruta P;
 
-		      }
-		      R=rlocal;
-		      return is;
+		    while (is.peek() != '#' && !is.eof()){
+				is >> P;
+				rlocal.Insertar(P);
+				is.ignore(100, '\n');
+		    }
+
+			if (is.peek() == '#') {
+				string a;
+				getline (is,a);
+				while (!is.eof()) {
+					rlocal.nInteres++;
+					pair<Punto, string> p;
+					is >> p.first;
+					getline(is, p.second);
+					rlocal.puntosInteres.insert(p);
+				}
+			}
+
+		    R=rlocal;
+		    return is;
 		}
 		
 		/**
@@ -365,6 +396,13 @@ class Almacen_Rutas{
 		    for (it=R.begin(); it!=R.end(); ++it){
 			os<<*it<<"\n";
 		    }
+			if (R.nInteres > 0) {
+				os << "\nLos puntos de interés:\n";
+				map<Punto,string>::const_iterator i;
+				for (i = R.puntosInteres.begin(); i != R.puntosInteres.end(); ++i) {
+					os << (*i).first << (*i).second << endl;
+				}
+			}
 		    return os;
 		}
 };

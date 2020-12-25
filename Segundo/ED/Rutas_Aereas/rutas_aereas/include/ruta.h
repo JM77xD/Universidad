@@ -42,7 +42,7 @@ class Ruta {
         string nombreRuta;
 
 		/**
-		 * @brief Numero de Puntos que tiene la Ruta
+		 * @brief Numero de puntos que tiene la Ruta
 		 * 
 		 */
         int nPuntos;

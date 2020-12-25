@@ -103,6 +103,28 @@ class Punto {
         }
 
         /**
+         * @brief Comparación de inferioridad
+         * 
+         * @param p Punto con el que comparar
+         * @return true Si la latitud de this es menor a la de P
+         * @return false Si la latitud de this es mayor o igual a la de p
+         */
+        bool operator<(const Punto & p) const {
+            return (latitud < p.latitud);
+        }
+
+        /**
+         * @brief Comparación de superioridad
+         * 
+         * @param p Punto con el que comparar
+         * @return true Si la latitud de this es mayor a la de P
+         * @return false Si la latitud de this es menor o igual a la de p
+         */
+        bool operator>(const Punto & p) const {
+            return (latitud > p.latitud);
+        }
+
+        /**
 		 * @brief Operador de salida
 		 * 
 		 * @param os Flujo de salida por el que se van a sacar los datos

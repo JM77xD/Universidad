@@ -72,5 +72,5 @@ public class MazoSorpresas {
             sorpresas.add(cartasEspeciales.remove(indice));
             Diario.getInstance().ocurreEvento("Una carta sorpresa ha sido retirada del mazo de descartes y añadida al mazo de juego");
         }
-    }
+    } 
 }

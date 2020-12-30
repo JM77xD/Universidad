@@ -50,18 +50,14 @@ class Paises{
 		 * 
 		 * @param P Pais a insertar
 		 */
-    	void Insertar(const Pais &P){
-	  		datos.insert(P);
-      	}
+    	void Insertar(const Pais &P);
 
 		/**
 		 * @brief Borra un Pais del conjunto de paises
 		 * 
 		 * @param P Pais a borrar
 		 */
-      	void Borrar(const Pais &P){
-	  		datos.erase(P);
-      	}
+      	void Borrar(const Pais &P);
 
 		/**
 		 * @class iterator
@@ -259,11 +255,7 @@ class Paises{
 		 * 
 		 * @see iterator
 		 */
-		iterator begin(){
-			iterator it;
-			it.p = datos.begin();
-			return it;
-		}  
+		iterator begin();  
 
 		/**
 		 * @brief Apunta al comienzo de datos
@@ -272,11 +264,7 @@ class Paises{
 		 * 
 		 * @see const_iterator
 		 */
-		const_iterator begin()const{
-			const_iterator it;
-			it.p = datos.begin();
-			return it;
-		}
+		const_iterator begin()const;
 		
 		/**
 		 * @brief Apunta al final de datos
@@ -285,11 +273,7 @@ class Paises{
 		 * 
 		 * @see iterator
 		 */
-		iterator end(){
-			iterator it;
-			it.p = datos.end();
-			return it;
-		}
+		iterator end();
 
 		/**
 		 * @brief Apunta al final de datos
@@ -298,11 +282,7 @@ class Paises{
 		 * 
 		 * @see const_iterator
 		 */
-		const_iterator end()const{
-			const_iterator it;
-			it.p = datos.end();
-			return it;
-		}
+		const_iterator end()const;
 
 		/**
 		 * @brief Encuentra un Pais en el conjunto de paises actual
@@ -310,13 +290,7 @@ class Paises{
 		 * @param p Pais a encontrar
 		 * @return Devuelve un iterator sobre el Pais p
 		 */
-		iterator find(const Pais &p){
-		    iterator it;
-		    set<Pais>::iterator i;
-		    for (i=datos.begin(); i!=datos.end() && !((*i)==p);++i);
-		    it.p=i;
-		    return it;
-		}
+		iterator find(const Pais &p);
 
 		/**
 		 * @brief Encuentra un Pais que se localice en un Punto concreto en el conjunto de paises actual
@@ -324,13 +298,7 @@ class Paises{
 		 * @param p Punto a encontrar
 		 * @return Devuelve un iterator sobre el Pais cuya localización coincide con p
 		 */
-		iterator find(const Punto &p){
-		    iterator it;
-		    set<Pais>::iterator i;
-		    for (i=datos.begin(); i!=datos.end() && !((*i)==p);++i);
-		    it.p=i;
-		    return it;
-		}
+		iterator find(const Punto &p);
 
 		/**
 		 * @brief Operador de entrada
@@ -339,22 +307,7 @@ class Paises{
 		 * @param R Objeto de la clase Paises en el que se introducen los datos leidos
 		 * @return Devuelve un flujo de entrada, permitiendo la concatenación de entradas
 		 */
-		friend istream & operator>>(istream & is, Paises & R){
-		      Paises rlocal;
-		      //leemos el comentario
-		      if (is.peek()=='#'){
-			string a;
-			getline(is,a);
-		      }	
-
-		      Pais P;
-		      while (is>>P){
-			  rlocal.Insertar(P);
-
-		      }
-		      R=rlocal;
-		      return is;
-		}
+		friend istream & operator>>(istream & is, Paises & R);
 		
 		/**
 		 * @brief Operador de salida
@@ -363,14 +316,7 @@ class Paises{
 		 * @param R Objeto de la clase Paises del que se van a leer los datos
 		 * @return Devuelve un flujo de salida, permitiendo la concatenación de salidas
 		 */
-		friend ostream & operator<<(ostream & os, const Paises &R){
-		
-		    Paises::const_iterator it;
-		    for (it=R.begin(); it!=R.end(); ++it){
-			os<<*it<<"\t";
-		    }
-		    return os;
-		}
+		friend ostream & operator<<(ostream & os, const Paises &R);
 };
 #endif
 

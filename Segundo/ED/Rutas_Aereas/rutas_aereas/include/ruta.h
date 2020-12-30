@@ -16,7 +16,6 @@
 #include <list>
 #include <string>
 #include <cassert>
-#include <iostream>
 
 
 using namespace std;
@@ -69,22 +68,14 @@ class Ruta {
 		 * @param nombre Nombre de la ruta
 		 * @param p Lista de puntos que forman la ruta
 		 */
-        Ruta(string nombre, list<Punto> p) {
-            nombreRuta = nombre;
-            puntos = p;
-            nPuntos = p.size();
-        }
+        Ruta(string nombre, list<Punto> p);
 
 		/**
 		 * @brief Constructor de copia
 		 * 
 		 * @param r Ruta de la que copiar los valores
 		 */
-        Ruta(const Ruta &r) {
-            nombreRuta = r.nombreRuta;
-            nPuntos = r.nPuntos;
-            puntos = r.puntos;
-        }
+        Ruta(const Ruta &r);
 
 		/**
 		 * @brief Permite obtener el Punto en una posición concreta
@@ -92,13 +83,7 @@ class Ruta {
 		 * @param pos Posición de la que obtener el punto
 		 * @return Devuelve el objeto de la clase Punto en la posición pos
 		 */
-        Punto getPunto(int pos) {
-            assert(pos < puntos.size());
-            list<Punto>::iterator it = puntos.begin();
-            for (int i = 0; i < pos; i++)
-                ++it;
-            return *it;
-        }
+        Punto getPunto(int pos);
 
 		/**
 		 * @brief Comparativa de igualdad
@@ -231,16 +216,7 @@ class Ruta {
 		 * @param r Objeto de la clase Ruta del que se van a leer los datos
 		 * @return Devuelve un flujo de salida, permitiendo la concatenación de salidas
 		 */
-        friend ostream &operator<<(ostream &os, const Ruta &r) {
-            os << r.nombreRuta << "\t" << r.nPuntos << "\t";
-
-            list<Punto>::const_iterator it;
-
-            for (it = r.puntos.cbegin(); it != r.puntos.cend(); ++it)
-                os << *it;
-
-            return os;
-        }
+        friend ostream &operator<<(ostream &os, const Ruta &r);
 
 		/**
 		 * @brief Operador de entrada
@@ -249,17 +225,7 @@ class Ruta {
 		 * @param r Objeto de la clase Ruta en el que se introducen los datos leidos
 		 * @return Devuelve un flujo de entrada, permitiendo la concatenación de entradas
 		 */
-        friend istream & operator>>(istream &is , Ruta & r) {
-            is >> r.nombreRuta >> r.nPuntos;
-
-            for (int i = 0; i < r.nPuntos; i++) {
-                Punto p;
-                is >> p;
-                r.puntos.push_back(p);
-            }
-
-            return is;
-        }
+        friend istream & operator>>(istream &is , Ruta & r);
 
 
 //------------------------------------------------------ITERADORES----------------------------------------
@@ -461,11 +427,7 @@ class Ruta {
 		 * 
 		 * @see iterator
 		 */
-		iterator begin(){
-			iterator it;
-			it.p = puntos.begin();
-			return it;
-		}  
+		iterator begin(); 
 
 		/**
 		 * @brief Apunta al comienzo de puntos
@@ -474,11 +436,7 @@ class Ruta {
 		 * 
 		 * @see const_iterator
 		 */
-		const_iterator begin()const{
-			const_iterator it;
-			it.p = puntos.begin();
-			return it;
-		}
+		const_iterator begin()const;
 
 		/**
 		 * @brief Apunta al final de puntos
@@ -487,11 +445,7 @@ class Ruta {
 		 * 
 		 * @see iterator
 		 */
-		iterator end(){
-			iterator it;
-			it.p = puntos.end();
-			return it;
-		}
+		iterator end();
 
 		/**
 		 * @brief Apunta al final de puntos
@@ -500,11 +454,7 @@ class Ruta {
 		 * 
 		 * @see const_iterator
 		 */
-		const_iterator end()const{
-			const_iterator it;
-			it.p = puntos.end();
-			return it;
-		}
+		const_iterator end()const;
 
 		/**
 		 * @brief Encuentra si el Punto p se encuentra en la Ruta actual
@@ -512,13 +462,7 @@ class Ruta {
 		 * @param p Punto a encontrar
 		 * @return Devuelve un iterator sobre el Punto que coincide con P
 		 */
-		iterator find(const Punto &p){
-		    iterator it;
-		    list<Punto>::iterator i;
-		    for (i=puntos.begin(); i!=puntos.end() && !((*i)==p);++i);
-		    it.p=i;
-		    return it;
-		}
+		iterator find(const Punto &p);
         
 
 

@@ -13,8 +13,8 @@ CPPFLAGS = -Wall -g  -I$(INC) -c
 
 all: $(BIN)/rutas_aereas documentacion
 
-$(BIN)/rutas_aereas: $(OBJ)/rutas_aereas.o $(LIB)/libimagenes.a
-	$(CXX) -I$(INC) -o $@ $< -L$(LIB) -limagenes
+$(BIN)/rutas_aereas: $(OBJ)/rutas_aereas.o $(LIB)/libimagenes.a	$(LIB)/libpaises.a $(LIB)/librutas.a
+	$(CXX) -I$(INC) -o $@ $< -L$(LIB) -limagenes -lpaises -lrutas
 		
 $(OBJ)/rutas_aereas.o: $(SRC)/rutas_aereas.cpp $(INC)/imagen.h $(INC)/almacen_rutas.h $(INC)/Paises.h
 	$(CXX) $(CPPFLAGS) $< -o $@
@@ -26,6 +26,24 @@ $(OBJ)/imagenes.o: $(SRC)/imagen.cpp $(INC)/imagenES.h
 	$(CXX) $(CPPFLAGS) -o $@ $<
 
 $(OBJ)/imagenES.o: $(SRC)/imagenES.cpp
+	$(CXX) $(CPPFLAGS) -o $@ $<
+
+$(LIB)/libpaises.a: $(OBJ)/Paises.o $(OBJ)/Pais.o
+	ar -rvs $@ $^
+
+$(OBJ)/Paises.o: $(SRC)/Paises.cpp $(INC)/Pais.h
+	$(CXX) $(CPPFLAGS) -o $@ $<
+
+$(OBJ)/Pais.o: $(SRC)/Pais.cpp
+	$(CXX) $(CPPFLAGS) -o $@ $<
+
+$(LIB)/librutas.a: $(OBJ)/almacen_rutas.o $(OBJ)/ruta.o
+	ar -rvs $@ $^
+
+$(OBJ)/almacen_rutas.o: $(SRC)/almacen_rutas.cpp $(INC)/ruta.h
+	$(CXX) $(CPPFLAGS) -o $@ $<
+
+$(OBJ)/ruta.o: $(SRC)/ruta.cpp
 	$(CXX) $(CPPFLAGS) -o $@ $<
 
 

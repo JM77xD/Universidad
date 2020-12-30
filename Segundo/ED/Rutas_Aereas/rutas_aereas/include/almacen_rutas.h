@@ -59,11 +59,7 @@ class Almacen_Rutas{
 		 * @param a Código de la ruta a obtener
 		 * @return Devuelve un objeto ruta
 		 */
-        Ruta GetRuta(const string a) {
-            iterator it;
-            for (it = begin(); it != end() && !((*it)==a); ++it);
-            return *it;
-        }
+        Ruta GetRuta(const string a);
 
 		/**
 		 * @brief Constructor por defecto
@@ -76,18 +72,14 @@ class Almacen_Rutas{
 		 * 
 		 * @param R Ruta a insertar
 		 */
-    	void Insertar(const Ruta &R){
-	  		datos.insert(R);
-      	}
+    	void Insertar(const Ruta &R);
 
 		/**
 		 * @brief Borra una Ruta del conjunto de Rutas
 		 * 
 		 * @param R Ruta a borrar
 		 */
-      	void Borrar(const Ruta &R){
-	  		datos.erase(R);
-      	}
+      	void Borrar(const Ruta &R);
 
 		/**
 		 * @class iterator
@@ -285,11 +277,7 @@ class Almacen_Rutas{
 		 * 
 		 * @see iterator
 		 */
-		iterator begin(){
-			iterator it;
-			it.r = datos.begin();
-			return it;
-		}  
+		iterator begin();  
 
 		/**
 		 * @brief Apunta al comienzo de datos
@@ -298,11 +286,7 @@ class Almacen_Rutas{
 		 * 
 		 * @see const_iterator
 		 */
-		const_iterator begin()const{
-			const_iterator it;
-			it.r = datos.begin();
-			return it;
-		}
+		const_iterator begin()const;
 
 		/**
 		 * @brief Apunta al final de datos
@@ -311,11 +295,7 @@ class Almacen_Rutas{
 		 * 
 		 * @see iterator
 		 */
-		iterator end(){
-			iterator it;
-			it.r = datos.end();
-			return it;
-		}
+		iterator end();
 
 		/**
 		 * @brief Apunta al final de datos
@@ -324,11 +304,7 @@ class Almacen_Rutas{
 		 * 
 		 * @see const_iterator
 		 */
-		const_iterator end()const{
-			const_iterator it;
-			it.r = datos.end();
-			return it;
-		}
+		const_iterator end()const;
 
 		/**
 		 * @brief Encuentra una Ruta en el conjunto de rutas actual
@@ -336,13 +312,7 @@ class Almacen_Rutas{
 		 * @param r Ruta a encontrar
 		 * @return Devuelve un iterator sobre la Ruta r
 		 */
-		iterator find(const Ruta &r){
-		    iterator it;
-		    set<Ruta>::iterator i;
-		    for (i=datos.begin(); i!=datos.end() && !((*i)==r);++i);
-		    it.r=i;
-		    return it;
-		}
+		iterator find(const Ruta &r);
 
 		/**
 		 * @brief Operador de entrada
@@ -351,37 +321,7 @@ class Almacen_Rutas{
 		 * @param R Objeto de la clase Almacen_Rutas en el que se introducen los datos leidos
 		 * @return Devuelve un flujo de entrada, permitiendo la concatenación de entradas
 		 */
-		friend istream & operator>>(istream & is, Almacen_Rutas & R){
-		    Almacen_Rutas rlocal;
-		    //leemos el comentario
-		    if (is.peek()=='#'){
-				string a;
-				getline(is,a);
-		    }
-
-		    Ruta P;
-
-		    while (is.peek() != '#' && !is.eof()){
-				is >> P;
-				rlocal.Insertar(P);
-				is.ignore(100, '\n');
-		    }
-
-			if (is.peek() == '#') {
-				string a;
-				getline (is,a);
-				while (!is.eof()) {
-					rlocal.nInteres++;
-					pair<Punto, string> p;
-					is >> p.first;
-					getline(is, p.second);
-					rlocal.puntosInteres.insert(p);
-				}
-			}
-
-		    R=rlocal;
-		    return is;
-		}
+		friend istream & operator>>(istream & is, Almacen_Rutas & R);
 		
 		/**
 		 * @brief Operador de salida
@@ -390,21 +330,7 @@ class Almacen_Rutas{
 		 * @param R Objeto de la clase Almacen_Rutas del que se van a leer los datos
 		 * @return Devuelve un flujo de salida, permitiendo la concatenación de salidas
 		 */
-		friend ostream & operator<<(ostream & os, const Almacen_Rutas &R){
-		
-		    Almacen_Rutas::const_iterator it;
-		    for (it=R.begin(); it!=R.end(); ++it){
-			os<<*it<<"\n";
-		    }
-			if (R.nInteres > 0) {
-				os << "\nLos puntos de interés:\n";
-				map<Punto,string>::const_iterator i;
-				for (i = R.puntosInteres.begin(); i != R.puntosInteres.end(); ++i) {
-					os << (*i).first << (*i).second << endl;
-				}
-			}
-		    return os;
-		}
+		friend ostream & operator<<(ostream & os, const Almacen_Rutas &R);
 };
 
 #endif

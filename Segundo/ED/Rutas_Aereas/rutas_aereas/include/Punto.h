@@ -13,6 +13,10 @@
 
 #define _PUNTO_
 
+#include <iostream>
+
+using namespace std;
+
 /**
  * @class Punto
  * 

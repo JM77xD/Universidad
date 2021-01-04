@@ -54,7 +54,7 @@ istream & operator>>(istream & is, Almacen_Rutas & R){
 		getline(is,a);
     }
 
-    Ruta P;
+	Ruta P;
 
     while (is.peek() != '#' && !is.eof()){
 		is >> P;
@@ -81,7 +81,7 @@ istream & operator>>(istream & is, Almacen_Rutas & R){
 ostream & operator<<(ostream & os, const Almacen_Rutas &R){	
     Almacen_Rutas::const_iterator it;
     for (it=R.begin(); it!=R.end(); ++it){
-	os<<*it<<"\n";
+		os<<*it<<"\n";
     }
 	if (R.nInteres > 0) {
 		os << "\nLos puntos de interés:\n";
@@ -89,6 +89,7 @@ ostream & operator<<(ostream & os, const Almacen_Rutas &R){
 		for (i = R.puntosInteres.begin(); i != R.puntosInteres.end(); ++i) {
 			os << (*i).first << (*i).second << endl;
 		}
+		os << endl << endl;
 	}
     return os;
 }

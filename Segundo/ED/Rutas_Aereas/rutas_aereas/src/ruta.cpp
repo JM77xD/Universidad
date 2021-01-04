@@ -34,6 +34,10 @@ ostream &operator<<(ostream &os, const Ruta &r) {
 istream & operator>>(istream &is , Ruta & r) {
     is >> r.nombreRuta >> r.nPuntos;
 
+    if (!r.puntos.empty()) {
+        r.puntos.clear();
+    }
+
     for (int i = 0; i < r.nPuntos; i++) {
         Punto p;
         is >> p;

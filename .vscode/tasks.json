@@ -22,6 +22,25 @@
 
         {
             "type": "shell",
+            "label": "gcc build active .c file",
+            "command": "/usr/bin/gcc",
+            "args": [
+                "${file}",
+                "-o",
+                "${fileDirname}/${fileBasenameNoExtension}_exe"
+            ],
+            "options": {
+                "cwd": "/usr/bin"
+            },
+            "problemMatcher": [],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            }
+        },
+
+        {
+            "type": "shell",
             "label": "g++ build active file HEBRAS",
             "command": "/usr/bin/g++",
             "args": [

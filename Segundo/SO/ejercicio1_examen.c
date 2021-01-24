@@ -38,7 +38,7 @@ int main(int argc, char *argv[]) {
     int copiados;
     char mensajeCopia[400], cadenaArch1[400], cadenaArch2[400];
 
-    umask(S_IXUSR | S_IWGRP | S_IXGRP | S_IWOTH | S_IXOTH);
+    umask(S_IXUSR | S_IWGRP | S_IXGRP | S_IWOTH | S_IXOTH); //Establecemos la máscara para restringir permisos de escritura y ejecución de los archivos que creemos
 
     if ((copiados = open("copiados.txt", O_WRONLY | O_CREAT | O_TRUNC, S_IRWXU)) < 0) { //Abrimos el copiados.txt para llevar la cuenta de los elementos que copiamos
         closedir(directorio_in);
@@ -66,6 +66,7 @@ int main(int argc, char *argv[]) {
             sprintf(cadenaArch2, "%s%s", argv[2], archivo_act->d_name);
 
             /*
+
             //Creamos un hijo que ejecute la operación de copia
             pid_t pid;
             if ((pid = fork()) < 0) {
@@ -76,9 +77,9 @@ int main(int argc, char *argv[]) {
                 exit(-1);
             }
             if (pid == 0) {
-                execl("/bin/cp", "cp", cadenaArch1, cadenaArch2, (char *) NULL);
+                execl("/bin/cp", "cp", cadenaArch1, cadenaArch2, (char *) NULL);    //Ejecutamos la función de copia
             } else {
-                signal(SIGCHLD, SIG_IGN);
+                signal(SIGCHLD, SIG_IGN);   //Ignoramos la señal del hijo
             }
 
             */
@@ -86,11 +87,17 @@ int main(int argc, char *argv[]) {
             int fd_in, fd_out;
 
             if ((fd_in = open(cadenaArch1, O_RDONLY | __O_LARGEFILE, S_IRWXU)) < 0) {
+                closedir(directorio_in);
+                closedir(directorio_out);
+                close(copiados);
                 perror("\nError en el open del primer archivo\n");
                 exit(-1);
             }
 
             if ((fd_out = open(cadenaArch2, O_WRONLY | O_CREAT | O_TRUNC | __O_LARGEFILE, S_IRWXU)) < 0) {
+                closedir(directorio_in);
+                closedir(directorio_out);
+                close(copiados);
                 perror("\nError en el open del segundo archivo\n");
                 exit(-1);
             }
@@ -112,4 +119,5 @@ int main(int argc, char *argv[]) {
     closedir(directorio_out);
     close(copiados);
     
+    exit(0);
 }

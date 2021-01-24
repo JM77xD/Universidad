@@ -1,3 +1,3 @@
 #!/bin/bash
 
-rm *_exe
+rm *_exe *.txt

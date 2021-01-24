@@ -65,6 +65,7 @@ int main(int argc, char *argv[]) {
             write(copiados, mensajeCopia, strlen(mensajeCopia));
             sprintf(cadenaArch2, "%s%s", argv[2], archivo_act->d_name);
 
+            /*
             //Creamos un hijo que ejecute la operación de copia
             pid_t pid;
             if ((pid = fork()) < 0) {
@@ -79,6 +80,30 @@ int main(int argc, char *argv[]) {
             } else {
                 signal(SIGCHLD, SIG_IGN);
             }
+
+            */
+
+            int fd_in, fd_out;
+
+            if ((fd_in = open(cadenaArch1, O_RDONLY | __O_LARGEFILE, S_IRWXU)) < 0) {
+                perror("\nError en el open del primer archivo\n");
+                exit(-1);
+            }
+
+            if ((fd_out = open(cadenaArch2, O_WRONLY | O_CREAT | O_TRUNC | __O_LARGEFILE, S_IRWXU)) < 0) {
+                perror("\nError en el open del segundo archivo\n");
+                exit(-1);
+            }
+
+            int leidos;
+            char leyendo[100];
+
+            while ((leidos = read(fd_in, leyendo, 100)) > 0) {
+                write(fd_out, leyendo , leidos);
+            }
+
+            close(fd_in);
+            close(fd_out);
 
         }
     }

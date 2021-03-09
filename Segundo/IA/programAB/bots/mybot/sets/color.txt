@@ -1,0 +1,12 @@
+amarillo
+rojo
+verde
+azul
+violeta
+naranja
+negro
+blanco
+marron
+beige
+turquesa
+celeste

@@ -1,0 +1,216 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<aiml>
+
+<!--Primera regla-->
+<category>
+
+    <pattern> Hola * </pattern>
+    <template> Hola, que tal? </template>
+
+</category>
+
+<!--Segunda regla-->
+<category>
+
+    <pattern> Yo bien, que tal tu </pattern>
+    <template> Estoy genial!! Me encanta conocer gente nueva </template>
+
+</category>
+
+<!--Tercera regla-->
+<category>
+
+    <pattern> ^ me llamo * </pattern>
+    <template>
+    <think><set name="nombre"><star index="2"/></set></think>
+    <get name="nombre"/> es un bonito nombre
+    </template>
+
+</category>
+
+<category>
+
+    <pattern> ^ mi nombes es * </pattern>
+    <template>
+    <srai> ^ me llamo * </srai>
+    </template>
+
+</category>
+
+<!--Cuarta regla-->
+<category>
+
+    <pattern> Hola </pattern>
+    <template> Hola de nuevo, que tal? </template>
+
+</category>
+
+<!--Quinta regla-->
+<category>
+
+    <pattern> cual es tu edad </pattern>
+    <template> Tengo <bot name="age"/> anios </template>
+
+</category>
+
+<!--Sexta regla-->
+<category>
+
+    <pattern> Cual es mi nombre </pattern>
+    <template>
+
+    <condition name="nombre">
+        <li value="unknown"> Aun no me has dicho tu nombre, me lo dices? </li>
+        <li> Tu nombre es <get name="nombre"/> </li>
+    </condition>
+
+    </template>
+
+</category>
+
+<category>
+
+    <pattern> ^ </pattern>
+    <that> Aun no me has dicho tu nombre, me lo dices </that>
+    <template>
+    <think><set name="nombre"><star/></set></think>
+    <get name="nombre"/> es un bonito nombre
+    </template>
+
+</category>
+
+<!--Septima regla-->
+<category>
+
+    <pattern> Mi color favorito es el * </pattern>
+    <template>
+    <think> <set var="color"> <star/> </set> </think>
+    El <get var="color"/> no me gusta
+    </template>
+
+</category>
+
+<!--Regla 8-->
+<category>
+
+    <pattern> ^ mi nombre </pattern>
+    <template>
+        <srai> cual es mi nombre </srai>
+    </template>
+
+</category>
+
+<!--Regla 9-->
+<category>
+
+    <pattern> ^ como me llamo </pattern>
+    <template>
+        <srai> cual es mi nombre </srai>
+    </template>
+
+</category>
+
+<!-- Sustitución saludos -->
+<category>
+
+    <pattern> Buenos ^ </pattern>
+    <template>
+        <srai> Hola * </srai>
+    </template>
+
+</category>
+
+<category>
+
+    <pattern> Buenas ^ </pattern>
+    <template>
+        <srai> Hola * </srai>
+    </template>
+
+</category>
+
+<category>
+
+    <pattern> Ey ^ </pattern>
+    <template>
+        <srai> Hola * </srai>
+    </template>
+
+</category>
+
+<!-- Fin sustitución saludos -->
+
+<category>
+
+    <pattern> Es <set>color</set> un color </pattern>
+    <template> Si, <star/> es un color </template>
+
+</category>
+
+<category>
+
+    <pattern> Es * un color </pattern>
+    <template> No, <star/> no es un color </template>
+
+</category>
+
+<category>
+
+    <pattern> cual es la capital de <set>pais</set> </pattern>
+    <template> La capital de <star/> es <map name="capital"> <star/> </map> </template>
+
+</category>
+
+<category>
+
+    <pattern> cual es la capital de * </pattern>
+    <template> No se cual es la capital de <star/> </template>
+
+</category>
+
+<!-- Regla 14 -->
+<category>
+
+    <pattern> ^ cafe ^ </pattern>
+    <template> Te gusta el cafe? </template>
+
+</category>
+
+<!-- Regla 15 -->
+<category>
+
+    <pattern> Si </pattern>
+    <that> Te gusta el cafe </that>
+    <template> Lo prefieres solo o con leche? </template>
+
+</category>
+
+<!-- Regla 16 -->
+<category>
+
+    <pattern> Cuenta hasta <set>number</set> </pattern>
+    <template>
+        <think>
+            <set var="contador">1</set>
+            <set var="salida">1</set>
+        </think>
+        <condition var="contador">
+            <li><value><star/></value> <get var="salida"/> </li>
+            <li>
+                <think>
+                <set var="contador">
+                <map name="successor"><get var="contador"/></map>
+                </set>
+                <set var="salida"> <get var="salida"/> <get var="contador"/></set>
+                </think>
+                <loop/>
+            </li>
+        </condition>
+
+    </template>
+
+</category>
+
+
+</aiml>

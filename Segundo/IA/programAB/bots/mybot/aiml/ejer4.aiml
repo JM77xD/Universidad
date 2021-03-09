@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<aiml>
+
+<category>
+
+    <pattern> * companiero ^ <set>compi</set> </pattern>
+    <template>
+    <think> <set name="companiero"> <star index="3"/> </set> </think>
+    <get name="companiero"/> es un compañero de clase.
+    </template>
+
+</category>
+
+<category>
+
+    <pattern> * companiero * </pattern>
+    <template>
+    Ese no es un compañero de clase
+    </template>
+
+</category>
+
+<category>
+
+    <pattern> * color * ojos de <set>compi</set> </pattern>
+    <template>
+    <think> <set name="companiero"> <star index="3"/> </set> </think>
+    Los ojos de <get name="companiero"/> son de color <map name="ojos"> <get name="companiero"/> </map>
+    </template>
+
+</category>
+
+<category>
+
+    <pattern> * color * pelo de <set>compi</set> </pattern>
+    <template>
+    <think> <set name="companiero"> <star index="3"/> </set> </think>
+    El pelo de <get name="companiero"/> es de color <map name="pelo"> <get name="companiero"/> </map>
+    </template>
+
+</category>
+
+<category>
+
+    <pattern> * color * ojos de * </pattern>
+    <template>
+    <think> <set name="companiero"> <star index="3"/> </set> </think>
+    No tienes ningún compañero que se llame <star index="3"/>
+    </template>
+
+</category>
+
+<category>
+
+    <pattern> * color * pelo de * </pattern>
+    <template>
+    <think> <set name="companiero"> <star index="3"/> </set> </think>
+    No tienes ningún compañero que se llame <star index="3"/>
+    </template>
+
+</category>
+
+<category>
+
+    <pattern> * companiero * preguntado antes </pattern>
+    <template>
+    Me has preguntado por <get name="companiero"/>
+    </template>
+
+</category>
+
+</aiml>

@@ -1,5 +1,0 @@
-Pablo:verdes
-Javier:marron
-Israel:marron
-Ana:marron
-Salvador:marron

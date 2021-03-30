@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<aiml>
+
+<category>
+
+    <pattern> Que companieros * <set>ojos</set> </pattern>
+
+    <template>
+        Los companieros <star index="2"/> son <map name="ojos"><star index="2"/></map>
+    </template>
+
+</category>
+
+<category>
+
+    <pattern> Que companieros son <set>pelo</set> </pattern>
+
+    <template>
+        Los companieros <star/> son <map name="pelo"><star/></map>
+    </template>
+
+</category>
+
+<category>
+
+    <pattern> Que companieros son * </pattern>
+
+    <template>
+        No tienes ningún compañero con ese color de pelo
+    </template>
+
+</category>
+
+<category>
+
+    <pattern> Que companieros * ojos * </pattern>
+
+    <template>
+        No tienes ningún compañero con ese color de pelo
+    </template>
+
+</category>
+
+
+</aiml>

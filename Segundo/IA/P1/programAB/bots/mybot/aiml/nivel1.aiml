@@ -1,0 +1,435 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<aiml>
+
+<!-- INFORMA DE LAS HORAS LIBRES PREGUNTADO UN DÍA CUALQUIERA, PRIMERO SIN TENER EN CUENTA MAÑANA Y TARDE, LUEGO SOLO POR LA MAÑANA Y LUEGO POR LA TARDE -->
+
+<category>
+
+    <pattern> * [hueco libre huecos] * ( dia ) <set>dia</set> de <set>month_es</set> del 21</pattern>
+
+    <template>
+        <think>
+            <!-- ACTUALIZACIÓN DE LA FECHA -->
+            <set name="fecha"><srai>CODE <star index="3"/> <map name="month"><star index="4"/></map> 21</srai></set>
+
+        </think>
+
+        <!-- SALIDA DE LA REGLA -->
+
+        <srai>FIND_HUECOS</srai>
+    </template>
+
+</category>
+
+<category>
+    <pattern> * [hueco libre huecos] * ( dia ) * manyana * <set>dia</set> de <set>month_es</set> del 21</pattern>
+
+    <template>
+
+        <think>
+            <!-- DECLARACIÓN DE ALGUNAS VARIABLES -->
+            <set name="fecha"><srai>CODE <star index="5"/> <map name="month"><star index="6"/></map> 21</srai></set>
+            <set var="horas_dia"><map name="eventos"><get name="fecha"/></map></set>
+            <set var="horas_m"><srai>SUBLIST FROM 9 TO 13 OF <get var="horas_dia"/></srai></set>
+            <set var="hora">8</set>
+            <set var="hora_f"></set>
+            <set var="cont_h"></set>
+            <set var="salida_m">unknown</set>
+            <set var="item"><srai>ITERATE <get var="horas_m"/></srai></set>
+
+            <!-- COMPROBACIÓN DE HORAS DE LA MAÑANA -->
+            <condition var="item">
+                <li value="$">
+                </li>
+
+                <li value="LIBRE">
+                    <set var="cont_h"><srai>COUNT <srai>DELETREA <get var="hora"/></srai></srai></set>
+
+                    <condition var="cont_h">
+                        <li value="1"><set var="hora_f">0<get var="hora"/>:00</set></li>
+                        <li><set var="hora_f"><get var="hora"/>:00</set></li>
+                    </condition>
+
+                    <condition var="salida_m">
+                        <li value="unknown">
+                            <set var="salida_m"><get var="hora_f"/></set>
+                        </li>
+                        <li>
+                            <set var="salida_m"><get var="salida_m"/> <get var="hora_f"/></set>
+                        </li>
+                    </condition>
+
+                    <set var="hora"><srai>PLUS <get var="hora"/> 1</srai></set>
+                    <set var="item"><srai>NEXT</srai></set>
+                    <loop/>
+                </li>
+
+                <li value="NOLIBRE">
+                    <set var="hora"><srai>PLUS <get var="hora"/> 1</srai></set>
+                    <set var="item"><srai>NEXT</srai></set>
+                    <loop/>
+                </li>
+
+            </condition>
+
+            <condition var="salida_m">
+
+                <li value="unknown">
+                    <set name="horas_libres">unknown</set>
+                </li>
+
+                <li>
+                    <set name="horas_libres"><get var="salida_m"/></set>
+                </li>
+
+            </condition>
+
+        </think>
+            
+            <!-- SALIDA DE LA REGLA -->
+
+            Pues <condition var="salida_m">
+                <li value="unknown">por la manyana está todo ocupado, me dices otro dia?</li>
+                <li>por la manyana tengo libre las siguientes horas: <get var="salida_m"/></li>
+            </condition>
+            
+
+    </template>
+
+</category>
+
+<category>
+    <pattern> * [hueco libre huecos] * ( dia ) * tarde * <set>dia</set> de <set>month_es</set> del 21</pattern>
+
+    <template>
+
+        <think>
+            <!-- DECLARACIÓN DE ALGUNAS VARIABLES -->
+            <set name="fecha"><srai>CODE <star index="5"/> <map name="month"><star index="6"/></map> 21</srai></set>
+            <set var="horas_dia"><map name="eventos"><get name="fecha"/></map></set>
+            <set var="horas_t"><srai>SUBLIST FROM 14 TO 21 OF <get var="horas_dia"/></srai></set>
+            <set var="hora">13</set>
+            <set var="hora_f"></set>
+            <set var="cont_h"></set>
+            <set var="salida_t">unknown</set>
+            <set var="item"><srai>ITERATE <get var="horas_t"/></srai></set>
+
+            <!-- COMPROBACIÓN DE HORAS DE LA TARDE -->
+            <condition var="item">
+                <li value="$">
+                </li>
+
+                <li value="LIBRE">
+                    <set var="cont_h"><srai>COUNT <srai>DELETREA <get var="hora"/></srai></srai></set>
+
+                    <condition var="cont_h">
+                        <li value="1"><set var="hora_f">0<get var="hora"/>:00</set></li>
+                        <li><set var="hora_f"><get var="hora"/>:00</set></li>
+                    </condition>
+
+                    <condition var="salida_t">
+                        <li value="unknown">
+                            <set var="salida_t"><get var="hora_f"/></set>
+                        </li>
+                        <li>
+                            <set var="salida_t"><get var="salida_t"/> <get var="hora_f"/></set>
+                        </li>
+                    </condition>
+
+                    <set var="hora"><srai>PLUS <get var="hora"/> 1</srai></set>
+                    <set var="item"><srai>NEXT</srai></set>
+                    <loop/>
+                </li>
+
+                <li value="NOLIBRE">
+                    <set var="hora"><srai>PLUS <get var="hora"/> 1</srai></set>
+                    <set var="item"><srai>NEXT</srai></set>
+                    <loop/>
+                </li>
+                                        
+            </condition>
+
+            <condition var="salida_t">
+
+                <li value="unknown">
+                    <set name="horas_libres">unknown</set>
+                </li>
+
+                <li>
+                    <set name="horas_libres"><get var="salida_t"/></set>
+                </li>
+
+            </condition>
+
+        </think>
+
+            <!-- SALIDA DE LA REGLA -->
+
+            Pues <condition var="salida_t">
+                <li value="unknown">por la tarde está todo ocupado, me dices otro dia?</li>
+                <li>por la tarde tengo libre las siguientes horas: <get var="salida_t"/>. Quieres alguna?</li>
+            </condition>
+            
+
+    </template>
+
+</category>
+
+<!-- FIN DE INFORMAR ACERCA DE LOS HUECOS LIBRES-->
+<!-- MARCAR EL HUECO SOLICITADO COMO NO LIBRE -->
+
+<category>
+
+    <pattern> ^ [Quiero Reserv+] * ( cita hor+ ) * <set>hora</set> </pattern>
+    <template>
+        <think>
+            <set var="existe"><srai>FINDITEM <star index="4"/> IN <get name="horas_libres"/></srai></set>
+
+            <condition var="existe">
+                <li value="0"><set var="salida">La hora <star index="4"/> no es válida</set></li>
+                <li>
+                    <srai>MARK NOLIBRE AT <star index="4"/> ON <get name="fecha"/></srai>
+                    <set var="salida">Se te ha reservado la cita a las <star index="4"/></set>
+                </li>
+            </condition>
+
+        </think>
+
+        <get var="salida"/>
+
+    </template>
+
+</category>
+
+<category>
+    <pattern>  * igual * hora * reserva </pattern>
+    <template>
+        <think>
+            <condition name="horas_libres">
+                <li value="unknown">No hay huecos en la fecha por la que preguntaste antes, puedes preguntarme otra fecha si quieres.</li>
+                <li>
+                    <think>
+                        <set var="hora"><srai>TOP <get name="horas_libres"/></srai></set>
+                    </think>
+                    <srai>MARK NOLIBRE AT <get var="hora"/> ON <get name="fecha"/></srai>
+                    <set var="salida">Se te ha reservado la cita a las <get var="hora"/></set>
+                </li>
+            </condition>
+
+        </think>
+        <get var="salida"/>
+    </template>
+</category>
+
+<category>
+    <pattern> No me importa * reserva ^ </pattern>
+    <template><srai>Me da igual la hora de la reserva</srai></template>
+</category>
+
+<category>
+
+    <pattern> ^ [Quiero Reserv+] * ( cita hor+ ) * </pattern>
+    <template>
+        Recuerda que el formato válido de hora es hh:00, y que las horas disponibles son <get name="horas_libres"/>
+    </template>
+
+</category>
+
+<!-- PREGUNTA POR EL DÍA COMPLETO, SE CONTESTA SIN DECIR HORAS CONCRETAS, SIMPLEMENTE SI HAY HUECOS LIBRES O NO -->
+<category>
+
+    <pattern> * dia <set>dia</set> de <set>month_es</set> del 21 libre </pattern>
+    <template>
+        <think>
+            <set name="fecha"><srai>CODE <star index="2"/> <map name="month"><star index="3"/></map> 21</srai></set>
+            <set var="horas_dia"><map name="eventos"><get name="fecha"/></map></set>
+            <set var="horas_dia"><srai>SUBLIST FROM 9 TO 21 OF <get var="horas_dia"/></srai></set>
+            <set var="item"><srai>ITERATE <get var="horas_dia"/></srai></set>
+            <set var="salida">unknown</set>
+            
+            <condition var="item">
+
+                <li value="$">
+
+                    <condition var="salida">
+
+                        <li value="unknown">
+                            <set var="salida"> Tengo el dia completo ocupado </set>
+                        </li>
+
+                        <li>
+                            <set var="salida"> Tengo algunos huecos </set>
+                        </li>
+
+                    </condition>
+
+                </li>
+
+                <li value="LIBRE">
+
+                    <set var="salida"> a</set>
+                    <set var="item"><srai>NEXT</srai></set>
+                    <loop/>
+
+                </li>
+
+                <li value="NOLIBRE">
+
+                    <set var="item"><srai>NEXT</srai></set>
+                    <loop/>
+
+                </li>
+
+            </condition>
+        </think>
+
+        <get var="salida"/>
+
+    </template>
+
+</category>
+
+<category>
+
+    <pattern> * huecos * </pattern>
+    <that> Tengo algunos huecos </that>
+    <template>
+        <srai>FIND_HUECOS</srai>
+    </template>
+
+
+</category>
+
+
+<!-- PATRÓN PARA BUSCAR HUECOS DADA UNA FECHA. SE USA EN EL DIA COMPLETO-->
+<category>
+
+    <pattern> FIND_HUECOS </pattern>
+    <template>
+        <think>
+            <!-- DECLARAMOS VARIABLES PERTINENTES -->
+            <set var="horas_dia"><map name="eventos"><get name="fecha"/></map></set>
+            <set var="horas_dia"><srai>SUBLIST FROM 9 TO 21 OF <get var="horas_dia"/></srai></set>
+            <set var="horas_m"><srai>SUBLIST FROM 1 TO 5 OF <get var="horas_dia"/></srai></set>
+            <set var="horas_t"><srai>SUBLIST FROM 6 TO 13 OF <get var="horas_dia"/></srai></set>
+            <set var="hora">8</set>
+            <set var="hora_f"></set>
+            <set var="cont_h"></set>
+            <set var="salida_m">unknown</set>
+            <set var="salida_t">unknown</set>
+
+
+            <!-- COMPROBAMOS LA MAÑANA -->
+            <set var="item"><srai>ITERATE <get var="horas_m"/></srai></set>
+            <condition var="item">
+                <li value="$">
+                </li>
+
+                <li value="LIBRE">
+                    <set var="cont_h"><srai>COUNT <srai>DELETREA <get var="hora"/></srai></srai></set>
+
+                    <condition var="cont_h">
+                        <li value="1"><set var="hora_f">0<get var="hora"/>:00</set></li>
+                        <li><set var="hora_f"><get var="hora"/>:00</set></li>
+                    </condition>
+
+                    <condition var="salida_m">
+                        <li value="unknown">
+                            <set var="salida_m"><get var="hora_f"/></set>
+                        </li>
+                        <li>
+                            <set var="salida_m"><get var="salida_m"/> <get var="hora_f"/></set>
+                        </li>
+                    </condition>
+
+                    <set var="hora"><srai>PLUS <get var="hora"/> 1</srai></set>
+                    <set var="item"><srai>NEXT</srai></set>
+                    <loop/>
+                </li>
+                <li value="NOLIBRE">
+                    <set var="hora"><srai>PLUS <get var="hora"/> 1</srai></set>
+                    <set var="item"><srai>NEXT</srai></set>
+                    <loop/>
+                </li>                          
+            </condition>
+
+
+            <!-- COMPROBAMOS LA TARDE -->
+            <set var="item"><srai>ITERATE <get var="horas_t"/></srai></set>
+            <condition var="item">
+                <li value="$">
+                
+                </li>
+
+                <li value="LIBRE">
+                    <set var="cont_h"><srai>COUNT <srai>DELETREA <get var="hora"/></srai></srai></set>
+
+                    <condition var="cont_h">
+                        <li value="1"><set var="hora_f">0<get var="hora"/>:00</set></li>
+                        <li><set var="hora_f"><get var="hora"/>:00</set></li>
+                    </condition>
+
+                    <condition var="salida_t">
+                        <li value="unknown">
+                            <set var="salida_t"><get var="hora_f"/></set>
+                        </li>
+                        <li>
+                            <set var="salida_t"><get var="salida_t"/> <get var="hora_f"/></set>
+                        </li>
+                    </condition>
+
+                    <set var="hora"><srai>PLUS <get var="hora"/> 1</srai></set>
+                    <set var="item"><srai>NEXT</srai></set>
+                    <loop/>
+                </li>
+
+                <li value="NOLIBRE">
+                    <set var="hora"><srai>PLUS <get var="hora"/> 1</srai></set>
+                    <set var="item"><srai>NEXT</srai></set>
+                    <loop/>
+                </li>
+
+            </condition>
+
+
+            <!-- ACTUALIZAMOS LOS VALORES DE LAS SALIDAS -->
+            <condition var="salida_m">
+
+                <li value="unknown">
+                    <condition var="salida_t">
+                        <li value="unknown"><set name="horas_libres">unknown</set></li>
+                        <li><set name="horas_libres"><get var="salida_t"/></set></li>
+                    </condition>
+                </li>
+
+                <li>
+                    <condition var="salida_t">
+                        <li value="unknown"><set name="horas_libres"><get var="salida_m"/></set></li>
+                        <li><set name="horas_libres"><get var="salida_m"/> <get var="salida_t"/></set></li>
+                    </condition>
+                </li>
+
+            </condition>
+
+        </think>
+
+            <!-- MOSTRAMOS LA RESPUESTA -->
+
+            Pues <condition var="salida_m">
+                <li value="unknown">por la manyana está todo ocupado</li>
+                <li>por la manyana tengo libre las siguientes horas: <get var="salida_m"/></li>
+            </condition> y <condition var="salida_t">
+                <li value="unknown"><condition var="salida_m">
+                        <li value="unknown">por la tarde también, me dices otro dia?</li>
+                        <li>por la tarde está todo ocupado, quieres alguna de por la manyana?</li>
+                    </condition> </li>
+                <li>por la tarde las siguientes: <get var="salida_t"/>. Quieres alguna?</li>
+            </condition>
+            
+    </template>
+    
+</category>
+
+
+</aiml>

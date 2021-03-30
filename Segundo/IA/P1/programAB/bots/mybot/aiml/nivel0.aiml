@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<aiml>
+
+<category>
+    <pattern> En que estacion estamos </pattern>
+    <template> 
+        Estamos en <srai>SEASON</srai>
+    </template>
+</category>
+
+<category>
+    <pattern> ^ que epoca es+ </pattern>
+    <template>
+        <srai> en que estacion estamos</srai>
+    </template>
+</category>
+
+<category>
+    <pattern> ^ que [fase parte] ^ dia es+</pattern>
+    <template>
+        Es por la <srai>DAY PHASE</srai>
+    </template>
+</category>
+
+<category>
+    <pattern> ^ que dia ^ semana [es sera] <set>proximos_dias</set> </pattern>
+    <template>
+    <think>
+        <set var="proximo"><star index="3"/></set>
+    </think>
+        <condition var="proximo">
+            <li value="manyana"> <get var="proximo"/> sera <srai>WEEKDAY IN 1 DAYS</srai> </li>
+            <li value="hoy"> <get var="proximo"/> es <srai>WEEKDAY IN 0 DAYS</srai> </li>
+            <li value="pasado manyana"> <get var="proximo"/> sera <srai>WEEKDAY IN 2 DAYS</srai> </li>
+            <li>No tengo mucha idea</li>
+        </condition>
+    </template>
+</category>
+
+<category>
+    <pattern> ^ que dia ^ semana [es sera] * </pattern>
+    <template>
+        No entiendo a que te refieres con <star/>
+    </template>
+</category>
+
+<category>
+    <pattern> ^ [que cual] ^ fecha ^ dentro de [una un] * </pattern>
+    <template>
+        <think> <set var="pregunta"><star index="4"/></set></think>
+        <condition var="pregunta">
+            <li value="dia">La fecha en un dia sera <srai>DATE IN 1 DAYS</srai> </li>
+            <li value="semana"> La fecha en una semana sera <srai>DATE IN 7 DAYS</srai> </li>
+            <li value="anyo"> La fecha en un anyo sera <srai>TOP <srai>DATE</srai> </srai> de <srai>MONTH</srai> de <srai>NEXT YEAR</srai></li>
+            <li> No se que quieres decir con eso </li>
+        </condition>
+    </template>
+</category>
+
+
+<category>
+    <pattern> ^ [cual que] ^ fecha ^ proximo <set>weekday_es</set> </pattern>
+    <template>
+        <think><set var="dia"><star index="4"/></set></think>
+        El proximo <get var="dia"/> es <srai>DATE IN <srai>DAYS UNTIL <get var="dia"/></srai> DAYS</srai>
+    </template>
+</category>
+
+<category>
+    <pattern> ^ [cual que] ^ fecha ^ proximo * </pattern>
+    <template>
+        No se muy bien a que te refieres con <star index="4"/>
+    </template>
+</category>
+
+
+</aiml>

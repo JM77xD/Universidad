@@ -1,0 +1,7 @@
+#!/bin/csh -vx
+echo "" >> fibonacci_optimizado.dat
+@ i = 1
+while ( $i < 53 )
+./fibonacci_optimizado $i >> fibonacci_optimizado.dat
+@ i += 2
+end

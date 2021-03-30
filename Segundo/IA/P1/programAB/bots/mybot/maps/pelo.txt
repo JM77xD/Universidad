@@ -1,0 +1,6 @@
+rubio:Pablo
+rubios:Pablo
+castanio:Javier, Ana y Salvador
+castanios:Javier, Ana y Salvador
+negro:Israel
+negros:Israel

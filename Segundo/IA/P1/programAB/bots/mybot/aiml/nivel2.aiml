@@ -1,0 +1,304 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<aiml>
+
+<!-- PREGUNTAS ACERCA DE LOS PROXIMOS DÍAS -->
+<category>
+    <pattern> * [hueco libre huecos] ^ <set>proximos_dias</set></pattern>
+
+    <template>
+        <think>
+            <set var="proximo"><star index="3"/></set>
+
+            <condition var="proximo">
+
+                <li value="manyana">
+                    <set var="fecha"><srai>DATE IN 1 DAYS</srai></set>
+                    <set var="fecha"><srai>INSERTITEM del POS 2 IN <get var="fecha"/></srai></set>
+                    <set var="fecha"><srai>INSERTITEM de POS 1 IN <get var="fecha"/></srai></set>        
+                </li>
+
+                <li value="hoy">
+                    <set var="fecha"><srai>DATE IN 0 DAYS</srai></set>
+                    <set var="fecha"><srai>INSERTITEM del POS 2 IN <get var="fecha"/></srai></set>
+                    <set var="fecha"><srai>INSERTITEM de POS 1 IN <get var="fecha"/></srai></set>
+                </li>
+
+                <li value="pasado manyana">
+                    <set var="fecha"><srai>DATE IN 2 DAYS</srai></set>
+                    <set var="fecha"><srai>INSERTITEM del POS 2 IN <get var="fecha"/></srai></set>
+                    <set var="fecha"><srai>INSERTITEM de POS 1 IN <get var="fecha"/></srai></set>      
+                </li>
+
+            </condition>
+
+        </think>
+
+        <srai>Tienes libre el dia <get var="fecha"/></srai>
+        
+    </template>
+
+</category>
+
+<category>
+    <pattern> * tienes <set>proximos_dias</set> libre</pattern>
+
+    <template>
+        <think>
+            <set var="proximo"><star index="3"/></set>
+        </think>
+        <condition value="proximo">
+            <li value="manyana">
+                <think>
+                    <set var="fecha"><srai>DATE IN 1 DAYS</srai></set>
+                    <set var="fecha"><srai>INSERTITEM del POS 2 IN <get var="fecha"/></srai></set>
+                    <set var="fecha"><srai>INSERTITEM de POS 1 IN <get var="fecha"/></srai></set>
+                </think>        
+                <srai>Tienes dia <get var="fecha"/> libre</srai>
+            </li>
+            <li value="hoy">
+                <think>
+                    <set var="fecha"><srai>DATE IN 0 DAYS</srai></set>
+                    <set var="fecha"><srai>INSERTITEM del POS 2 IN <get var="fecha"/></srai></set>
+                    <set var="fecha"><srai>INSERTITEM de POS 1 IN <get var="fecha"/></srai></set>
+                </think>        
+                <srai>Tienes dia <get var="fecha"/> libre</srai>
+            </li>
+            <li value="pasado manyana">
+                <think>
+                    <set var="fecha"><srai>DATE IN 2 DAYS</srai></set>
+                    <set var="fecha"><srai>INSERTITEM del POS 2 IN <get var="fecha"/></srai></set>
+                    <set var="fecha"><srai>INSERTITEM de POS 1 IN <get var="fecha"/></srai></set>
+                </think>        
+                <srai>Tienes dia <get var="fecha"/> libre</srai>
+            </li>
+        </condition>
+    </template>
+
+</category>
+
+<!-- EN CASO DE QUE EL DIA ESTÉ COMPLETO, PREGUNTAMOS POR OTRO DÍA -->
+<category>
+    <pattern> ^ <set>proximos_dias</set> ^ </pattern>
+    <that> por la manyana está todo ocupado, me dices otro dia </that>
+    <template>
+        <srai>Tienes hueco <star/> por la manyana</srai>
+    </template>
+</category>
+
+<category>
+    <pattern> ^ <set>proximos_dias</set> ^ </pattern>
+    <that> por la tarde está todo ocupado, me dices otro dia </that>
+    <template>
+        <srai>Tienes hueco <star/> por la tarde</srai>
+    </template>
+</category>
+
+<category>
+    <pattern> ^ <set>dia</set> de <set>month_es</set> del 21 </pattern>
+    <that> por la manyana está todo ocupado, me dices otro dia </that>
+    <template>
+        <srai>Tienes hueco la manyana del <star/> de <star index="2"/> del 21</srai>
+    </template>
+</category>
+
+<category>
+    <pattern> ^ <set>dia</set> de <set>month_es</set> del 21 </pattern>
+    <that> por la tarde está todo ocupado, me dices otro dia </that>
+    <template>
+        <srai>Tienes hueco la manyana del <star/> de <star index="2"/> del 21</srai>
+    </template>
+</category>
+
+<!-- PREGUNTAS EN CASO DE DIAS DE LA SEMANA -->
+<category>
+
+    <pattern> * [hueco libre huecos] ^ el (proximo) (siguiente) <set>weekday_es</set> </pattern>
+    <template>
+        <think>
+            <set var="fecha"><srai>DATE IN <srai>DAYS UNTIL <star index="3"/></srai> DAYS </srai></set>
+            <set var="fecha_f"><srai>INSERTITEM del POS 2 IN <get var="fecha"/></srai></set>
+            <set var="fecha_f"><srai>INSERTITEM de POS 1 IN <get var="fecha_f"/></srai></set>
+        </think>
+
+        <srai>Tienes libre el dia <get var="fecha_f"/></srai>
+
+    </template>
+
+</category>
+
+
+<!-- VAMOS A CONTEMPLAR LA POSIBILIDAD DE LIMITAR A LA MAÑANA, A LA TARDE, O A UNA CIERTA HORA -->
+
+<category>
+    <pattern> * [hueco libre huecos] ^ el (proximo) (siguiente) <set>weekday_es</set> (por la) manyana </pattern>
+    <template>
+        <think>
+            <set var="fecha"><srai>DATE IN <srai>DAYS UNTIL <star index="3"/></srai> DAYS </srai></set>
+            <set var="fecha_f"><srai>INSERTITEM del POS 2 IN <get var="fecha"/></srai></set>
+            <set var="fecha_f"><srai>INSERTITEM de POS 1 IN <get var="fecha_f"/></srai></set>
+        </think>
+
+        <srai>Tienes libre la manyana del <get var="fecha_f"/></srai>
+
+    </template>
+
+</category>
+
+<category>
+    <pattern> * [hueco libre huecos] ^ el (proximo) (siguiente) <set>weekday_es</set> (por la) tarde </pattern>
+    <template>
+        <think>
+            <set var="fecha"><srai>DATE IN <srai>DAYS UNTIL <star index="3"/></srai> DAYS </srai></set>
+            <set var="fecha_f"><srai>INSERTITEM del POS 2 IN <get var="fecha"/></srai></set>
+            <set var="fecha_f"><srai>INSERTITEM de POS 1 IN <get var="fecha_f"/></srai></set>
+        </think>
+
+        <srai>Tienes libre la tarde del <get var="fecha_f"/></srai>
+
+    </template>
+
+</category>
+
+<category>
+    <pattern> * [hueco libre huecos] ^ <set>proximos_dias</set> (por la) manyana</pattern>
+
+    <template>
+        <think>
+            <set var="proximo"><star index="3"/></set>
+
+            <condition var="proximo">
+
+                <li value="manyana">
+                    <set var="fecha"><srai>DATE IN 1 DAYS</srai></set>
+                    <set var="fecha"><srai>INSERTITEM del POS 2 IN <get var="fecha"/></srai></set>
+                    <set var="fecha"><srai>INSERTITEM de POS 1 IN <get var="fecha"/></srai></set>        
+                </li>
+
+                <li value="hoy">
+                    <set var="fecha"><srai>DATE IN 0 DAYS</srai></set>
+                    <set var="fecha"><srai>INSERTITEM del POS 2 IN <get var="fecha"/></srai></set>
+                    <set var="fecha"><srai>INSERTITEM de POS 1 IN <get var="fecha"/></srai></set>
+                </li>
+
+                <li value="pasado manyana">
+                    <set var="fecha"><srai>DATE IN 2 DAYS</srai></set>
+                    <set var="fecha"><srai>INSERTITEM del POS 2 IN <get var="fecha"/></srai></set>
+                    <set var="fecha"><srai>INSERTITEM de POS 1 IN <get var="fecha"/></srai></set>      
+                </li>
+
+            </condition>
+
+        </think>
+
+        <srai>Tienes libre la manyana del <get var="fecha"/></srai>
+        
+    </template>
+
+</category>
+
+<category>
+    <pattern> * [hueco libre huecos] ^ <set>proximos_dias</set> (por la) tarde</pattern>
+
+    <template>
+        <think>
+            <set var="proximo"><star index="3"/></set>
+
+            <condition var="proximo">
+
+                <li value="manyana">
+                    <set var="fecha"><srai>DATE IN 1 DAYS</srai></set>
+                    <set var="fecha"><srai>INSERTITEM del POS 2 IN <get var="fecha"/></srai></set>
+                    <set var="fecha"><srai>INSERTITEM de POS 1 IN <get var="fecha"/></srai></set>        
+                </li>
+
+                <li value="hoy">
+                    <set var="fecha"><srai>DATE IN 0 DAYS</srai></set>
+                    <set var="fecha"><srai>INSERTITEM del POS 2 IN <get var="fecha"/></srai></set>
+                    <set var="fecha"><srai>INSERTITEM de POS 1 IN <get var="fecha"/></srai></set>
+                </li>
+
+                <li value="pasado manyana">
+                    <set var="fecha"><srai>DATE IN 2 DAYS</srai></set>
+                    <set var="fecha"><srai>INSERTITEM del POS 2 IN <get var="fecha"/></srai></set>
+                    <set var="fecha"><srai>INSERTITEM de POS 1 IN <get var="fecha"/></srai></set>      
+                </li>
+
+            </condition>
+
+        </think>
+
+        <srai>Tienes libre la tarde del <get var="fecha"/></srai>
+        
+    </template>
+
+</category>
+
+<category>
+    <pattern> * [hueco libre huecos] ^ <set>proximos_dias</set> a partir de las <set>hora</set></pattern>
+    <template>
+        <think>
+            <set var="proximo"><star index="3"/></set>
+
+            <condition var="proximo">
+
+                <li value="manyana">
+                    <set var="fecha"><srai>DATE IN 1 DAYS</srai></set>
+                    <set var="fecha"><srai>INSERTITEM del POS 2 IN <get var="fecha"/></srai></set>
+                    <set var="fecha"><srai>INSERTITEM de POS 1 IN <get var="fecha"/></srai></set>        
+                </li>
+
+                <li value="hoy">
+                    <set var="fecha"><srai>DATE IN 0 DAYS</srai></set>
+                    <set var="fecha"><srai>INSERTITEM del POS 2 IN <get var="fecha"/></srai></set>
+                    <set var="fecha"><srai>INSERTITEM de POS 1 IN <get var="fecha"/></srai></set>
+                </li>
+
+                <li value="pasado manyana">
+                    <set var="fecha"><srai>DATE IN 2 DAYS</srai></set>
+                    <set var="fecha"><srai>INSERTITEM del POS 2 IN <get var="fecha"/></srai></set>
+                    <set var="fecha"><srai>INSERTITEM de POS 1 IN <get var="fecha"/></srai></set>      
+                </li>
+
+            </condition>
+
+        </think>
+
+        <srai>FIND_HUECOS_FROM <star index="4"/> ON <get var="fecha"/></srai>
+        
+    </template>
+    
+
+</category>
+
+<category>
+    <pattern> * [hueco libre huecos] ^ el (proximo) (siguiente) <set>weekday_es</set> a partir de las <set>hora</set> </pattern>
+    <template>
+        <think>
+            <set var="fecha"><srai>DATE IN <srai>DAYS UNTIL <star index="3"/></srai> DAYS </srai></set>
+            <set var="fecha_f"><srai>INSERTITEM del POS 2 IN <get var="fecha"/></srai></set>
+            <set var="fecha_f"><srai>INSERTITEM de POS 1 IN <get var="fecha_f"/></srai></set>
+        </think>
+
+        <srai>FIND_HUECOS_FROM <star index="4"/> ON <get var="fecha_f"/></srai>
+
+    </template>
+
+</category>
+
+<category>
+
+    <pattern> * [hueco libre huecos] * ( dia ) <set>dia</set> de <set>month_es</set> del 21 a partir de las <set>hora</set></pattern>
+
+    <template>
+
+        <!-- SALIDA DE LA REGLA -->
+
+        <srai>FIND_HUECOS_FROM <star index="5"/> ON <star index="3"/> de <star index="4"/> del 21</srai>
+        
+    </template>
+
+</category>
+
+
+</aiml>

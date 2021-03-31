@@ -10,14 +10,14 @@
 </category>
 
 <category>
-    <pattern> ^ que epoca es+ </pattern>
+    <pattern> ^ que epoca es+ ^</pattern>
     <template>
         <srai> en que estacion estamos</srai>
     </template>
 </category>
 
 <category>
-    <pattern> ^ que [fase parte] ^ dia es+</pattern>
+    <pattern> ^ que [fase parte] ^ dia es+ ^</pattern>
     <template>
         Es por la <srai>DAY PHASE</srai>
     </template>
@@ -41,7 +41,7 @@
 <category>
     <pattern> ^ que dia ^ semana [es sera] * </pattern>
     <template>
-        No entiendo a que te refieres con <star/>
+        No entiendo a que te refieres con <star index="3"/>
     </template>
 </category>
 
@@ -50,9 +50,32 @@
     <template>
         <think> <set var="pregunta"><star index="4"/></set></think>
         <condition var="pregunta">
-            <li value="dia">La fecha en un dia sera <srai>DATE IN 1 DAYS</srai> </li>
-            <li value="semana"> La fecha en una semana sera <srai>DATE IN 7 DAYS</srai> </li>
-            <li value="anyo"> La fecha en un anyo sera <srai>TOP <srai>DATE</srai> </srai> de <srai>MONTH</srai> de <srai>NEXT YEAR</srai></li>
+            <li value="dia">
+                <think>
+                    <set var="f"><srai>DATE IN 1 DAYS</srai></set>
+                    <set var="f"><srai>INSERTITEM del POS 2 IN <get var="f"/></srai></set>
+                    <set var="f"><srai>INSERTITEM de POS 1 IN <get var="f"/></srai></set> 
+                </think>
+                La fecha en un dia sera <get var="f"/>
+            </li>
+
+            <li value="semana">
+                <think>
+                    <set var="f"><srai>DATE IN 7 DAYS</srai></set>
+                    <set var="f"><srai>INSERTITEM del POS 2 IN <get var="f"/></srai></set>
+                    <set var="f"><srai>INSERTITEM de POS 1 IN <get var="f"/></srai></set> 
+                </think>
+                La fecha en una semana sera <get var="f"/>
+            </li>
+
+            <li value="anyo">
+                <think>
+                    <set var="f"><srai>TOP <srai>DATE</srai> </srai> de <srai>MONTH</srai> de <srai>NEXT YEAR</srai></set>
+                    <set var="f"><srai>INSERTITEM del POS 2 IN <get var="f"/></srai></set>
+                    <set var="f"><srai>INSERTITEM de POS 1 IN <get var="f"/></srai></set> 
+                </think>
+                La fecha en un anyo sera <get var="f"/>
+            </li>
             <li> No se que quieres decir con eso </li>
         </condition>
     </template>
@@ -62,8 +85,13 @@
 <category>
     <pattern> ^ [cual que] ^ fecha ^ proximo <set>weekday_es</set> </pattern>
     <template>
-        <think><set var="dia"><star index="4"/></set></think>
-        El proximo <get var="dia"/> es <srai>DATE IN <srai>DAYS UNTIL <get var="dia"/></srai> DAYS</srai>
+        <think>
+            <set var="dia"><star index="4"/></set>
+            <set var="f"><srai>DATE IN <srai>DAYS UNTIL <get var="dia"/></srai> DAYS</srai></set>
+            <set var="f"><srai>INSERTITEM del POS 2 IN <get var="f"/></srai></set>
+            <set var="f"><srai>INSERTITEM de POS 1 IN <get var="f"/></srai></set>
+        </think>
+        El proximo <get var="dia"/> es <get var="f"/>
     </template>
 </category>
 

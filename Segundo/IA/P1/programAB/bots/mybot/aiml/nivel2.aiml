@@ -4,7 +4,7 @@
 
 <!-- PREGUNTAS ACERCA DE LOS PROXIMOS DÍAS -->
 <category>
-    <pattern> * [hueco libre huecos] ^ <set>proximos_dias</set></pattern>
+    <pattern> * [hueco libre libres cita huecos] ^ <set>proximos_dias</set></pattern>
 
     <template>
         <think>
@@ -113,7 +113,7 @@
 <!-- PREGUNTAS EN CASO DE DIAS DE LA SEMANA -->
 <category>
 
-    <pattern> * [hueco libre huecos] ^ el (proximo) (siguiente) <set>weekday_es</set> </pattern>
+    <pattern> * [hueco libre libres cita huecos] ^ el (proximo) (siguiente) <set>weekday_es</set> </pattern>
     <template>
         <think>
             <set var="fecha"><srai>DATE IN <srai>DAYS UNTIL <star index="3"/></srai> DAYS </srai></set>
@@ -131,7 +131,7 @@
 <!-- VAMOS A CONTEMPLAR LA POSIBILIDAD DE LIMITAR A LA MAÑANA, A LA TARDE, O A UNA CIERTA HORA -->
 
 <category>
-    <pattern> * [hueco libre huecos] ^ el (proximo) (siguiente) <set>weekday_es</set> (por la) manyana </pattern>
+    <pattern> * [hueco libre libres cita huecos] ^ el (proximo) (siguiente) <set>weekday_es</set> (por la) manyana </pattern>
     <template>
         <think>
             <set var="fecha"><srai>DATE IN <srai>DAYS UNTIL <star index="3"/></srai> DAYS </srai></set>
@@ -146,7 +146,7 @@
 </category>
 
 <category>
-    <pattern> * [hueco libre huecos] ^ el (proximo) (siguiente) <set>weekday_es</set> (por la) tarde </pattern>
+    <pattern> * [hueco libre libres cita huecos] ^ el (proximo) (siguiente) <set>weekday_es</set> (por la) tarde </pattern>
     <template>
         <think>
             <set var="fecha"><srai>DATE IN <srai>DAYS UNTIL <star index="3"/></srai> DAYS </srai></set>
@@ -161,7 +161,7 @@
 </category>
 
 <category>
-    <pattern> * [hueco libre huecos] ^ <set>proximos_dias</set> (por la) manyana</pattern>
+    <pattern> * [hueco libre libres cita huecos] ^ <set>proximos_dias</set> (por la) manyana</pattern>
 
     <template>
         <think>
@@ -198,7 +198,7 @@
 </category>
 
 <category>
-    <pattern> * [hueco libre huecos] ^ <set>proximos_dias</set> (por la) tarde</pattern>
+    <pattern> * [hueco libre cita libres huecos] ^ <set>proximos_dias</set> (por la) tarde</pattern>
 
     <template>
         <think>
@@ -235,7 +235,7 @@
 </category>
 
 <category>
-    <pattern> * [hueco libre huecos] ^ <set>proximos_dias</set> a partir de las <set>hora</set></pattern>
+    <pattern> * [hueco libre libres cita huecos] ^ <set>proximos_dias</set> a partir de las <set>hora</set></pattern>
     <template>
         <think>
             <set var="proximo"><star index="3"/></set>
@@ -272,7 +272,7 @@
 </category>
 
 <category>
-    <pattern> * [hueco libre huecos] ^ el (proximo) (siguiente) <set>weekday_es</set> a partir de las <set>hora</set> </pattern>
+    <pattern> * [hueco libre libres cita huecos] ^ el (proximo) (siguiente) <set>weekday_es</set> a partir de las <set>hora</set> </pattern>
     <template>
         <think>
             <set var="fecha"><srai>DATE IN <srai>DAYS UNTIL <star index="3"/></srai> DAYS </srai></set>
@@ -288,7 +288,7 @@
 
 <category>
 
-    <pattern> * [hueco libre huecos] * ( dia ) <set>dia</set> de <set>month_es</set> del 21 a partir de las <set>hora</set></pattern>
+    <pattern> * [hueco libre libres cita huecos] * ( dia ) <set>dia</set> de <set>month_es</set> del 21 a partir de las <set>hora</set></pattern>
 
     <template>
 

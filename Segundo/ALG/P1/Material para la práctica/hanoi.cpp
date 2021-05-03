@@ -61,7 +61,7 @@ int main(int argc, char * argv[])
 
   tiempo = chrono::duration_cast<chrono::duration<double>> (tdespues - tantes);
 
-  cout << M << " " << tiempo.count() << endl;;
+  cout << M << " " << tiempo.count() << endl;
 
   return 0;
 }

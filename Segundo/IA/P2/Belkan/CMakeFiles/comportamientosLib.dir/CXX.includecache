@@ -29,6 +29,8 @@ comportamientos/comportamiento.hpp
 /mnt/c3096fe8-ceba-4048-b201-af08720979e4/Documentos/Universidad/Programacion/Segundo/IA/P2/Belkan/Comportamientos_Jugador/comportamientos/comportamiento.hpp
 list
 -
+vector
+-
 
 include/comportamientos/comportamiento.hpp
 vector

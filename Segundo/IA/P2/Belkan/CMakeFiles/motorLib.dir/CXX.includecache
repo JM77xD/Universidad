@@ -34,10 +34,6 @@ motorlib.hpp
 unistd.h
 -
 
-/mnt/c3096fe8-ceba-4048-b201-af08720979e4/Documentos/Universidad/Programacion/Segundo/IA/P2/Belkan/src/motorlib/util.cpp
-motorlib/util.h
-/mnt/c3096fe8-ceba-4048-b201-af08720979e4/Documentos/Universidad/Programacion/Segundo/IA/P2/Belkan/src/motorlib/motorlib/util.h
-
 Comportamientos_Jugador/aldeano.hpp
 chrono
 -
@@ -52,6 +48,8 @@ Comportamientos_Jugador/jugador.hpp
 comportamientos/comportamiento.hpp
 Comportamientos_Jugador/comportamientos/comportamiento.hpp
 list
+-
+vector
 -
 
 include/comportamientolib.hpp

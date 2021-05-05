@@ -54,26 +54,24 @@ class ComportamientoJugador : public Comportamiento {
       bool bikini;
       bool zapatillas;
 
-      bool operator == (const nodoCost &otro) const {
+      int costo;
+
+      inline bool operator == (const nodoCost &otro) const {
         return st == otro.st && bikini == otro.bikini && zapatillas == otro.zapatillas;
       }
 
-      bool operator != (const nodoCost &otro) const {
+      inline bool operator != (const nodoCost &otro) const {
         return !(*this == otro);
       }
-    };
 
-    struct nodoCost_prio {
-	    nodoCost nodo;
-
-      // Prioridad en la priority_queue
-      int costo;
-
-      inline bool operator<(const nodoCost_prio &otro) const {
-        return costo > otro.costo;
+      
+      inline bool operator<(const nodoCost &otro) const {
+        return this->costo > otro.costo;
       }
+      
 
     };
+
 
   private:
     // Declarar Variables de Estado
@@ -91,7 +89,7 @@ class ComportamientoJugador : public Comportamiento {
     bool esDestino(const estado &est, const estado &dest);
     bool esOrigen(const estado & est, const estado &orig);
     vector<nodoAnch> siguientes(const estado &origen);
-    vector<tuple<nodoCost, Action, int>> siguientesCosto(const nodoCost &origen);
+    vector<pair<nodoCost, Action>> siguientesCosto(const nodoCost &origen);
 
     void PintaPlan(list<Action> plan);
     bool HayObstaculoDelante(estado &st);

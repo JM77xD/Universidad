@@ -19,7 +19,6 @@ Action ComportamientoJugador::think(Sensores sensores) {
 	actual.orientacion = sensores.sentido;
 
 	// Capturo los destinos
-	cout << "Nivel actual: " << sensores.nivel << endl;
 	objetivos.clear();
 	for (int i=0; i<sensores.num_destinos; i++){
 		estado aux;
@@ -257,7 +256,7 @@ template <> struct hash<estado> {
 	typedef std::size_t result_type;
 	/**
 	 * @brief Función hash para unordered_map con clave estado
-	 * Llamamos a la función hash d enteros
+	 * Llamamos a la función hash de enteros
 	 */
 	std::size_t operator()(const estado &id) const noexcept {
 		return std::hash<int>()(id.fila ^ (id.columna << 4)
@@ -325,13 +324,13 @@ bool ComportamientoJugador::pathFinding_Anchura(const estado &origen, const esta
 // secuencia de acciones en plan, una lista de acciones.
 /*
 Comprobamos los siguientes nodos al actual con la funcion siguientes
-Evaluamos las 3 posibilidades
+Evaluamos las 3 posibilidades, teniendo en cuenta el terreno en el que se encuentra el jugador
 Creamos map(estado_final, nodo(estado_anterior, accion))
 Insertamos las parejas en un unordered_map, dándole más valor a aquellos nodoAnchura donde la acción sea actFORWARD
 */
 
-vector<tuple<ComportamientoJugador::nodoCost, Action, int>> ComportamientoJugador::siguientesCosto(const nodoCost &origen) {
-	vector<tuple<nodoCost, Action, int>> siguientes;
+vector<pair<ComportamientoJugador::nodoCost, Action>> ComportamientoJugador::siguientesCosto(const nodoCost &origen) {
+	vector<pair<nodoCost, Action>> siguientes;
 
 	Action actions[] = {actFORWARD, actTURN_R, actTURN_L};
 
@@ -349,31 +348,98 @@ vector<tuple<ComportamientoJugador::nodoCost, Action, int>> ComportamientoJugado
 
 		unsigned char casilla = mapaResultado[hijo.st.fila][hijo.st.columna];
 
-		if 		(casilla == 'K')	hijo.bikini = true;
-		else if (casilla == 'D') 	hijo.zapatillas = true;
-
-		if 		(casilla == 'A') 	cost += hijo.bikini 	? 10 : 100;
-		else if (casilla == 'B')	cost += hijo.zapatillas ? 5 : 50;
-		else if (casilla == 'T')	cost += 2;
-		else if (casilla == 'X')	cost += 0;	//No queremos incluir heurística de recarga aun
-		else if (casilla == '?')	cost += 3;
-		//else if (casilla == 'P')	cost += 10000;
-		//else if (casilla == 'M')	cost += 10000;
-		else						cost += 1;
-
 		bool entra = true;
 
-		if (i == 0)
+		if (i == 0) {
+
 			if (HayObstaculoDelante(hijo.st))
 				entra = false;
+				
+			switch (casilla) {
+			case 'K':
+				hijo.bikini = true;
+				hijo.zapatillas = false;
+				break;
+
+			case 'D':
+				hijo.zapatillas = true;
+				hijo.bikini = false;
+				break;
+
+			case 'A':
+				cost += hijo.bikini 	? 10 : 200;
+				break;
+
+			case 'B':
+				cost += hijo.zapatillas ? 15 : 100;
+				break;
+
+			case 'T':
+				cost += 2;
+				break;
+			
+			case 'X':
+				cost -= 10;
+				break;
+
+			case '?':
+				cost += 3;
+				break;
+			
+			default:
+				cost += 1;
+				break;
+			}
+
+		} else {
+
+			switch (casilla) {
+			case 'K':
+				hijo.bikini = true;
+				hijo.zapatillas = false;
+				break;
+
+			case 'D':
+				hijo.zapatillas = true;
+				hijo.bikini = false;
+				break;
+
+			case 'A':
+				cost += hijo.bikini 	? 5 : 500;
+				break;
+
+			case 'B':
+				cost += hijo.zapatillas ? 1 : 3;
+				break;
+
+			case 'T':
+				cost += 2;
+				break;
+			
+			case 'X':
+				cost -= 10;
+				break;
+
+			case '?':
+				cost += 3;
+				break;
+			
+			default:
+				cost += 1;
+				break;
+			}
+
+		}
 
 		if (entra) {
-			siguientes.push_back(make_tuple(hijo, actions[i], cost));
+			hijo.costo = cost;
+			siguientes.push_back(make_pair(hijo, actions[i]));
 		}
 	}
 
 	return siguientes;
 }
+
 
 namespace std{
 template <> struct hash<ComportamientoJugador::nodoCost> {
@@ -381,7 +447,7 @@ template <> struct hash<ComportamientoJugador::nodoCost> {
 	typedef std::size_t result_type;
 	/**
 	 * @brief Función hash para unordered_map con clave estado
-	 * Llamamos a la función hash d enteros
+	 * Llamamos a la función hash de enteros
 	 */
 	std::size_t operator()(const ComportamientoJugador::nodoCost &id) const noexcept {
 		return std::hash<int>()(id.st.fila ^ (id.st.columna << 4)
@@ -396,39 +462,37 @@ bool ComportamientoJugador::pathFinding_Costo(const estado &origen, const estado
 	plan.clear();
 
 	unordered_map<nodoCost, pair<nodoCost, Action>, hash<nodoCost>> Cerrados; // Lista de Cerrados
-	unordered_map<nodoCost, double> coste;	//Mapa para guardar el coste asociado a un nodo sin hacer uso del nodo de la colade prioridades
-	priority_queue<nodoCost_prio> Abiertos;		// Lista de Abiertos
+	priority_queue<nodoCost> Abiertos;		// Lista de Abiertos
+
 
 	nodoCost actual = {
 		.st = origen,
 		.bikini=mapaResultado[origen.fila][origen.columna] == 'K' ? true : false,
-		.zapatillas = mapaResultado[origen.fila][origen.columna] == 'D' ? true : false
+		.zapatillas = mapaResultado[origen.fila][origen.columna] == 'D' ? true : false,
+		.costo = 0
 	};
 
-	Abiertos.push(nodoCost_prio{actual, 0});
+	Abiertos.push(actual);
 
 	Cerrados[actual] = make_pair(actual, actIDLE);
-	coste[actual] = 0;
-
-	actual = Abiertos.top().nodo;
 
 	while (!Abiertos.empty() && !esDestino(actual.st, destino)) {
 		Abiertos.pop();
 
-		for (auto next : siguientesCosto(actual)) {
+		for (pair<nodoCost, Action> next : siguientesCosto(actual)) {
 			//Calculamos nuevo coste
-			int nuevo_coste = coste[actual] + get<2>(next);
+			int nuevo_coste = actual.costo + next.first.costo;
 
 			//Añadimos si no se ha añadido o actualizamos el coste si ya se ha añadido
-			if (coste.find(get<0>(next)) == coste.end() || nuevo_coste < coste[get<0>(next)]) {
-				coste[get<0>(next)] = nuevo_coste;
-				Cerrados[get<0>(next)] = make_pair(actual, get<1>(next));
-				Abiertos.push(nodoCost_prio{get<0>(next), nuevo_coste});
+			if ((Cerrados.find(next.first) == Cerrados.end() or nuevo_coste < next.first.costo)) {
+				next.first.costo = nuevo_coste;
+				Cerrados[next.first] = make_pair(actual, next.second);
+				Abiertos.push(next.first);
 			}
 		}
 
 		if (!Abiertos.empty())
-			actual = Abiertos.top().nodo;
+			actual = Abiertos.top();
 	}
 
 	cout << "Busqueda terminada\n";

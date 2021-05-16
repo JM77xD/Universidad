@@ -26,6 +26,12 @@ struct estado {
   inline bool operator!=(const estado &otro) {
     return !(*this == otro);
   }
+
+  inline void operator=(const estado &otro) {
+    this->fila = otro.fila;
+    this->columna = otro.columna;
+    this->orientacion = otro.orientacion;
+  }
 };
 
 class ComportamientoJugador : public Comportamiento {
@@ -63,13 +69,10 @@ class ComportamientoJugador : public Comportamiento {
       inline bool operator != (const nodoCost &otro) const {
         return !(*this == otro);
       }
-
       
       inline bool operator<(const nodoCost &otro) const {
         return this->costo > otro.costo;
       }
-      
-
     };
 
 
@@ -85,11 +88,14 @@ class ComportamientoJugador : public Comportamiento {
     bool pathFinding_Profundidad(const estado &origen, const estado &destino, list<Action> &plan);
     bool pathFinding_Anchura(const estado &origen, const estado &destino, list<Action> &plan);
     bool pathFinding_Costo(const estado &origen, const estado &destino, list<Action> &plan);
+    bool pathFinding_CostoNivel3(const estado &origen, const list<estado> &destinos, list<Action> &plan);
 
     bool esDestino(const estado &est, const estado &dest);
     bool esOrigen(const estado & est, const estado &orig);
     vector<nodoAnch> siguientes(const estado &origen);
     vector<pair<nodoCost, Action>> siguientesCosto(const nodoCost &origen);
+    vector<estado> ordenarDestinos(const vector<estado> &destinos, const estado &origen, int posIni);
+    bool pathFinding_3(nodoCost &origen, const estado &destino, list<Action> &plan);
 
     void PintaPlan(list<Action> plan);
     bool HayObstaculoDelante(estado &st);

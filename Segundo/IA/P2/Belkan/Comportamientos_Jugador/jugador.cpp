@@ -64,8 +64,7 @@ bool ComportamientoJugador::pathFinding (int level, const estado &origen, const 
 						return pathFinding_Costo(origen, un_objetivo, plan);
 						break;
 		case 3: cout << "Optimo en coste 3 Objetivos\n";
-						// Incluir aqui la llamada al algoritmo de busqueda para 3 objetivos
-						cout << "No implementado aun\n";
+						return pathFinding_CostoNivel3(origen, destino, plan);
 						break;
 		case 4: cout << "Algoritmo de busqueda usado en el reto\n";
 						// Incluir aqui la llamada al algoritmo de busqueda usado en el nivel 2
@@ -312,8 +311,6 @@ bool ComportamientoJugador::pathFinding_Anchura(const estado &origen, const esta
 		return true;
 	} else
 		return false;
-
-	
 }
 
 
@@ -323,10 +320,8 @@ bool ComportamientoJugador::pathFinding_Anchura(const estado &origen, const esta
 // Entran los puntos origen y destino y devuelve la
 // secuencia de acciones en plan, una lista de acciones.
 /*
-Comprobamos los siguientes nodos al actual con la funcion siguientes
+Comprobamos los siguientes nodos al actual con la funcion siguientesCosto
 Evaluamos las 3 posibilidades, teniendo en cuenta el terreno en el que se encuentra el jugador
-Creamos map(estado_final, nodo(estado_anterior, accion))
-Insertamos las parejas en un unordered_map, dándole más valor a aquellos nodoAnchura donde la acción sea actFORWARD
 */
 
 vector<pair<ComportamientoJugador::nodoCost, Action>> ComportamientoJugador::siguientesCosto(const nodoCost &origen) {
@@ -357,11 +352,13 @@ vector<pair<ComportamientoJugador::nodoCost, Action>> ComportamientoJugador::sig
 				
 			switch (casilla) {
 			case 'K':
+				cost += 1;
 				hijo.bikini = true;
 				hijo.zapatillas = false;
 				break;
 
 			case 'D':
+				cost += 1;
 				hijo.zapatillas = true;
 				hijo.bikini = false;
 				break;
@@ -379,7 +376,7 @@ vector<pair<ComportamientoJugador::nodoCost, Action>> ComportamientoJugador::sig
 				break;
 			
 			case 'X':
-				cost -= 10;
+				cost += 0;
 				break;
 
 			case '?':
@@ -395,11 +392,13 @@ vector<pair<ComportamientoJugador::nodoCost, Action>> ComportamientoJugador::sig
 
 			switch (casilla) {
 			case 'K':
+				cost += 1;
 				hijo.bikini = true;
 				hijo.zapatillas = false;
 				break;
 
 			case 'D':
+				cost += 1;
 				hijo.zapatillas = true;
 				hijo.bikini = false;
 				break;
@@ -414,10 +413,6 @@ vector<pair<ComportamientoJugador::nodoCost, Action>> ComportamientoJugador::sig
 
 			case 'T':
 				cost += 2;
-				break;
-			
-			case 'X':
-				cost -= 10;
 				break;
 
 			case '?':
@@ -498,12 +493,14 @@ bool ComportamientoJugador::pathFinding_Costo(const estado &origen, const estado
 	cout << "Busqueda terminada\n";
 
 	if (esDestino(actual.st, destino)) {
+
 		cout << "Cargando el plan\n";
+
 		while (actual.st != origen) {
 			plan.push_front(Cerrados[actual].second);
 			actual = Cerrados[actual].first;
 		}
-		
+
 		cout << "Longitud del plan: " << plan.size() << endl;
 		PintaPlan(plan);
 		//ver plan en el mapa
@@ -512,8 +509,142 @@ bool ComportamientoJugador::pathFinding_Costo(const estado &origen, const estado
 		return true;
 	} else
 		return false;
+}
 
+
+
+// Implementación de la busqueda en anchura teniendo en cuenta el costo CON 3 OBJETIVOS (camino de costo mínimo).
+// Entran los puntos origen y 3 destinos y devuelve la
+// secuencia de acciones en plan, una lista de acciones.
+/*
+Comprobamos los siguientes nodos al actual con la funcion siguientes
+Evaluamos las 3 posibilidades, teniendo en cuenta el terreno en el que se encuentra el jugador
+Creamos map(estado_final, nodo(estado_anterior, accion))
+Insertamos las parejas en un unordered_map, dándole más valor a aquellos nodoAnchura donde la acción sea actFORWARD
+*/
+vector<estado> ComportamientoJugador::ordenarDestinos(const vector<estado> &destinos, const estado &origen,int posIni) {
+	vector<estado> resultado;
+
+	resultado = destinos;
+
+	int HMan_est, aux_HMan;
+
+	for (int i = posIni; i < 3; i++) {
+		for (int j = posIni; j < 3; j++) {
+			HMan_est = abs(resultado[i].fila - origen.fila) + abs(resultado[i].columna - origen.columna);
+			if (resultado[i] != resultado[j]) {
+				aux_HMan = abs(resultado[j].fila - origen.fila) + abs(resultado[j].columna - origen.columna);
+				if (aux_HMan > HMan_est) {
+					estado aux = resultado[j];
+					resultado[j] = resultado[i];
+					resultado[i] = aux;
+				}
+			}
+		}
+	}
+
+	return resultado;
+}
+
+bool ComportamientoJugador::pathFinding_3(nodoCost &origen, const estado &destino, list<Action> &plan) {
+	unordered_map<nodoCost, pair<nodoCost, Action>, hash<nodoCost>> Cerrados; // Lista de Cerrados
+	priority_queue<nodoCost> Abiertos;		// Lista de Abiertos
+
+
+	nodoCost actual = {
+		.st = origen.st,
+		.bikini = origen.bikini,
+		.zapatillas = origen.zapatillas,
+		.costo = origen.costo
+	};
+
+	Abiertos.push(actual);
+
+	Cerrados[actual] = make_pair(actual, actIDLE);
+
+	while (!Abiertos.empty() && !esDestino(actual.st, destino)) {
+		Abiertos.pop();
+
+		for (pair<nodoCost, Action> next : siguientesCosto(actual)) {
+			//Calculamos nuevo coste
+			int nuevo_coste = actual.costo + next.first.costo;
+
+			//Añadimos si no se ha añadido o actualizamos el coste si ya se ha añadido
+			if ((Cerrados.find(next.first) == Cerrados.end() or nuevo_coste < next.first.costo)) {
+				next.first.costo = nuevo_coste;
+				Cerrados[next.first] = make_pair(actual, next.second);
+				Abiertos.push(next.first);
+			}
+		}
+
+		if (!Abiertos.empty())
+			actual = Abiertos.top();
+	}
 	
+	if (esDestino(actual.st, destino)) {
+		estado aux = origen.st;
+		origen = actual;
+
+		while (actual.st != aux) {
+			plan.push_front(Cerrados[actual].second);
+			actual = Cerrados[actual].first;
+		}
+
+		return true;
+	} else
+		return false;
+}
+
+bool ComportamientoJugador::pathFinding_CostoNivel3(const estado &origen, const list<estado> &destinos, list<Action> &plan) {
+	vector<estado> dests;
+
+	nodoCost actual = {
+		.st = origen,
+		.bikini=mapaResultado[origen.fila][origen.columna] == 'K' ? true : false,
+		.zapatillas = mapaResultado[origen.fila][origen.columna] == 'D' ? true : false,
+		.costo = 0
+	};
+
+	if (destinos.size() == 3) {
+		list<estado>::const_iterator it = destinos.begin();
+		for (int i = 0; i < 3; i++) {
+			dests.emplace_back(*it);
+			it++;
+		}
+	} else {
+		cout << "No se han proporcionado destinos suficientes\n";
+		return false;
+	}
+
+	cout << "Calculando plan\n";
+	plan.clear();
+
+	bool funciona = true;
+
+	list<Action> aux;
+	list<Action>::iterator it;
+
+	for (int i = 0; i < 3; i++) {
+		aux.clear();
+		dests = ordenarDestinos(dests, origen, i);
+		funciona = pathFinding_3(actual, dests[i], aux);
+		it = aux.begin();
+		while (it != aux.end()){
+			plan.push_back(*it);
+			it++;
+		}
+	}
+
+
+	if (plan.size() > 0 && funciona) {
+		cout << "Longitud del plan: " << plan.size() << endl;
+		PintaPlan(plan);
+		//ver plan en el mapa
+		VisualizaPlan(origen, plan);
+		return true;
+	} else {
+		return false;
+	}
 }
 
 

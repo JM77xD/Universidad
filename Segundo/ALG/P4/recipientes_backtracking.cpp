@@ -1,182 +1,255 @@
 #include <iostream>
-#include <queue>
-#include <map>
-#include <list>
+#include <chrono>
+#include <algorithm>
 #include <vector>
+#include <queue>
+#include <set>
 
 using namespace std;
 
-const float R = 1.00;
+struct Recipiente {
 
-struct Nodo {
+    const double R = 1.0;
 
-    list<list<float>> result;
-    bool last;
+    vector<double> elementos;
 
-    friend ostream & operator<<(ostream &o, Nodo &container);
+    double sumaElem = 0;
 
-    inline bool operator==(const Nodo &otro) {
-        return result == otro.result;
+    inline bool operator<(const Recipiente &otro) {
+        return sumaElem > otro.sumaElem;
     }
 
-    inline bool operator!=(const Nodo &otro) {
-        return !(*this == otro);
-    }
-
-    inline Nodo operator=(const Nodo &otro) {
-        result = otro.result;
-        last = otro.last;
+    inline Recipiente operator = (const Recipiente & otro) {
+        elementos = otro.elementos;
+        sumaElem = otro.sumaElem;
         return *this;
     }
 
-    inline bool operator<(const Nodo &otro) const {
-        return (otro.last);
-    }
+};
 
-};
-/*
-template <> struct hash<Nodo> {
-	typedef Nodo argument_type;
-	typedef std::size_t result_type;
-	*
-	 * @brief Función hash para map con clave Nodo
-	 *
-	std::size_t operator()(const Nodo &id) const noexcept {
-		return std::hash<int>()(id.result.back().size() << 4 || id.last << 5 || id.result.size() << 9);
-	}
-};
-*/
-ostream & operator<<(ostream &o, Nodo &container ) {
-    list<list<float>>::const_iterator it = container.result.begin(), it_end = container.result.end();
-    o << "Se usan " << container.result.size() << " recipìentes en la siguiente configuración:\n";
+ostream & operator<<(ostream &o, const vector<Recipiente> &container ) {
+    vector<Recipiente>::const_iterator it = container.begin(), it_end = container.end();
     o << "[";
     for (it; it != it_end; it++) {
-        list<float> aux = *it;
+        vector<double> aux = (*it).elementos;
         o << "[";
-        int tam = aux.size();
-        for (int i = 0; i < tam; i++) {
-            o << aux.front();
-            aux.pop_front();
-            if (aux.size() != 0)
+        for (double elem : aux) {
+            o << elem;
+            if (elem != aux.back())
                 o << ", ";
         }
         o << "]";
-
     }
     o << "]\n";
 
     return o;
 }
 
-vector<pair<Nodo, int>> siguientes(const Nodo &actual, float tam, bool ultimo, int contador) {
-    vector<pair<Nodo, int>> siguientes;
-    
-    Nodo next1, next2;
-    next1 = actual;
-    next2 = actual;
-    int cont = contador;
-    cont++;
+struct Nodo {
 
-    list<float> nueva;
-    nueva.push_back(tam);
+    vector<Recipiente> sol;
 
-    next1.result.push_back(nueva);
+    vector<bool> visitados;
 
-    if (ultimo) {
-        next1.last = true;
-        next2.last = true;
-    }
 
-    if (!next2.result.empty()) {
-        next2.result.back().push_back(tam);
+    inline bool operator<(const Nodo &otro) const {
+
+        int tamLocal = 0, tamOtro = 0;
+
+        for (bool visita : visitados)
+            if (visita)
+                tamLocal++;
+
+        for (bool visita : otro.visitados)
+            if (visita)
+                tamOtro++;
         
-        list<float>::iterator it = next2.result.back().begin();
-        cout << "Valor del 1er elemento: " << *it << "\nValor del elem actual: " << tam << endl;
-        float suma = 0;
 
-        for (it; it != next2.result.back().end() && !next2.result.empty(); it++)
-            suma += *it;
-
-        if (suma <= R)
-            siguientes.push_back(make_pair(next2, cont));
+        return (tamLocal < tamOtro and sol.size() >=otro.sol.size());
     }
 
-    siguientes.push_back(make_pair(next1, cont));
+};
 
-    return siguientes;
+int CS(vector<double> &elems) {
+    vector<double> aux = elems;
+    stable_sort(aux.begin(), aux.end());
 
+
+    double front;
+    vector<Recipiente> result;
+
+    while (aux.size() > 0) {
+
+        vector<double> menores = aux;
+        reverse(menores.begin(), menores.end());
+
+        front = aux[0];
+        aux.erase(aux.begin());
+
+        Recipiente actual;
+
+        actual.sumaElem = front;
+        actual.elementos.push_back(front);
+
+        for (double menor : menores) {
+            if (menor+actual.sumaElem <= actual.R && aux.size() > 0){
+                vector<double>::const_iterator it = aux.end();
+                it--;
+                aux.erase(it);
+                actual.sumaElem += menor;
+                actual.elementos.push_back(menor);
+            }
+        }
+
+        result.push_back(actual);
+
+    }
+
+    return result.size();
 }
 
-int main (int argc, char * argv[]) {
+vector<Recipiente> SolucionVoraz(vector<double> &elementos) {
+    vector<double> aux = elementos;
+    sort(aux.begin(), aux.end());
 
+
+    double front;
+    vector<Recipiente> result;
+
+    while (aux.size() > 0) {
+
+
+        front = aux[0];
+        aux.erase(aux.begin());
+
+        vector<double> menores = aux;
+        reverse(menores.begin(), menores.end());
+
+        Recipiente actual;
+
+        actual.sumaElem = front;
+        actual.elementos.push_back(front);
+
+        for (double menor : menores) {
+            if (menor+actual.sumaElem <= actual.R && aux.size() > 0){
+                vector<double>::const_iterator it = aux.end();
+                it--;
+                aux.erase(it);
+                actual.sumaElem += menor;
+                actual.elementos.push_back(menor);
+            }
+        }
+
+        result.push_back(actual);
+
+    }
+
+    return result;
+} 
+
+void podar(multiset<Nodo> &abiertos, int cota, int &Podas) {
+    multiset<Nodo>::iterator it;
+    while(!abiertos.empty() && (*abiertos.rbegin()).sol.size() >= cota) {
+        it = abiertos.end();
+        it--;
+        abiertos.erase(it);
+        Podas++;
+    }
+}
+
+void addValorNodo(Nodo &nodo, const double &elem) {
+    if (nodo.sol.back().sumaElem + elem <= nodo.sol.back().R) {
+        nodo.sol.back().elementos.push_back(elem);
+        nodo.sol.back().sumaElem += elem;
+    } else {
+        Recipiente nuevo {
+            .sumaElem = elem
+        };
+        nuevo.elementos.push_back(elem);
+        nodo.sol.push_back(nuevo);
+    }
+}
+
+vector<Recipiente> ByB(vector<double> &Elementos, const int CS, int &podas, int &exp, int &numVivos) {
+    vector<Recipiente> sol = SolucionVoraz(Elementos);
+    multiset<Nodo> Abiertos;
+
+    int Coste = sol.size();
+
+    Nodo inicial;
+    
+    std::cout << "\nComenzando abiertos\n";
+
+    inicial.visitados.assign(Elementos.size(), false);
+
+    
+    Abiertos.insert(inicial);
+
+    while (!Abiertos.empty()) {
+        Nodo x = *Abiertos.begin();
+        Abiertos.erase(Abiertos.begin());
+        int count = 0;
+
+        for (bool visita : x.visitados)
+            if (visita)
+                count++;
+
+        if (count == Elementos.size()) {
+            if(x.sol.size() < Coste) {
+                sol = x.sol;
+                Coste = x.sol.size();
+                podar(Abiertos, Coste, podas);
+            }
+        } else {
+            Nodo y;
+            exp++;
+
+            for (int i = 0; i < Elementos.size(); i++) {;
+                if (!y.visitados[i]) {
+                    y = x;
+                    y.visitados[i] = true;
+                    addValorNodo(y, Elementos[i]);
+                    if (y.sol.size() < CS) {
+                        Abiertos.insert(y);
+                    }
+                }
+            }
+            if (numVivos < Abiertos.size())
+                numVivos = Abiertos.size();
+        }
+        
+    }
+
+    return sol;
+}
+
+int main(int argc, char *argv[] ) {
     if (argc == 1) {
         cerr << "La forma correcta de ejecutar el programa es ./recipientes_backtracking <Tam1> <Tam2> ... <TamN>\n";
         return -1;
     }
 
-    vector<float> tamanios;
+    vector<double> tamanios;
     for (int i = 1; i < argc; i++) {
-        cout << argv[i] << "\t";
+        std::cout << argv[i] << "\t";
         tamanios.push_back(atof(argv[i]));
     }
-    cout << endl;
 
-    map<Nodo, pair<Nodo, int>> Cerrados; //Primer nodo -> Hijo, segundo nodo ->Padre, int -> contador de la pos en el vector
-    queue<pair<Nodo,int>> Abiertos;   //Nos interesa una búsqueda en profundidad
-    
-    int contador = 0;
-    float actual;
+    int CotaS = CS(tamanios), podas = 0, expansiones = 0, nodosVivos = 0;
 
-    Nodo current{
-        .last = false
-    };
+    chrono::high_resolution_clock::time_point tantes, tdespues;
+    chrono::duration<double> tiempo;
 
-    Cerrados[current] = make_pair(current, contador);
-    Abiertos.push(make_pair(current, contador));
+    tantes = chrono::high_resolution_clock::now();
 
-    actual = tamanios[contador];
+    vector<Recipiente> solucion = ByB(tamanios, CotaS, podas, expansiones, nodosVivos);
 
-    while (!Abiertos.empty() && contador < tamanios.size()) {
-        Abiertos.pop();
-        cout << "Actualmente contador = " << contador << endl;
-            
-        for (pair<Nodo,int> next : siguientes(current, actual, contador==tamanios.size() - 1, contador)) {
-            Cerrados[next.first] = make_pair(current, contador);
-            Abiertos.push(next);
-        }
+    tdespues = chrono::high_resolution_clock::now();
 
+    tiempo = chrono::duration_cast<chrono::duration<double>> (tdespues - tantes);
 
-        if (!Abiertos.empty()) {
-            current = Abiertos.front().first;
-            contador = Abiertos.front().second;
-            actual = tamanios[contador];
-        }
-
-    }
-
-
-    map<Nodo, pair<Nodo, int>>::iterator it = Cerrados.begin();
-
-    Nodo * optimo = 0;
-
-    for (it; it != Cerrados.end(); it++) {
-        if ((*it).first.last) {
-            if (!optimo) {
-                optimo = new Nodo;
-                *optimo = (*it).first;
-            }
-
-
-            if ((*it).first.result.size() < (*optimo).result.size())
-                *optimo = (*it).first;
-        }
-    }
-
-
-    cout << *optimo;
-
-    delete optimo;
-
-    return 0;
+    std::cout << "\nSe ha tardado un tiempo de " << tiempo.count() << ".\nEl numero de podas ha sido " << podas << " y ha habido un total de " << expansiones << " expansiones.\n";
+    std::cout << "Se ha llegado a un máximo de " << nodosVivos << " nodos vivos simultáneamente.\nEl resultado final ha sido el siguiente:\n" << solucion << endl;
     
 }
+

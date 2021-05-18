@@ -6,9 +6,9 @@
 #include <set>
 
 using namespace std;
-struct Recipiente {
 
-    const double R = 1.0;
+const double R = 1.000000001;
+struct Recipiente {
 
     vector<double> elementos;
 
@@ -18,7 +18,7 @@ struct Recipiente {
         return sumaElem > otro.sumaElem;
     }
 
-    inline Recipiente operator = (const Recipiente & otro) {
+    Recipiente operator = (const Recipiente & otro) {
         elementos = otro.elementos;
         sumaElem = otro.sumaElem;
         return *this;
@@ -28,13 +28,16 @@ struct Recipiente {
 
 ostream & operator<<(ostream &o, const vector<Recipiente> &container ) {
     vector<Recipiente>::const_iterator it = container.begin(), it_end = container.end();
+    o << "Número de recipientes: " << container.size() << endl;
     o << "[";
     for (it; it != it_end; it++) {
         vector<double> aux = (*it).elementos;
         o << "[";
-        for (double elem : aux) {
-            o << elem;
-            if (elem != aux.back())
+        vector<double>::iterator it = aux.begin(), it_end = aux.end();
+        it_end--;
+        for (it; it != aux.end(); it++) {
+            o << *it;
+            if (it != it_end)
                 o << ", ";
         }
         o << "]";
@@ -51,7 +54,7 @@ struct Nodo {
     vector<bool> visitados;
 
 
-    inline bool operator<(const Nodo &otro) const {
+    bool operator<(const Nodo &otro) const {
 
         int tamLocal = 0, tamOtro = 0;
 
@@ -64,7 +67,20 @@ struct Nodo {
                 tamOtro++;
         
 
-        return (tamLocal < tamOtro and sol.size() >=otro.sol.size());
+        return (tamLocal < tamOtro and sol.size() >= otro.sol.size());
+    }
+
+    Nodo operator=(const Nodo &otro) {
+
+        sol.clear();
+        for(auto reci : otro.sol)
+            sol.push_back(reci);
+
+        visitados.clear();
+        for(auto visi : otro.visitados)
+            visitados.push_back(visi);
+
+        return *this;
     }
 
 };
@@ -91,7 +107,7 @@ int CS(vector<double> &elems) {
         actual.elementos.push_back(front);
 
         for (double menor : menores) {
-            if (menor+actual.sumaElem <= actual.R && aux.size() > 0){
+            if (menor+actual.sumaElem <= R && aux.size() > 0){
                 vector<double>::const_iterator it = aux.end();
                 it--;
                 aux.erase(it);
@@ -107,7 +123,7 @@ int CS(vector<double> &elems) {
     return result.size();
 }
 
-vector<Recipiente> SolucionVoraz(vector<double> &elementos) {
+vector<Recipiente> SolucionVoraz(const vector<double> &elementos) {
     vector<double> aux = elementos;
     sort(aux.begin(), aux.end());
 
@@ -130,7 +146,7 @@ vector<Recipiente> SolucionVoraz(vector<double> &elementos) {
         actual.elementos.push_back(front);
 
         for (double menor : menores) {
-            if (menor+actual.sumaElem <= actual.R && aux.size() > 0){
+            if (menor+actual.sumaElem <= R && aux.size() > 0){
                 vector<double>::const_iterator it = aux.end();
                 it--;
                 aux.erase(it);
@@ -152,32 +168,37 @@ void podar(multiset<Nodo> &abiertos, int cota, int &Podas) {
         it = abiertos.end();
         it--;
         abiertos.erase(it);
-        Podas++;
+        Podas += 1;
     }
 }
 
-void addValorNodo(Nodo &nodo, const double &elem) {
-    if (nodo.sol.back().sumaElem + elem <= nodo.sol.back().R) {
+void addValorNodo(Nodo &nodo, const double elem) {
+    double valor;
+    Recipiente nuevo;
+    nuevo.sumaElem = elem;
+    nuevo.elementos.push_back(elem);
+    valor = elem;
+    
+    if (nodo.sol.size() != 0)
+        valor += nodo.sol.back().sumaElem;
+
+    if (valor <= R && nodo.sol.size() != 0) {
         nodo.sol.back().elementos.push_back(elem);
         nodo.sol.back().sumaElem += elem;
     } else {
-        Recipiente nuevo {
-            .sumaElem = elem
-        };
-        nuevo.elementos.push_back(elem);
         nodo.sol.push_back(nuevo);
     }
 }
 
-vector<Recipiente> ByB(vector<double> &Elementos, const int CS, int &podas, int &exp, int &numVivos) {
+vector<Recipiente> ByB(const vector<double> &Elementos, int &podas, int &exp, int &numVivos) {
     vector<Recipiente> sol = SolucionVoraz(Elementos);
     multiset<Nodo> Abiertos;
 
     int Coste = sol.size();
+    const int CS = sol.size();
 
     Nodo inicial;
     
-    std::cout << "\nComenzando abiertos\n";
 
     inicial.visitados.assign(Elementos.size(), false);
 
@@ -185,7 +206,7 @@ vector<Recipiente> ByB(vector<double> &Elementos, const int CS, int &podas, int 
     Abiertos.insert(inicial);
 
     while (!Abiertos.empty()) {
-        Nodo x = *Abiertos.begin();
+        Nodo x = (*Abiertos.begin());
         Abiertos.erase(Abiertos.begin());
         int count = 0;
 
@@ -194,21 +215,21 @@ vector<Recipiente> ByB(vector<double> &Elementos, const int CS, int &podas, int 
                 count++;
 
         if (count == Elementos.size()) {
-            if(x.sol.size() < Coste) {
+            if(x.sol.size() <= Coste) {
                 sol = x.sol;
                 Coste = x.sol.size();
                 podar(Abiertos, Coste, podas);
             }
         } else {
-            Nodo y;
             exp++;
-
-            for (int i = 0; i < Elementos.size(); i++) {;
+            Nodo y;
+            for (int i = 0; i < Elementos.size(); i++) {
+                y = x;
                 if (!y.visitados[i]) {
-                    y = x;
                     y.visitados[i] = true;
+                    //cout << "\nElemento a insertar: " << Elementos[i] << endl;
                     addValorNodo(y, Elementos[i]);
-                    if (y.sol.size() < CS) {
+                    if (y.sol.size() <= CS) {
                         Abiertos.insert(y);
                     }
                 }
@@ -228,20 +249,22 @@ int main(int argc, char *argv[] ) {
         return -1;
     }
 
+    cout << "TamRecipiente: " << R << endl;
+
     vector<double> tamanios;
     for (int i = 1; i < argc; i++) {
         std::cout << argv[i] << "\t";
         tamanios.push_back(atof(argv[i]));
     }
 
-    int CotaS = CS(tamanios), podas = 0, expansiones = 0, nodosVivos = 0;
+    int podas = 0, expansiones = 0, nodosVivos = 0;
 
     chrono::high_resolution_clock::time_point tantes, tdespues;
     chrono::duration<double> tiempo;
 
     tantes = chrono::high_resolution_clock::now();
 
-    vector<Recipiente> solucion = ByB(tamanios, CotaS, podas, expansiones, nodosVivos);
+    vector<Recipiente> solucion = ByB(tamanios, podas, expansiones, nodosVivos);
 
     tdespues = chrono::high_resolution_clock::now();
 

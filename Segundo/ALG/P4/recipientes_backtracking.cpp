@@ -6,7 +6,6 @@
 #include <set>
 
 using namespace std;
-
 struct Recipiente {
 
     const double R = 1.0;

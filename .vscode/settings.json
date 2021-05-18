@@ -1,6 +1,7 @@
 {
     "files.associations": {
         "*.aiml": "xml",
-        "queue": "cpp"
+        "queue": "cpp",
+        "iostream": "cpp"
     }
 }

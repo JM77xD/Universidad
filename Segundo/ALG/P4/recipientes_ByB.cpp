@@ -4,6 +4,8 @@
 #include <vector>
 #include <queue>
 #include <set>
+#include <ctime>
+#include <climits>
 
 using namespace std;
 
@@ -47,6 +49,15 @@ ostream & operator<<(ostream &o, const vector<Recipiente> &container ) {
     return o;
 }
 
+double uniforme() //Genera un número uniformemente distribuido en el
+                  //intervalo [0,1) a partir de uno de los generadores
+                  //disponibles en C. 
+{
+ int t = rand();
+ double f = ((double)RAND_MAX+1.0);
+ return (double)t/f;
+}
+
 struct Nodo {
 
     vector<Recipiente> sol;
@@ -85,43 +96,6 @@ struct Nodo {
 
 };
 
-int CS(vector<double> &elems) {
-    vector<double> aux = elems;
-    stable_sort(aux.begin(), aux.end());
-
-
-    double front;
-    vector<Recipiente> result;
-
-    while (aux.size() > 0) {
-
-        vector<double> menores = aux;
-        reverse(menores.begin(), menores.end());
-
-        front = aux[0];
-        aux.erase(aux.begin());
-
-        Recipiente actual;
-
-        actual.sumaElem = front;
-        actual.elementos.push_back(front);
-
-        for (double menor : menores) {
-            if (menor+actual.sumaElem <= R && aux.size() > 0){
-                vector<double>::const_iterator it = aux.end();
-                it--;
-                aux.erase(it);
-                actual.sumaElem += menor;
-                actual.elementos.push_back(menor);
-            }
-        }
-
-        result.push_back(actual);
-
-    }
-
-    return result.size();
-}
 
 vector<Recipiente> SolucionVoraz(const vector<double> &elementos) {
     vector<double> aux = elementos;
@@ -162,7 +136,7 @@ vector<Recipiente> SolucionVoraz(const vector<double> &elementos) {
     return result;
 } 
 
-void podar(multiset<Nodo> &abiertos, int cota, int &Podas) {
+void podar(multiset<Nodo> &abiertos, int cota, long &Podas) {
     multiset<Nodo>::iterator it;
     while(!abiertos.empty() && (*abiertos.rbegin()).sol.size() >= cota) {
         it = abiertos.end();
@@ -190,7 +164,7 @@ void addValorNodo(Nodo &nodo, const double elem) {
     }
 }
 
-vector<Recipiente> ByB(const vector<double> &Elementos, int &podas, int &exp, int &numVivos) {
+vector<Recipiente> ByB(const vector<double> &Elementos, long &podas, long &exp, long &numVivos) {
     vector<Recipiente> sol = SolucionVoraz(Elementos);
     multiset<Nodo> Abiertos;
 
@@ -245,19 +219,22 @@ vector<Recipiente> ByB(const vector<double> &Elementos, int &podas, int &exp, in
 
 int main(int argc, char *argv[] ) {
     if (argc == 1) {
-        cerr << "La forma correcta de ejecutar el programa es ./recipientes_backtracking <Tam1> <Tam2> ... <TamN>\n";
+        cerr << "La forma correcta de ejecutar el programa es ./recipientes_backtracking <tam1> <tam2> <tam3> ... <tamN>\n";
         return -1;
     }
 
     cout << "TamRecipiente: " << R << endl;
 
     vector<double> tamanios;
+    double valor;
+
     for (int i = 1; i < argc; i++) {
-        std::cout << argv[i] << "\t";
-        tamanios.push_back(atof(argv[i]));
+        valor = atof(argv[i]);
+        cout << valor << "\t";
+        tamanios.push_back(valor);
     }
 
-    int podas = 0, expansiones = 0, nodosVivos = 0;
+    long podas = 0, expansiones = 0, nodosVivos = 0;
 
     chrono::high_resolution_clock::time_point tantes, tdespues;
     chrono::duration<double> tiempo;

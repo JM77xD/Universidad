@@ -108,7 +108,7 @@ bool ComportamientoJugador::HayObstaculoDelante(estado &st){
 	// Miro si en esa casilla hay un obstaculo infranqueable
 	if (!EsObstaculo(mapaResultado[fil][col])){
 		// No hay obstaculo, actualizo el parametro st poniendo la casilla de delante.
-    st.fila = fil;
+    	st.fila = fil;
 		st.columna = col;
 		return false;
 	}
@@ -270,35 +270,35 @@ bool ComportamientoJugador::pathFinding_Anchura(const estado &origen, const esta
 	plan.clear();
 
 	unordered_map<estado, nodoAnch, hash<estado>> Cerrados; // Lista de Cerrados
-	queue<nodoAnch> Abiertos;		// Lista de Abiertos
+	queue<estado> Abiertos;		// Lista de Abiertos
 
 	nodoAnch actual = {.st = origen, .accion = actIDLE};
 	Cerrados[origen] = actual;
 
-	Abiertos.push(actual);
+	Abiertos.push(actual.st);
 
-	estado current = Abiertos.front().st;
+	estado current = origen;
 
 	while (!Abiertos.empty() && !esDestino(current, destino)) {
 		Abiertos.pop();
 
 		for (auto next : siguientes(current)) {
 			if (Cerrados.find(next.st) == Cerrados.end()) {
-				Abiertos.push(next);
+				Abiertos.push(next.st);
 				actual = {.st = current, .accion = next.accion};
 				Cerrados[next.st] = actual;
 			}
 		}
 
 		if (!Abiertos.empty())
-			current = Abiertos.front().st;
+			current = Abiertos.front();
 	}
 
 	cout << "Busqueda terminada\n";
 
 	if (esDestino(current, destino)) {
 		cout << "Cargando el plan\n";
-		while (!esOrigen(current, origen)) {
+		while (current != origen) {
 			plan.push_front(Cerrados[current].accion);
 			current = Cerrados[current].st;
 		}
@@ -676,10 +676,6 @@ void ComportamientoJugador::PintaPlan(list<Action> plan) {
 
 bool ComportamientoJugador::esDestino(const estado &est, const estado &dest) {
 	return est.columna == dest.columna && est.fila == dest.fila;
-}
-
-bool ComportamientoJugador::esOrigen(const estado & est, const estado &orig) {
-	return est.columna == orig.columna && est.fila == orig.fila;
 }
 
 

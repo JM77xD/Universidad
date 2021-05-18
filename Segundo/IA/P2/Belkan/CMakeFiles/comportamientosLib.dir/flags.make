@@ -6,5 +6,5 @@ CXX_FLAGS =  -fopenmp -pthread -std=c++11
 
 CXX_DEFINES = 
 
-CXX_INCLUDES = -I/mnt/c3096fe8-ceba-4048-b201-af08720979e4/Documentos/Universidad/Programacion/Segundo/IA/P2/Belkan/include 
+CXX_INCLUDES = -I/home/jmramirez/Documentos/Programacion/Universidad/Segundo/IA/P2/Belkan/include 
 

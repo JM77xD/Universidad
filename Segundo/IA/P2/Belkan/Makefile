@@ -48,10 +48,10 @@ RM = /usr/bin/cmake -E remove -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /mnt/c3096fe8-ceba-4048-b201-af08720979e4/Documentos/Universidad/Programacion/Segundo/IA/P2/Belkan
+CMAKE_SOURCE_DIR = /home/jmramirez/Documentos/Programacion/Universidad/Segundo/IA/P2/Belkan
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /mnt/c3096fe8-ceba-4048-b201-af08720979e4/Documentos/Universidad/Programacion/Segundo/IA/P2/Belkan
+CMAKE_BINARY_DIR = /home/jmramirez/Documentos/Programacion/Universidad/Segundo/IA/P2/Belkan
 
 #=============================================================================
 # Targets provided globally by CMake.
@@ -80,9 +80,9 @@ edit_cache/fast: edit_cache
 
 # The main all target
 all: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /mnt/c3096fe8-ceba-4048-b201-af08720979e4/Documentos/Universidad/Programacion/Segundo/IA/P2/Belkan/CMakeFiles /mnt/c3096fe8-ceba-4048-b201-af08720979e4/Documentos/Universidad/Programacion/Segundo/IA/P2/Belkan/CMakeFiles/progress.marks
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/jmramirez/Documentos/Programacion/Universidad/Segundo/IA/P2/Belkan/CMakeFiles /home/jmramirez/Documentos/Programacion/Universidad/Segundo/IA/P2/Belkan/CMakeFiles/progress.marks
 	$(MAKE) -f CMakeFiles/Makefile2 all
-	$(CMAKE_COMMAND) -E cmake_progress_start /mnt/c3096fe8-ceba-4048-b201-af08720979e4/Documentos/Universidad/Programacion/Segundo/IA/P2/Belkan/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/jmramirez/Documentos/Programacion/Universidad/Segundo/IA/P2/Belkan/CMakeFiles 0
 .PHONY : all
 
 # The main clean target

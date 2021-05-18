@@ -4,9 +4,9 @@ set(CMAKE_DEPENDS_LANGUAGES
   )
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_CXX
-  "/mnt/c3096fe8-ceba-4048-b201-af08720979e4/Documentos/Universidad/Programacion/Segundo/IA/P2/Belkan/Comportamientos_Jugador/aldeano.cpp" "/mnt/c3096fe8-ceba-4048-b201-af08720979e4/Documentos/Universidad/Programacion/Segundo/IA/P2/Belkan/CMakeFiles/comportamientosLib.dir/Comportamientos_Jugador/aldeano.cpp.o"
-  "/mnt/c3096fe8-ceba-4048-b201-af08720979e4/Documentos/Universidad/Programacion/Segundo/IA/P2/Belkan/Comportamientos_Jugador/jugador.cpp" "/mnt/c3096fe8-ceba-4048-b201-af08720979e4/Documentos/Universidad/Programacion/Segundo/IA/P2/Belkan/CMakeFiles/comportamientosLib.dir/Comportamientos_Jugador/jugador.cpp.o"
-  "/mnt/c3096fe8-ceba-4048-b201-af08720979e4/Documentos/Universidad/Programacion/Segundo/IA/P2/Belkan/src/comportamientos/comportamiento.cpp" "/mnt/c3096fe8-ceba-4048-b201-af08720979e4/Documentos/Universidad/Programacion/Segundo/IA/P2/Belkan/CMakeFiles/comportamientosLib.dir/src/comportamientos/comportamiento.cpp.o"
+  "/home/jmramirez/Documentos/Programacion/Universidad/Segundo/IA/P2/Belkan/Comportamientos_Jugador/aldeano.cpp" "/home/jmramirez/Documentos/Programacion/Universidad/Segundo/IA/P2/Belkan/CMakeFiles/comportamientosLib.dir/Comportamientos_Jugador/aldeano.cpp.o"
+  "/home/jmramirez/Documentos/Programacion/Universidad/Segundo/IA/P2/Belkan/Comportamientos_Jugador/jugador.cpp" "/home/jmramirez/Documentos/Programacion/Universidad/Segundo/IA/P2/Belkan/CMakeFiles/comportamientosLib.dir/Comportamientos_Jugador/jugador.cpp.o"
+  "/home/jmramirez/Documentos/Programacion/Universidad/Segundo/IA/P2/Belkan/src/comportamientos/comportamiento.cpp" "/home/jmramirez/Documentos/Programacion/Universidad/Segundo/IA/P2/Belkan/CMakeFiles/comportamientosLib.dir/src/comportamientos/comportamiento.cpp.o"
   )
 set(CMAKE_CXX_COMPILER_ID "GNU")
 

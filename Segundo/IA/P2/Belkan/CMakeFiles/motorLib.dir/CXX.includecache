@@ -6,33 +6,37 @@
 
 #IncludeRegexTransform: 
 
-/mnt/c3096fe8-ceba-4048-b201-af08720979e4/Documentos/Universidad/Programacion/Segundo/IA/P2/Belkan/src/motorlib/entidad.cpp
+/home/jmramirez/Documentos/Programacion/Universidad/Segundo/IA/P2/Belkan/src/motorlib/entidad.cpp
 motorlib/entidad.hpp
-/mnt/c3096fe8-ceba-4048-b201-af08720979e4/Documentos/Universidad/Programacion/Segundo/IA/P2/Belkan/src/motorlib/motorlib/entidad.hpp
+/home/jmramirez/Documentos/Programacion/Universidad/Segundo/IA/P2/Belkan/src/motorlib/motorlib/entidad.hpp
 
-/mnt/c3096fe8-ceba-4048-b201-af08720979e4/Documentos/Universidad/Programacion/Segundo/IA/P2/Belkan/src/motorlib/mapa.cpp
+/home/jmramirez/Documentos/Programacion/Universidad/Segundo/IA/P2/Belkan/src/motorlib/mapa.cpp
 motorlib/mapa.hpp
-/mnt/c3096fe8-ceba-4048-b201-af08720979e4/Documentos/Universidad/Programacion/Segundo/IA/P2/Belkan/src/motorlib/motorlib/mapa.hpp
+/home/jmramirez/Documentos/Programacion/Universidad/Segundo/IA/P2/Belkan/src/motorlib/motorlib/mapa.hpp
 
-/mnt/c3096fe8-ceba-4048-b201-af08720979e4/Documentos/Universidad/Programacion/Segundo/IA/P2/Belkan/src/motorlib/monitor.cpp
+/home/jmramirez/Documentos/Programacion/Universidad/Segundo/IA/P2/Belkan/src/motorlib/monitor.cpp
 motorlib/monitor.hpp
-/mnt/c3096fe8-ceba-4048-b201-af08720979e4/Documentos/Universidad/Programacion/Segundo/IA/P2/Belkan/src/motorlib/motorlib/monitor.hpp
+/home/jmramirez/Documentos/Programacion/Universidad/Segundo/IA/P2/Belkan/src/motorlib/motorlib/monitor.hpp
 fstream
 -
 
-/mnt/c3096fe8-ceba-4048-b201-af08720979e4/Documentos/Universidad/Programacion/Segundo/IA/P2/Belkan/src/motorlib/motor_grafico.cpp
+/home/jmramirez/Documentos/Programacion/Universidad/Segundo/IA/P2/Belkan/src/motorlib/motor_grafico.cpp
 motorlib.hpp
-/mnt/c3096fe8-ceba-4048-b201-af08720979e4/Documentos/Universidad/Programacion/Segundo/IA/P2/Belkan/src/motorlib/motorlib.hpp
+/home/jmramirez/Documentos/Programacion/Universidad/Segundo/IA/P2/Belkan/src/motorlib/motorlib.hpp
 glui/glui.h
 -
 dirent.h
 -
 
-/mnt/c3096fe8-ceba-4048-b201-af08720979e4/Documentos/Universidad/Programacion/Segundo/IA/P2/Belkan/src/motorlib/motor_juego.cpp
+/home/jmramirez/Documentos/Programacion/Universidad/Segundo/IA/P2/Belkan/src/motorlib/motor_juego.cpp
 motorlib.hpp
-/mnt/c3096fe8-ceba-4048-b201-af08720979e4/Documentos/Universidad/Programacion/Segundo/IA/P2/Belkan/src/motorlib/motorlib.hpp
+/home/jmramirez/Documentos/Programacion/Universidad/Segundo/IA/P2/Belkan/src/motorlib/motorlib.hpp
 unistd.h
 -
+
+/home/jmramirez/Documentos/Programacion/Universidad/Segundo/IA/P2/Belkan/src/motorlib/util.cpp
+motorlib/util.h
+/home/jmramirez/Documentos/Programacion/Universidad/Segundo/IA/P2/Belkan/src/motorlib/motorlib/util.h
 
 Comportamientos_Jugador/aldeano.hpp
 chrono

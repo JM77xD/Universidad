@@ -6,11 +6,11 @@
 
 #IncludeRegexTransform: 
 
-/mnt/c3096fe8-ceba-4048-b201-af08720979e4/Documentos/Universidad/Programacion/Segundo/IA/P2/Belkan/Comportamientos_Jugador/jugador.cpp
+/home/jmramirez/Documentos/Programacion/Universidad/Segundo/IA/P2/Belkan/Comportamientos_Jugador/jugador.cpp
 ../Comportamientos_Jugador/jugador.hpp
-/mnt/c3096fe8-ceba-4048-b201-af08720979e4/Documentos/Universidad/Programacion/Segundo/IA/P2/Belkan/Comportamientos_Jugador/jugador.hpp
+/home/jmramirez/Documentos/Programacion/Universidad/Segundo/IA/P2/Belkan/Comportamientos_Jugador/jugador.hpp
 motorlib/util.h
-/mnt/c3096fe8-ceba-4048-b201-af08720979e4/Documentos/Universidad/Programacion/Segundo/IA/P2/Belkan/Comportamientos_Jugador/motorlib/util.h
+/home/jmramirez/Documentos/Programacion/Universidad/Segundo/IA/P2/Belkan/Comportamientos_Jugador/motorlib/util.h
 iostream
 -
 cmath
@@ -24,9 +24,9 @@ unordered_map
 queue
 -
 
-/mnt/c3096fe8-ceba-4048-b201-af08720979e4/Documentos/Universidad/Programacion/Segundo/IA/P2/Belkan/Comportamientos_Jugador/jugador.hpp
+/home/jmramirez/Documentos/Programacion/Universidad/Segundo/IA/P2/Belkan/Comportamientos_Jugador/jugador.hpp
 comportamientos/comportamiento.hpp
-/mnt/c3096fe8-ceba-4048-b201-af08720979e4/Documentos/Universidad/Programacion/Segundo/IA/P2/Belkan/Comportamientos_Jugador/comportamientos/comportamiento.hpp
+/home/jmramirez/Documentos/Programacion/Universidad/Segundo/IA/P2/Belkan/Comportamientos_Jugador/comportamientos/comportamiento.hpp
 list
 -
 vector

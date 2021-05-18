@@ -6,47 +6,47 @@
 
 #IncludeRegexTransform: 
 
-/mnt/c3096fe8-ceba-4048-b201-af08720979e4/Documentos/Universidad/Programacion/Segundo/IA/P2/Belkan/src/obj3dlib/cono3d.cc
+/home/jmramirez/Documentos/Programacion/Universidad/Segundo/IA/P2/Belkan/src/obj3dlib/cono3d.cc
 obj3dlib/cono3d.h
-/mnt/c3096fe8-ceba-4048-b201-af08720979e4/Documentos/Universidad/Programacion/Segundo/IA/P2/Belkan/src/obj3dlib/obj3dlib/cono3d.h
+/home/jmramirez/Documentos/Programacion/Universidad/Segundo/IA/P2/Belkan/src/obj3dlib/obj3dlib/cono3d.h
 GL/glut.h
 -
 
-/mnt/c3096fe8-ceba-4048-b201-af08720979e4/Documentos/Universidad/Programacion/Segundo/IA/P2/Belkan/src/obj3dlib/cono3dwire.cc
+/home/jmramirez/Documentos/Programacion/Universidad/Segundo/IA/P2/Belkan/src/obj3dlib/cono3dwire.cc
 obj3dlib/cono3dwire.h
-/mnt/c3096fe8-ceba-4048-b201-af08720979e4/Documentos/Universidad/Programacion/Segundo/IA/P2/Belkan/src/obj3dlib/obj3dlib/cono3dwire.h
+/home/jmramirez/Documentos/Programacion/Universidad/Segundo/IA/P2/Belkan/src/obj3dlib/obj3dlib/cono3dwire.h
 GL/glut.h
 -
 
-/mnt/c3096fe8-ceba-4048-b201-af08720979e4/Documentos/Universidad/Programacion/Segundo/IA/P2/Belkan/src/obj3dlib/cubo3d.cc
+/home/jmramirez/Documentos/Programacion/Universidad/Segundo/IA/P2/Belkan/src/obj3dlib/cubo3d.cc
 obj3dlib/cubo3d.h
-/mnt/c3096fe8-ceba-4048-b201-af08720979e4/Documentos/Universidad/Programacion/Segundo/IA/P2/Belkan/src/obj3dlib/obj3dlib/cubo3d.h
+/home/jmramirez/Documentos/Programacion/Universidad/Segundo/IA/P2/Belkan/src/obj3dlib/obj3dlib/cubo3d.h
 GL/glut.h
 -
 
-/mnt/c3096fe8-ceba-4048-b201-af08720979e4/Documentos/Universidad/Programacion/Segundo/IA/P2/Belkan/src/obj3dlib/dodecaedro3d.cc
+/home/jmramirez/Documentos/Programacion/Universidad/Segundo/IA/P2/Belkan/src/obj3dlib/dodecaedro3d.cc
 obj3dlib/dodecaedro3d.h
-/mnt/c3096fe8-ceba-4048-b201-af08720979e4/Documentos/Universidad/Programacion/Segundo/IA/P2/Belkan/src/obj3dlib/obj3dlib/dodecaedro3d.h
+/home/jmramirez/Documentos/Programacion/Universidad/Segundo/IA/P2/Belkan/src/obj3dlib/obj3dlib/dodecaedro3d.h
 GL/glut.h
 -
 
-/mnt/c3096fe8-ceba-4048-b201-af08720979e4/Documentos/Universidad/Programacion/Segundo/IA/P2/Belkan/src/obj3dlib/esfera3d.cc
+/home/jmramirez/Documentos/Programacion/Universidad/Segundo/IA/P2/Belkan/src/obj3dlib/esfera3d.cc
 obj3dlib/esfera3d.h
-/mnt/c3096fe8-ceba-4048-b201-af08720979e4/Documentos/Universidad/Programacion/Segundo/IA/P2/Belkan/src/obj3dlib/obj3dlib/esfera3d.h
+/home/jmramirez/Documentos/Programacion/Universidad/Segundo/IA/P2/Belkan/src/obj3dlib/obj3dlib/esfera3d.h
 GL/glut.h
 -
 
-/mnt/c3096fe8-ceba-4048-b201-af08720979e4/Documentos/Universidad/Programacion/Segundo/IA/P2/Belkan/src/obj3dlib/file_ply_stl.cc
+/home/jmramirez/Documentos/Programacion/Universidad/Segundo/IA/P2/Belkan/src/obj3dlib/file_ply_stl.cc
 obj3dlib/file_ply_stl.h
-/mnt/c3096fe8-ceba-4048-b201-af08720979e4/Documentos/Universidad/Programacion/Segundo/IA/P2/Belkan/src/obj3dlib/obj3dlib/file_ply_stl.h
+/home/jmramirez/Documentos/Programacion/Universidad/Segundo/IA/P2/Belkan/src/obj3dlib/obj3dlib/file_ply_stl.h
 
-/mnt/c3096fe8-ceba-4048-b201-af08720979e4/Documentos/Universidad/Programacion/Segundo/IA/P2/Belkan/src/obj3dlib/icosaedro3d.cc
+/home/jmramirez/Documentos/Programacion/Universidad/Segundo/IA/P2/Belkan/src/obj3dlib/icosaedro3d.cc
 obj3dlib/icosaedro3d.h
-/mnt/c3096fe8-ceba-4048-b201-af08720979e4/Documentos/Universidad/Programacion/Segundo/IA/P2/Belkan/src/obj3dlib/obj3dlib/icosaedro3d.h
+/home/jmramirez/Documentos/Programacion/Universidad/Segundo/IA/P2/Belkan/src/obj3dlib/obj3dlib/icosaedro3d.h
 GL/glut.h
 -
 
-/mnt/c3096fe8-ceba-4048-b201-af08720979e4/Documentos/Universidad/Programacion/Segundo/IA/P2/Belkan/src/obj3dlib/jpeg_reader/jpg_imagen.cpp
+/home/jmramirez/Documentos/Programacion/Universidad/Segundo/IA/P2/Belkan/src/obj3dlib/jpeg_reader/jpg_imagen.cpp
 stdlib.h
 -
 string
@@ -54,21 +54,21 @@ string
 iostream
 -
 obj3dlib/jpeg_reader/jpg_imagen.hpp
-/mnt/c3096fe8-ceba-4048-b201-af08720979e4/Documentos/Universidad/Programacion/Segundo/IA/P2/Belkan/src/obj3dlib/jpeg_reader/obj3dlib/jpeg_reader/jpg_imagen.hpp
+/home/jmramirez/Documentos/Programacion/Universidad/Segundo/IA/P2/Belkan/src/obj3dlib/jpeg_reader/obj3dlib/jpeg_reader/jpg_imagen.hpp
 obj3dlib/jpeg_reader/jpg_readwrite.hpp
-/mnt/c3096fe8-ceba-4048-b201-af08720979e4/Documentos/Universidad/Programacion/Segundo/IA/P2/Belkan/src/obj3dlib/jpeg_reader/obj3dlib/jpeg_reader/jpg_readwrite.hpp
+/home/jmramirez/Documentos/Programacion/Universidad/Segundo/IA/P2/Belkan/src/obj3dlib/jpeg_reader/obj3dlib/jpeg_reader/jpg_readwrite.hpp
 
-/mnt/c3096fe8-ceba-4048-b201-af08720979e4/Documentos/Universidad/Programacion/Segundo/IA/P2/Belkan/src/obj3dlib/jpeg_reader/jpg_memsrc.cpp
+/home/jmramirez/Documentos/Programacion/Universidad/Segundo/IA/P2/Belkan/src/obj3dlib/jpeg_reader/jpg_memsrc.cpp
 obj3dlib/jpeg_reader/jpg_jinclude.h
-/mnt/c3096fe8-ceba-4048-b201-af08720979e4/Documentos/Universidad/Programacion/Segundo/IA/P2/Belkan/src/obj3dlib/jpeg_reader/obj3dlib/jpeg_reader/jpg_jinclude.h
+/home/jmramirez/Documentos/Programacion/Universidad/Segundo/IA/P2/Belkan/src/obj3dlib/jpeg_reader/obj3dlib/jpeg_reader/jpg_jinclude.h
 jpeglib.h
 -
 jerror.h
 -
 
-/mnt/c3096fe8-ceba-4048-b201-af08720979e4/Documentos/Universidad/Programacion/Segundo/IA/P2/Belkan/src/obj3dlib/jpeg_reader/jpg_readwrite.cpp
+/home/jmramirez/Documentos/Programacion/Universidad/Segundo/IA/P2/Belkan/src/obj3dlib/jpeg_reader/jpg_readwrite.cpp
 obj3dlib/jpeg_reader/jpg_readwrite.hpp
-/mnt/c3096fe8-ceba-4048-b201-af08720979e4/Documentos/Universidad/Programacion/Segundo/IA/P2/Belkan/src/obj3dlib/jpeg_reader/obj3dlib/jpeg_reader/jpg_readwrite.hpp
+/home/jmramirez/Documentos/Programacion/Universidad/Segundo/IA/P2/Belkan/src/obj3dlib/jpeg_reader/obj3dlib/jpeg_reader/jpg_readwrite.hpp
 stdio.h
 -
 string.h
@@ -82,49 +82,49 @@ iostream
 fstream
 -
 obj3dlib/jpeg_reader/jpg_memsrc.hpp
-/mnt/c3096fe8-ceba-4048-b201-af08720979e4/Documentos/Universidad/Programacion/Segundo/IA/P2/Belkan/src/obj3dlib/jpeg_reader/obj3dlib/jpeg_reader/jpg_memsrc.hpp
+/home/jmramirez/Documentos/Programacion/Universidad/Segundo/IA/P2/Belkan/src/obj3dlib/jpeg_reader/obj3dlib/jpeg_reader/jpg_memsrc.hpp
 setjmp.h
 -
 
-/mnt/c3096fe8-ceba-4048-b201-af08720979e4/Documentos/Universidad/Programacion/Segundo/IA/P2/Belkan/src/obj3dlib/luz.cpp
+/home/jmramirez/Documentos/Programacion/Universidad/Segundo/IA/P2/Belkan/src/obj3dlib/luz.cpp
 obj3dlib/luz.hpp
-/mnt/c3096fe8-ceba-4048-b201-af08720979e4/Documentos/Universidad/Programacion/Segundo/IA/P2/Belkan/src/obj3dlib/obj3dlib/luz.hpp
+/home/jmramirez/Documentos/Programacion/Universidad/Segundo/IA/P2/Belkan/src/obj3dlib/obj3dlib/luz.hpp
 cmath
 -
 
-/mnt/c3096fe8-ceba-4048-b201-af08720979e4/Documentos/Universidad/Programacion/Segundo/IA/P2/Belkan/src/obj3dlib/objeto3d.cc
+/home/jmramirez/Documentos/Programacion/Universidad/Segundo/IA/P2/Belkan/src/obj3dlib/objeto3d.cc
 obj3dlib/objeto3d.h
-/mnt/c3096fe8-ceba-4048-b201-af08720979e4/Documentos/Universidad/Programacion/Segundo/IA/P2/Belkan/src/obj3dlib/obj3dlib/objeto3d.h
+/home/jmramirez/Documentos/Programacion/Universidad/Segundo/IA/P2/Belkan/src/obj3dlib/obj3dlib/objeto3d.h
 obj3dlib/file_ply_stl.h
-/mnt/c3096fe8-ceba-4048-b201-af08720979e4/Documentos/Universidad/Programacion/Segundo/IA/P2/Belkan/src/obj3dlib/obj3dlib/file_ply_stl.h
+/home/jmramirez/Documentos/Programacion/Universidad/Segundo/IA/P2/Belkan/src/obj3dlib/obj3dlib/file_ply_stl.h
 iostream
 -
 
-/mnt/c3096fe8-ceba-4048-b201-af08720979e4/Documentos/Universidad/Programacion/Segundo/IA/P2/Belkan/src/obj3dlib/objrevolucion3d.cc
+/home/jmramirez/Documentos/Programacion/Universidad/Segundo/IA/P2/Belkan/src/obj3dlib/objrevolucion3d.cc
 obj3dlib/objrevolucion3d.h
-/mnt/c3096fe8-ceba-4048-b201-af08720979e4/Documentos/Universidad/Programacion/Segundo/IA/P2/Belkan/src/obj3dlib/obj3dlib/objrevolucion3d.h
+/home/jmramirez/Documentos/Programacion/Universidad/Segundo/IA/P2/Belkan/src/obj3dlib/obj3dlib/objrevolucion3d.h
 obj3dlib/file_ply_stl.h
-/mnt/c3096fe8-ceba-4048-b201-af08720979e4/Documentos/Universidad/Programacion/Segundo/IA/P2/Belkan/src/obj3dlib/obj3dlib/file_ply_stl.h
+/home/jmramirez/Documentos/Programacion/Universidad/Segundo/IA/P2/Belkan/src/obj3dlib/obj3dlib/file_ply_stl.h
 cmath
 -
 GL/glut.h
 -
 
-/mnt/c3096fe8-ceba-4048-b201-af08720979e4/Documentos/Universidad/Programacion/Segundo/IA/P2/Belkan/src/obj3dlib/octaedro3d.cc
+/home/jmramirez/Documentos/Programacion/Universidad/Segundo/IA/P2/Belkan/src/obj3dlib/octaedro3d.cc
 obj3dlib/octaedro3d.h
-/mnt/c3096fe8-ceba-4048-b201-af08720979e4/Documentos/Universidad/Programacion/Segundo/IA/P2/Belkan/src/obj3dlib/obj3dlib/octaedro3d.h
+/home/jmramirez/Documentos/Programacion/Universidad/Segundo/IA/P2/Belkan/src/obj3dlib/obj3dlib/octaedro3d.h
 GL/glut.h
 -
 
-/mnt/c3096fe8-ceba-4048-b201-af08720979e4/Documentos/Universidad/Programacion/Segundo/IA/P2/Belkan/src/obj3dlib/tetraedro3d.cc
+/home/jmramirez/Documentos/Programacion/Universidad/Segundo/IA/P2/Belkan/src/obj3dlib/tetraedro3d.cc
 obj3dlib/tetraedro3d.h
-/mnt/c3096fe8-ceba-4048-b201-af08720979e4/Documentos/Universidad/Programacion/Segundo/IA/P2/Belkan/src/obj3dlib/obj3dlib/tetraedro3d.h
+/home/jmramirez/Documentos/Programacion/Universidad/Segundo/IA/P2/Belkan/src/obj3dlib/obj3dlib/tetraedro3d.h
 GL/glut.h
 -
 
-/mnt/c3096fe8-ceba-4048-b201-af08720979e4/Documentos/Universidad/Programacion/Segundo/IA/P2/Belkan/src/obj3dlib/toro3d.cc
+/home/jmramirez/Documentos/Programacion/Universidad/Segundo/IA/P2/Belkan/src/obj3dlib/toro3d.cc
 obj3dlib/toro3d.h
-/mnt/c3096fe8-ceba-4048-b201-af08720979e4/Documentos/Universidad/Programacion/Segundo/IA/P2/Belkan/src/obj3dlib/obj3dlib/toro3d.h
+/home/jmramirez/Documentos/Programacion/Universidad/Segundo/IA/P2/Belkan/src/obj3dlib/obj3dlib/toro3d.h
 GL/glut.h
 -
 

@@ -1,4 +1,4 @@
-# Install script for directory: /mnt/c3096fe8-ceba-4048-b201-af08720979e4/Documentos/Universidad/Programacion/Segundo/IA/P2/Belkan
+# Install script for directory: /home/jmramirez/Documentos/Programacion/Universidad/Segundo/IA/P2/Belkan
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -45,5 +45,5 @@ endif()
 
 string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
        "${CMAKE_INSTALL_MANIFEST_FILES}")
-file(WRITE "/mnt/c3096fe8-ceba-4048-b201-af08720979e4/Documentos/Universidad/Programacion/Segundo/IA/P2/Belkan/${CMAKE_INSTALL_MANIFEST}"
+file(WRITE "/home/jmramirez/Documentos/Programacion/Universidad/Segundo/IA/P2/Belkan/${CMAKE_INSTALL_MANIFEST}"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")

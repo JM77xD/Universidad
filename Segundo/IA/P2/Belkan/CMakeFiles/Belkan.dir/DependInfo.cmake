@@ -4,7 +4,7 @@ set(CMAKE_DEPENDS_LANGUAGES
   )
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_CXX
-  "/mnt/c3096fe8-ceba-4048-b201-af08720979e4/Documentos/Universidad/Programacion/Segundo/IA/P2/Belkan/bin_src/juego.cc" "/mnt/c3096fe8-ceba-4048-b201-af08720979e4/Documentos/Universidad/Programacion/Segundo/IA/P2/Belkan/CMakeFiles/Belkan.dir/bin_src/juego.cc.o"
+  "/home/jmramirez/Documentos/Programacion/Universidad/Segundo/IA/P2/Belkan/bin_src/juego.cc" "/home/jmramirez/Documentos/Programacion/Universidad/Segundo/IA/P2/Belkan/CMakeFiles/Belkan.dir/bin_src/juego.cc.o"
   )
 set(CMAKE_CXX_COMPILER_ID "GNU")
 
@@ -15,11 +15,11 @@ set(CMAKE_CXX_TARGET_INCLUDE_PATH
 
 # Targets to which this target links.
 set(CMAKE_TARGET_LINKED_INFO_FILES
-  "/mnt/c3096fe8-ceba-4048-b201-af08720979e4/Documentos/Universidad/Programacion/Segundo/IA/P2/Belkan/CMakeFiles/obj3DLib.dir/DependInfo.cmake"
-  "/mnt/c3096fe8-ceba-4048-b201-af08720979e4/Documentos/Universidad/Programacion/Segundo/IA/P2/Belkan/CMakeFiles/motorLib.dir/DependInfo.cmake"
-  "/mnt/c3096fe8-ceba-4048-b201-af08720979e4/Documentos/Universidad/Programacion/Segundo/IA/P2/Belkan/CMakeFiles/modelosBelkanLib.dir/DependInfo.cmake"
-  "/mnt/c3096fe8-ceba-4048-b201-af08720979e4/Documentos/Universidad/Programacion/Segundo/IA/P2/Belkan/CMakeFiles/GLUILib.dir/DependInfo.cmake"
-  "/mnt/c3096fe8-ceba-4048-b201-af08720979e4/Documentos/Universidad/Programacion/Segundo/IA/P2/Belkan/CMakeFiles/comportamientosLib.dir/DependInfo.cmake"
+  "/home/jmramirez/Documentos/Programacion/Universidad/Segundo/IA/P2/Belkan/CMakeFiles/obj3DLib.dir/DependInfo.cmake"
+  "/home/jmramirez/Documentos/Programacion/Universidad/Segundo/IA/P2/Belkan/CMakeFiles/motorLib.dir/DependInfo.cmake"
+  "/home/jmramirez/Documentos/Programacion/Universidad/Segundo/IA/P2/Belkan/CMakeFiles/modelosBelkanLib.dir/DependInfo.cmake"
+  "/home/jmramirez/Documentos/Programacion/Universidad/Segundo/IA/P2/Belkan/CMakeFiles/GLUILib.dir/DependInfo.cmake"
+  "/home/jmramirez/Documentos/Programacion/Universidad/Segundo/IA/P2/Belkan/CMakeFiles/comportamientosLib.dir/DependInfo.cmake"
   )
 
 # Fortran module output directory.

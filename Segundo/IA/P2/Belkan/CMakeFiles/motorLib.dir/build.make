@@ -43,10 +43,10 @@ RM = /usr/bin/cmake -E remove -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /mnt/c3096fe8-ceba-4048-b201-af08720979e4/Documentos/Universidad/Programacion/Segundo/IA/P2/Belkan
+CMAKE_SOURCE_DIR = /home/jmramirez/Documentos/Programacion/Universidad/Segundo/IA/P2/Belkan
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /mnt/c3096fe8-ceba-4048-b201-af08720979e4/Documentos/Universidad/Programacion/Segundo/IA/P2/Belkan
+CMAKE_BINARY_DIR = /home/jmramirez/Documentos/Programacion/Universidad/Segundo/IA/P2/Belkan
 
 # Include any dependencies generated for this target.
 include CMakeFiles/motorLib.dir/depend.make
@@ -59,81 +59,81 @@ include CMakeFiles/motorLib.dir/flags.make
 
 CMakeFiles/motorLib.dir/src/motorlib/entidad.cpp.o: CMakeFiles/motorLib.dir/flags.make
 CMakeFiles/motorLib.dir/src/motorlib/entidad.cpp.o: src/motorlib/entidad.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/mnt/c3096fe8-ceba-4048-b201-af08720979e4/Documentos/Universidad/Programacion/Segundo/IA/P2/Belkan/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/motorLib.dir/src/motorlib/entidad.cpp.o"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/motorLib.dir/src/motorlib/entidad.cpp.o -c /mnt/c3096fe8-ceba-4048-b201-af08720979e4/Documentos/Universidad/Programacion/Segundo/IA/P2/Belkan/src/motorlib/entidad.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/jmramirez/Documentos/Programacion/Universidad/Segundo/IA/P2/Belkan/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/motorLib.dir/src/motorlib/entidad.cpp.o"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/motorLib.dir/src/motorlib/entidad.cpp.o -c /home/jmramirez/Documentos/Programacion/Universidad/Segundo/IA/P2/Belkan/src/motorlib/entidad.cpp
 
 CMakeFiles/motorLib.dir/src/motorlib/entidad.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/motorLib.dir/src/motorlib/entidad.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /mnt/c3096fe8-ceba-4048-b201-af08720979e4/Documentos/Universidad/Programacion/Segundo/IA/P2/Belkan/src/motorlib/entidad.cpp > CMakeFiles/motorLib.dir/src/motorlib/entidad.cpp.i
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/jmramirez/Documentos/Programacion/Universidad/Segundo/IA/P2/Belkan/src/motorlib/entidad.cpp > CMakeFiles/motorLib.dir/src/motorlib/entidad.cpp.i
 
 CMakeFiles/motorLib.dir/src/motorlib/entidad.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/motorLib.dir/src/motorlib/entidad.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /mnt/c3096fe8-ceba-4048-b201-af08720979e4/Documentos/Universidad/Programacion/Segundo/IA/P2/Belkan/src/motorlib/entidad.cpp -o CMakeFiles/motorLib.dir/src/motorlib/entidad.cpp.s
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/jmramirez/Documentos/Programacion/Universidad/Segundo/IA/P2/Belkan/src/motorlib/entidad.cpp -o CMakeFiles/motorLib.dir/src/motorlib/entidad.cpp.s
 
 CMakeFiles/motorLib.dir/src/motorlib/mapa.cpp.o: CMakeFiles/motorLib.dir/flags.make
 CMakeFiles/motorLib.dir/src/motorlib/mapa.cpp.o: src/motorlib/mapa.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/mnt/c3096fe8-ceba-4048-b201-af08720979e4/Documentos/Universidad/Programacion/Segundo/IA/P2/Belkan/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/motorLib.dir/src/motorlib/mapa.cpp.o"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/motorLib.dir/src/motorlib/mapa.cpp.o -c /mnt/c3096fe8-ceba-4048-b201-af08720979e4/Documentos/Universidad/Programacion/Segundo/IA/P2/Belkan/src/motorlib/mapa.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/jmramirez/Documentos/Programacion/Universidad/Segundo/IA/P2/Belkan/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/motorLib.dir/src/motorlib/mapa.cpp.o"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/motorLib.dir/src/motorlib/mapa.cpp.o -c /home/jmramirez/Documentos/Programacion/Universidad/Segundo/IA/P2/Belkan/src/motorlib/mapa.cpp
 
 CMakeFiles/motorLib.dir/src/motorlib/mapa.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/motorLib.dir/src/motorlib/mapa.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /mnt/c3096fe8-ceba-4048-b201-af08720979e4/Documentos/Universidad/Programacion/Segundo/IA/P2/Belkan/src/motorlib/mapa.cpp > CMakeFiles/motorLib.dir/src/motorlib/mapa.cpp.i
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/jmramirez/Documentos/Programacion/Universidad/Segundo/IA/P2/Belkan/src/motorlib/mapa.cpp > CMakeFiles/motorLib.dir/src/motorlib/mapa.cpp.i
 
 CMakeFiles/motorLib.dir/src/motorlib/mapa.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/motorLib.dir/src/motorlib/mapa.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /mnt/c3096fe8-ceba-4048-b201-af08720979e4/Documentos/Universidad/Programacion/Segundo/IA/P2/Belkan/src/motorlib/mapa.cpp -o CMakeFiles/motorLib.dir/src/motorlib/mapa.cpp.s
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/jmramirez/Documentos/Programacion/Universidad/Segundo/IA/P2/Belkan/src/motorlib/mapa.cpp -o CMakeFiles/motorLib.dir/src/motorlib/mapa.cpp.s
 
 CMakeFiles/motorLib.dir/src/motorlib/monitor.cpp.o: CMakeFiles/motorLib.dir/flags.make
 CMakeFiles/motorLib.dir/src/motorlib/monitor.cpp.o: src/motorlib/monitor.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/mnt/c3096fe8-ceba-4048-b201-af08720979e4/Documentos/Universidad/Programacion/Segundo/IA/P2/Belkan/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/motorLib.dir/src/motorlib/monitor.cpp.o"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/motorLib.dir/src/motorlib/monitor.cpp.o -c /mnt/c3096fe8-ceba-4048-b201-af08720979e4/Documentos/Universidad/Programacion/Segundo/IA/P2/Belkan/src/motorlib/monitor.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/jmramirez/Documentos/Programacion/Universidad/Segundo/IA/P2/Belkan/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/motorLib.dir/src/motorlib/monitor.cpp.o"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/motorLib.dir/src/motorlib/monitor.cpp.o -c /home/jmramirez/Documentos/Programacion/Universidad/Segundo/IA/P2/Belkan/src/motorlib/monitor.cpp
 
 CMakeFiles/motorLib.dir/src/motorlib/monitor.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/motorLib.dir/src/motorlib/monitor.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /mnt/c3096fe8-ceba-4048-b201-af08720979e4/Documentos/Universidad/Programacion/Segundo/IA/P2/Belkan/src/motorlib/monitor.cpp > CMakeFiles/motorLib.dir/src/motorlib/monitor.cpp.i
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/jmramirez/Documentos/Programacion/Universidad/Segundo/IA/P2/Belkan/src/motorlib/monitor.cpp > CMakeFiles/motorLib.dir/src/motorlib/monitor.cpp.i
 
 CMakeFiles/motorLib.dir/src/motorlib/monitor.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/motorLib.dir/src/motorlib/monitor.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /mnt/c3096fe8-ceba-4048-b201-af08720979e4/Documentos/Universidad/Programacion/Segundo/IA/P2/Belkan/src/motorlib/monitor.cpp -o CMakeFiles/motorLib.dir/src/motorlib/monitor.cpp.s
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/jmramirez/Documentos/Programacion/Universidad/Segundo/IA/P2/Belkan/src/motorlib/monitor.cpp -o CMakeFiles/motorLib.dir/src/motorlib/monitor.cpp.s
 
 CMakeFiles/motorLib.dir/src/motorlib/motor_grafico.cpp.o: CMakeFiles/motorLib.dir/flags.make
 CMakeFiles/motorLib.dir/src/motorlib/motor_grafico.cpp.o: src/motorlib/motor_grafico.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/mnt/c3096fe8-ceba-4048-b201-af08720979e4/Documentos/Universidad/Programacion/Segundo/IA/P2/Belkan/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/motorLib.dir/src/motorlib/motor_grafico.cpp.o"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/motorLib.dir/src/motorlib/motor_grafico.cpp.o -c /mnt/c3096fe8-ceba-4048-b201-af08720979e4/Documentos/Universidad/Programacion/Segundo/IA/P2/Belkan/src/motorlib/motor_grafico.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/jmramirez/Documentos/Programacion/Universidad/Segundo/IA/P2/Belkan/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/motorLib.dir/src/motorlib/motor_grafico.cpp.o"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/motorLib.dir/src/motorlib/motor_grafico.cpp.o -c /home/jmramirez/Documentos/Programacion/Universidad/Segundo/IA/P2/Belkan/src/motorlib/motor_grafico.cpp
 
 CMakeFiles/motorLib.dir/src/motorlib/motor_grafico.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/motorLib.dir/src/motorlib/motor_grafico.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /mnt/c3096fe8-ceba-4048-b201-af08720979e4/Documentos/Universidad/Programacion/Segundo/IA/P2/Belkan/src/motorlib/motor_grafico.cpp > CMakeFiles/motorLib.dir/src/motorlib/motor_grafico.cpp.i
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/jmramirez/Documentos/Programacion/Universidad/Segundo/IA/P2/Belkan/src/motorlib/motor_grafico.cpp > CMakeFiles/motorLib.dir/src/motorlib/motor_grafico.cpp.i
 
 CMakeFiles/motorLib.dir/src/motorlib/motor_grafico.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/motorLib.dir/src/motorlib/motor_grafico.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /mnt/c3096fe8-ceba-4048-b201-af08720979e4/Documentos/Universidad/Programacion/Segundo/IA/P2/Belkan/src/motorlib/motor_grafico.cpp -o CMakeFiles/motorLib.dir/src/motorlib/motor_grafico.cpp.s
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/jmramirez/Documentos/Programacion/Universidad/Segundo/IA/P2/Belkan/src/motorlib/motor_grafico.cpp -o CMakeFiles/motorLib.dir/src/motorlib/motor_grafico.cpp.s
 
 CMakeFiles/motorLib.dir/src/motorlib/motor_juego.cpp.o: CMakeFiles/motorLib.dir/flags.make
 CMakeFiles/motorLib.dir/src/motorlib/motor_juego.cpp.o: src/motorlib/motor_juego.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/mnt/c3096fe8-ceba-4048-b201-af08720979e4/Documentos/Universidad/Programacion/Segundo/IA/P2/Belkan/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building CXX object CMakeFiles/motorLib.dir/src/motorlib/motor_juego.cpp.o"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/motorLib.dir/src/motorlib/motor_juego.cpp.o -c /mnt/c3096fe8-ceba-4048-b201-af08720979e4/Documentos/Universidad/Programacion/Segundo/IA/P2/Belkan/src/motorlib/motor_juego.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/jmramirez/Documentos/Programacion/Universidad/Segundo/IA/P2/Belkan/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building CXX object CMakeFiles/motorLib.dir/src/motorlib/motor_juego.cpp.o"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/motorLib.dir/src/motorlib/motor_juego.cpp.o -c /home/jmramirez/Documentos/Programacion/Universidad/Segundo/IA/P2/Belkan/src/motorlib/motor_juego.cpp
 
 CMakeFiles/motorLib.dir/src/motorlib/motor_juego.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/motorLib.dir/src/motorlib/motor_juego.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /mnt/c3096fe8-ceba-4048-b201-af08720979e4/Documentos/Universidad/Programacion/Segundo/IA/P2/Belkan/src/motorlib/motor_juego.cpp > CMakeFiles/motorLib.dir/src/motorlib/motor_juego.cpp.i
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/jmramirez/Documentos/Programacion/Universidad/Segundo/IA/P2/Belkan/src/motorlib/motor_juego.cpp > CMakeFiles/motorLib.dir/src/motorlib/motor_juego.cpp.i
 
 CMakeFiles/motorLib.dir/src/motorlib/motor_juego.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/motorLib.dir/src/motorlib/motor_juego.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /mnt/c3096fe8-ceba-4048-b201-af08720979e4/Documentos/Universidad/Programacion/Segundo/IA/P2/Belkan/src/motorlib/motor_juego.cpp -o CMakeFiles/motorLib.dir/src/motorlib/motor_juego.cpp.s
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/jmramirez/Documentos/Programacion/Universidad/Segundo/IA/P2/Belkan/src/motorlib/motor_juego.cpp -o CMakeFiles/motorLib.dir/src/motorlib/motor_juego.cpp.s
 
 CMakeFiles/motorLib.dir/src/motorlib/util.cpp.o: CMakeFiles/motorLib.dir/flags.make
 CMakeFiles/motorLib.dir/src/motorlib/util.cpp.o: src/motorlib/util.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/mnt/c3096fe8-ceba-4048-b201-af08720979e4/Documentos/Universidad/Programacion/Segundo/IA/P2/Belkan/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Building CXX object CMakeFiles/motorLib.dir/src/motorlib/util.cpp.o"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/motorLib.dir/src/motorlib/util.cpp.o -c /mnt/c3096fe8-ceba-4048-b201-af08720979e4/Documentos/Universidad/Programacion/Segundo/IA/P2/Belkan/src/motorlib/util.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/jmramirez/Documentos/Programacion/Universidad/Segundo/IA/P2/Belkan/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Building CXX object CMakeFiles/motorLib.dir/src/motorlib/util.cpp.o"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/motorLib.dir/src/motorlib/util.cpp.o -c /home/jmramirez/Documentos/Programacion/Universidad/Segundo/IA/P2/Belkan/src/motorlib/util.cpp
 
 CMakeFiles/motorLib.dir/src/motorlib/util.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/motorLib.dir/src/motorlib/util.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /mnt/c3096fe8-ceba-4048-b201-af08720979e4/Documentos/Universidad/Programacion/Segundo/IA/P2/Belkan/src/motorlib/util.cpp > CMakeFiles/motorLib.dir/src/motorlib/util.cpp.i
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/jmramirez/Documentos/Programacion/Universidad/Segundo/IA/P2/Belkan/src/motorlib/util.cpp > CMakeFiles/motorLib.dir/src/motorlib/util.cpp.i
 
 CMakeFiles/motorLib.dir/src/motorlib/util.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/motorLib.dir/src/motorlib/util.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /mnt/c3096fe8-ceba-4048-b201-af08720979e4/Documentos/Universidad/Programacion/Segundo/IA/P2/Belkan/src/motorlib/util.cpp -o CMakeFiles/motorLib.dir/src/motorlib/util.cpp.s
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/jmramirez/Documentos/Programacion/Universidad/Segundo/IA/P2/Belkan/src/motorlib/util.cpp -o CMakeFiles/motorLib.dir/src/motorlib/util.cpp.s
 
 # Object files for target motorLib
 motorLib_OBJECTS = \
@@ -155,7 +155,7 @@ lib/libmotorLib.a: CMakeFiles/motorLib.dir/src/motorlib/motor_juego.cpp.o
 lib/libmotorLib.a: CMakeFiles/motorLib.dir/src/motorlib/util.cpp.o
 lib/libmotorLib.a: CMakeFiles/motorLib.dir/build.make
 lib/libmotorLib.a: CMakeFiles/motorLib.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/mnt/c3096fe8-ceba-4048-b201-af08720979e4/Documentos/Universidad/Programacion/Segundo/IA/P2/Belkan/CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Linking CXX static library lib/libmotorLib.a"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/jmramirez/Documentos/Programacion/Universidad/Segundo/IA/P2/Belkan/CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Linking CXX static library lib/libmotorLib.a"
 	$(CMAKE_COMMAND) -P CMakeFiles/motorLib.dir/cmake_clean_target.cmake
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/motorLib.dir/link.txt --verbose=$(VERBOSE)
 
@@ -169,6 +169,6 @@ CMakeFiles/motorLib.dir/clean:
 .PHONY : CMakeFiles/motorLib.dir/clean
 
 CMakeFiles/motorLib.dir/depend:
-	cd /mnt/c3096fe8-ceba-4048-b201-af08720979e4/Documentos/Universidad/Programacion/Segundo/IA/P2/Belkan && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /mnt/c3096fe8-ceba-4048-b201-af08720979e4/Documentos/Universidad/Programacion/Segundo/IA/P2/Belkan /mnt/c3096fe8-ceba-4048-b201-af08720979e4/Documentos/Universidad/Programacion/Segundo/IA/P2/Belkan /mnt/c3096fe8-ceba-4048-b201-af08720979e4/Documentos/Universidad/Programacion/Segundo/IA/P2/Belkan /mnt/c3096fe8-ceba-4048-b201-af08720979e4/Documentos/Universidad/Programacion/Segundo/IA/P2/Belkan /mnt/c3096fe8-ceba-4048-b201-af08720979e4/Documentos/Universidad/Programacion/Segundo/IA/P2/Belkan/CMakeFiles/motorLib.dir/DependInfo.cmake --color=$(COLOR)
+	cd /home/jmramirez/Documentos/Programacion/Universidad/Segundo/IA/P2/Belkan && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/jmramirez/Documentos/Programacion/Universidad/Segundo/IA/P2/Belkan /home/jmramirez/Documentos/Programacion/Universidad/Segundo/IA/P2/Belkan /home/jmramirez/Documentos/Programacion/Universidad/Segundo/IA/P2/Belkan /home/jmramirez/Documentos/Programacion/Universidad/Segundo/IA/P2/Belkan /home/jmramirez/Documentos/Programacion/Universidad/Segundo/IA/P2/Belkan/CMakeFiles/motorLib.dir/DependInfo.cmake --color=$(COLOR)
 .PHONY : CMakeFiles/motorLib.dir/depend
 

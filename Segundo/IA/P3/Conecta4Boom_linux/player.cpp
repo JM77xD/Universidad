@@ -115,10 +115,19 @@ double contarDiagonales(int jugador, const Environment &estado) {
    for (int i = 0; i < 4; i++) {
       for (int j = 0; j < 4; j++) {
 
-         if (estado.See_Casilla(i,j)==jugador && estado.See_Casilla(i+1,j+1)==jugador && ((estado.See_Casilla(i+2,j+2)==jugador && estado.See_Casilla(i+3,j+3)==0 && estado.See_Casilla(i+2,j+3)!=0) || (estado.See_Casilla(i+2,j+2)==0 && estado.See_Casilla(i+3,j+3)==jugador && estado.See_Casilla(i+1,j+2)!=0) ))
+         if (estado.See_Casilla(i,j)==jugador && estado.See_Casilla(i+1,j+1)==jugador && estado.See_Casilla(i+2,j+2)==jugador && estado.See_Casilla(i+3,j+3)==0 && estado.See_Casilla(i+2,j+3)!=0)
             trios += 100;
 
-         if (estado.See_Casilla(i,j)==jugador && estado.See_Casilla(i+1,j+1)==jugador && estado.See_Casilla(i+2,j+2)==0)
+         if (estado.See_Casilla(i,j)==jugador && estado.See_Casilla(i+1,j+1)==jugador && estado.See_Casilla(i+2,j+2)==0 && estado.See_Casilla(i+3,j+3)==jugador && estado.See_Casilla(i+1,j+2)!=0)
+            trios += 100;
+
+         if (estado.See_Casilla(i,j)==jugador && estado.See_Casilla(i+1,j+1)==0 && estado.See_Casilla(i+2,j+2)==jugador && estado.See_Casilla(i+3,j+3)==jugador && estado.See_Casilla(i,j+1)!=0)
+            trios += 100;
+
+         if (estado.See_Casilla(i,j)==0 && estado.See_Casilla(i+1,j+1)==jugador && estado.See_Casilla(i+2,j+2)==jugador && estado.See_Casilla(i+3,j+3)==jugador)
+            trios += 100;
+
+         if ((estado.See_Casilla(i,j)==jugador && estado.See_Casilla(i+1,j+1)==jugador && estado.See_Casilla(i+2,j+2)==0 && estado.See_Casilla(i+1,j+2)!=0) || (estado.See_Casilla(i,j)==jugador && estado.See_Casilla(i+1,j+1)==0 && estado.See_Casilla(i+2,j+2)==jugador && estado.See_Casilla(i,j+1)!=0) || (estado.See_Casilla(i,j)==0 && estado.See_Casilla(i+1,j+1)==jugador && estado.See_Casilla(i+2,j+2)==jugador))
             parejas += 100;
 
       }
@@ -127,10 +136,19 @@ double contarDiagonales(int jugador, const Environment &estado) {
    for (int i = 0; i < 4; i++) {
       for (int j = 3; j < 7; j++) {
 
-         if (estado.See_Casilla(i,j)==jugador && estado.See_Casilla(i+1,j-1)==jugador && ((estado.See_Casilla(i+2,j-2)==jugador && estado.See_Casilla(i+3,j-3)==0 && estado.See_Casilla(i+2,j-3)!=0) || (estado.See_Casilla(i+2,j-2)==0 && estado.See_Casilla(i+3,j-3)==jugador && estado.See_Casilla(i+1,j-2)!=0) ))
+         if (estado.See_Casilla(i,j)==jugador && estado.See_Casilla(i+1,j-1)==jugador && estado.See_Casilla(i+2,j-2)==jugador && estado.See_Casilla(i+3,j-3)==0 && estado.See_Casilla(i+2,j-3)!=0)
             trios += 100;
 
-         if (estado.See_Casilla(i,j)==jugador && ((estado.See_Casilla(i+1,j-1)==jugador && estado.See_Casilla(i+2,j-2)==0 && estado.See_Casilla(i+1,j-2)!=0) || (estado.See_Casilla(i+1,j-1)==0 && estado.See_Casilla(i+2,j-2)==jugador && estado.See_Casilla(i,j-1)!=0) ))
+         if (estado.See_Casilla(i,j)==jugador && estado.See_Casilla(i+1,j-1)==jugador && estado.See_Casilla(i+2,j-2)==0 && estado.See_Casilla(i+3,j-3)==jugador && estado.See_Casilla(i+1,j-2)!=0)
+            trios += 100;
+
+         if (estado.See_Casilla(i,j)==jugador && estado.See_Casilla(i+1,j-1)==0 && estado.See_Casilla(i+2,j-2)==jugador && estado.See_Casilla(i+3,j-3)==jugador && estado.See_Casilla(i,j-1)!=0)
+            trios += 100;
+
+         if (estado.See_Casilla(i,j)==0 && estado.See_Casilla(i+1,j-1)==jugador && estado.See_Casilla(i+2,j-2)==jugador && estado.See_Casilla(i+3,j-3)==jugador)
+            trios += 100;
+
+         if ((estado.See_Casilla(i,j)==jugador && estado.See_Casilla(i+1,j-1)==jugador && estado.See_Casilla(i+2,j-2)==0 && estado.See_Casilla(i+1,j-2)!=0) || (estado.See_Casilla(i,j)==jugador && estado.See_Casilla(i+1,j-1)==0 && estado.See_Casilla(i+2,j-2)==jugador && estado.See_Casilla(i,j-1)!=0) || (estado.See_Casilla(i,j)==0 && estado.See_Casilla(i+1,j-1)==jugador && estado.See_Casilla(i+2,j-2)==jugador))
             parejas += 100;
 
       }
@@ -150,22 +168,27 @@ double Heuristica(int jugador, const Environment &estado) {
    suma += contarDiagonales(jugador, estado);
 
 
-   suma -= contarDiagonales(jugador==1?2:1, estado) * 5;
+   suma -= contarDiagonales(jugador==1?2:1, estado);
 
 
    //Contamos las verticales
 
    suma += contarVertical(jugador, estado);
 
-   suma -= contarVertical(jugador==1?2:1, estado) * 5;
+   suma -= contarVertical(jugador==1?2:1, estado);
 
    
    //Contamos los individuales
    suma += contarHorizontal(jugador, estado);
 
-   suma -= contarHorizontal(jugador==1?2:1, estado) * 5;
+   suma -= contarHorizontal(jugador==1?2:1, estado);
 
-   
+   int ganador = estado.RevisarTablero();
+   if (ganador == jugador)
+      suma += 100000;
+   else if (ganador != 0)
+      suma -= 100000;
+
    return suma; 
 }
 
@@ -173,13 +196,8 @@ double Heuristica(int jugador, const Environment &estado) {
 
 // Funcion heuristica (ESTA ES LA QUE TENEIS QUE MODIFICAR)
 double Valoracion(const Environment &estado, int jugador){
-   int ganador = estado.RevisarTablero();
 
-    if (ganador==jugador)
-      return 99999999.0; // Gana el jugador que pide la valoracion
-    else if (ganador!=0)
-      return -99999999.0; // Pierde el jugador que pide la valoracion
-    else if (estado.Get_Casillas_Libres()==0)
+    if (estado.Get_Casillas_Libres()==0)
       return 0;  // Hay un empate global y se ha rellenado completamente el tablero
     else
       return Heuristica(jugador,estado);
@@ -335,7 +353,7 @@ Environment::ActionType Player::Think(){
             accion = static_cast< Environment::ActionType > (next[i].Last_Action(jugador_));
          }
       }
-    cout << "Valor MiniMax: " << valor << "  Accion: " << actual_.ActionStr(accion) << endl;
+    cout << "Valor AlfaBeta: " << valor << "  Accion: " << actual_.ActionStr(accion) << endl;
 
     return accion;
 }

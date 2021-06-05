@@ -497,8 +497,15 @@ bool ComportamientoJugador::pathFinding_Costo(const estado &origen, const estado
 		cout << "Cargando el plan\n";
 
 		while (actual.st != origen) {
-			plan.push_front(Cerrados[actual].second);
-			actual = Cerrados[actual].first;
+			while (actual.st != origen) {
+				
+				plan.push_front(Cerrados[actual].second);
+				actual = Cerrados[actual].first;
+			}
+			if (Cerrados[actual].first.st != origen) {
+				plan.push_front(Cerrados[actual].second);
+				actual = Cerrados[actual].first;
+			}
 		}
 
 		cout << "Longitud del plan: " << plan.size() << endl;

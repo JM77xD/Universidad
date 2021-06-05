@@ -164,23 +164,15 @@ double Heuristica(int jugador, const Environment &estado) {
    double suma = 0;
 
    //Contamos las diagonales
-
    suma += contarDiagonales(jugador, estado);
-
-
    suma -= contarDiagonales(jugador==1?2:1, estado);
 
-
    //Contamos las verticales
-
    suma += contarVertical(jugador, estado);
-
    suma -= contarVertical(jugador==1?2:1, estado);
 
-   
-   //Contamos los individuales
+   //Contamos los horizontales
    suma += contarHorizontal(jugador, estado);
-
    suma -= contarHorizontal(jugador==1?2:1, estado);
 
    int ganador = estado.RevisarTablero();
@@ -341,13 +333,11 @@ Environment::ActionType Player::Think(){
 
 
     // Opcion: Poda AlfaBeta
-    // NOTA: La parametrizacion es solo orientativa
       Environment next[8];
       int tam = actual_.GenerateAllMoves(next);
       for (int i = 0; i < tam; i++) {
          
          aux = Poda_AlfaBeta(next[i], PROFUNDIDAD_ALFABETA, alpha, beta, next[i].JugadorActivo() , jugador_);
-         cout << "valor aux " << i << ": " << aux << "\tAccion: " << next[i].ActionStr(static_cast< Environment::ActionType > (next[i].Last_Action(jugador_))) << endl;
          if (aux >= valor) {
             valor = aux;
             accion = static_cast< Environment::ActionType > (next[i].Last_Action(jugador_));

@@ -83,8 +83,8 @@ pair<int,vector<int>> AlgoritmoDinamico(vector<Botes> &Botes, const int numLitro
     }
 
 
-    i--;
-    j--;
+    i = Botes.size()-1;
+    j = numLitros;
     costeFinal = matrizCoste[i][j];
 
     vector<int> sol;
@@ -102,6 +102,7 @@ pair<int,vector<int>> AlgoritmoDinamico(vector<Botes> &Botes, const int numLitro
         } else {
             sol[i] = matrizRecipientes[i][j];
             j -= matrizRecipientes[i][j]*Botes[i].capacidad;
+            i -= 1;
         }
     }
 
@@ -123,6 +124,10 @@ int main (int argc, char * argv[]) {
         return -1;
     }
     int numLitros = atoi(argv[1]);
+    if (numLitros < 0) {
+        cerr << "El número de litros introducido no puede ser negativo\n";
+        return -1;
+    }
     vector<Botes> Recipientes;
     Botes bote1 {
         .capacidad = 3,
@@ -151,7 +156,7 @@ int main (int argc, char * argv[]) {
 
     pair<int,vector<int>> solucion = AlgoritmoDinamico(Recipientes, numLitros);
 
-    cout << "El coste total para " <<  numLitros << " litros es: " << solucion.first << "\ny el número de botes es:\n";
+    cout << "El coste total para " <<  numLitros << " litros es: " << solucion.first << "\nEl número de botes de cada tipo es:\n";
     for (int i = 0; i < solucion.second.size(); i++) {
         cout << "Bote de " << Recipientes[i].capacidad << " litros:\t" << solucion.second[i] << endl;
     }

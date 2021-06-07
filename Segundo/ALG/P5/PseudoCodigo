@@ -1,0 +1,33 @@
+for each TipoBotePintura:
+    for each Numero <= LitrosPedidos:
+        if col = 0:
+            m[TipoBotePintura][Numero] = 0
+            r[TipoBotePintura][Numero] = 0
+        else if TipoBotePintura = Primero:
+            if Numero > TipoBotePintura.capacidad * TipoBotePintura.NumeroDisponible:
+                m[TipoBotePintura][Numero] = Infinito
+                r[TipoBotePintura][Numero] = 0
+            else if Numero > m[TipoBotePintura][Numero-1]/TipoBotePintura.coste * TipoBotePintura.capacidad:
+                m[TipoBotePintura][Numero] = m[TipoBotePintura][Numero-1] + TipoBotePintura.coste
+                r[TipoBotePintura][Numero] = r[TipoBotePintura][Numero-1] + 1
+            else
+                m[TipoBotePintura][Numero] = m[TipoBotePintura][Numero-1]
+                r[TipoBotePintura][Numero] = r[TipoBotePintura][Numero-1]
+        else
+            if Numero < TipoBotePintura.capacidad
+                if m[TipoBotePintura-1][Numero] > TipoBotePintura.coste
+                    m[TipoBotePintura][Numero] = TipoBotePintura.coste
+                    r[TipoBotePintura][Numero] = 1
+                else
+                    m[TipoBotePintura][Numero] = m[TipoBotePintura-1][Numero]
+                    r[TipoBotePintura][Numero] = 0
+            else
+                for k <= TipoBotePintura.NumeroDisponible && k * TipoBotePintura.capacidad <= Numero
+                    if m[TipoBotePintura-1][Numero - k*TipoBotePintura.capacidad] + TipoBotePintura.capacidad*k < m[TipoBotePintura][Numero]:
+                        m[TipoBotePintura][Numero] = m[TipoBotePintura-1][Numero - k*TipoBotePintura.capacidad] + TipoBotePintura.capacidad*k
+                        r[TipoBotePintura][Numero] = k
+
+                        
+                        
+                        
+                        

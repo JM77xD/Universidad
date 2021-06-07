@@ -1,5 +1,6 @@
 #include <iostream>
 #include <vector>
+#include <chrono>
 
 using namespace std;
 
@@ -131,22 +132,22 @@ int main (int argc, char * argv[]) {
     vector<Botes> Recipientes;
     Botes bote1 {
         .capacidad = 3,
-        .NumDisp = 3,
+        .NumDisp = 9,
         .coste = 5
     };
     Botes bote2 {
         .capacidad = 5,
-        .NumDisp = 3,
+        .NumDisp = 8,
         .coste = 9
     };
     Botes bote3 {
         .capacidad = 7,
-        .NumDisp = 2,
+        .NumDisp = 5,
         .coste = 12
     };
     Botes bote4 {
         .capacidad = 9,
-        .NumDisp = 1,
+        .NumDisp = 10,
         .coste = 15
     };
     Recipientes.push_back(bote1);
@@ -154,10 +155,22 @@ int main (int argc, char * argv[]) {
     Recipientes.push_back(bote3);
     Recipientes.push_back(bote4);
 
+    chrono::high_resolution_clock::time_point tantes, tdespues;
+    chrono::duration<double> tiempo;
+
+    tantes = chrono::high_resolution_clock::now();
+
     pair<int,vector<int>> solucion = AlgoritmoDinamico(Recipientes, numLitros);
 
+    tdespues = chrono::high_resolution_clock::now();
+
+    tiempo = chrono::duration_cast<chrono::duration<double>> (tdespues - tantes);
+    
     cout << "El coste total para " <<  numLitros << " litros es: " << solucion.first << "\nEl número de botes de cada tipo es:\n";
     for (int i = 0; i < solucion.second.size(); i++) {
         cout << "Bote de " << Recipientes[i].capacidad << " litros:\t" << solucion.second[i] << endl;
     }
+    cout << "El tiempo de ejecución ha sido:\t" << tiempo.count() << endl;
+    
+    //cout << numLitros << " " << tiempo.count() << endl;
 }

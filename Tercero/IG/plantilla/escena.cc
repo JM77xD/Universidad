@@ -19,8 +19,8 @@ Escena::Escena()
     ejes.changeAxisSize( 5000 );
 
     // crear los objetos de la escena....
-    // .......completar: ...
-    // .....
+    cubo = new Cubo(75);
+    tetraedro = new Tetraedro(75);
 
 }
 
@@ -56,14 +56,13 @@ void Escena::dibujar()
 {
 	glClear( GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT ); // Limpiar la pantalla
 	change_observer();
-    ejes.draw();
-    // COMPLETAR
-    //   Dibujar los diferentes elementos de la escena
-    // Habrá que tener en esta primera práctica una variable que indique qué objeto se ha de visualizar
-    // y hacer 
-    // cubo.draw()
-    // o
-    // tetraedro.draw()
+   ejes.draw();
+    
+   if (objeto == CUBO)
+      cubo->draw(modo, visualizado);
+   else if (objeto == TETRAEDRO)
+      tetraedro->draw(modo, visualizado);
+   
     
 }
 
@@ -91,17 +90,67 @@ bool Escena::teclaPulsada( unsigned char tecla, int x, int y )
          break ;
       case 'O' :
          // ESTAMOS EN MODO SELECCION DE OBJETO
+         cout << "Entrando en modo selección de objeto, pulse:\nC para mostrar cubo\nT para mostrar tetraedro\nN para no mostrar nada\nQ para salir del menu\n";
          modoMenu=SELOBJETO; 
          break ;
         case 'V' :
          // ESTAMOS EN MODO SELECCION DE MODO DE VISUALIZACION
+         cout << "Entrando en modo selección de visualización, pulse:\nP para mostrar con puntos\nL para mostrar con líneas\nS para mostrar en sólido\nA para mostrar en ajedrez\nQ para salir del menu\n";
          modoMenu=SELVISUALIZACION;
          break ;
        case 'D' :
          // ESTAMOS EN MODO SELECCION DE DIBUJADO
          modoMenu=SELDIBUJADO;
          break ;
-         // COMPLETAR con los diferentes opciones de teclado
+         // COMPLETAR con los diferentes opciones de teclado     
+      case 'C':
+         if (modoMenu == SELOBJETO) {
+            cout << "Mostrando cubo\n";
+            objeto = CUBO;
+         }
+         break;
+
+      case 'T':
+         if (modoMenu == SELOBJETO) {
+            cout << "Mostrando tetraedro\n";
+            objeto = TETRAEDRO;
+         }
+         break;
+
+      case 'N':
+         if (modoMenu == SELOBJETO) {
+            cout << "No mostrando nada\n";
+            objeto = NINGUNO;
+         }
+         break;
+
+      case 'P':
+         if (modoMenu == SELVISUALIZACION) {
+            cout << "Mostrando con puntos\n";
+            visualizado = PUNTOS;
+         }
+         break;
+      
+      case 'L':
+         if (modoMenu == SELVISUALIZACION) {
+            cout << "Mostrando con líneas\n";
+            visualizado = LINEAS;
+         }
+         break;
+
+      case 'S':
+         if (modoMenu == SELVISUALIZACION) {
+            cout << "Mostrando como sólido\n";
+            visualizado = SOLIDO;
+         }
+         break;
+
+      case 'A':
+         if (modoMenu == SELVISUALIZACION) {
+            cout << "mostrando en ajedrez\n";
+            visualizado = AJEDREZ;
+         }
+         break;
             
    }
    return salir;

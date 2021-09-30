@@ -23,11 +23,11 @@
 #include <string>   // std::string
 #include <vector>   // std::vector
 
-#ifdef LINUX
+
 #  include <GL/glew.h> // en linux: incluye GL.h
 #  include <GL/glut.h> // GLUT (gestión de ventanas)
 #  include <GL/glu.h>
-#endif
+
 
 #ifdef MACOS
 #  include <OpenGL/GL.h>

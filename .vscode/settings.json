@@ -2,6 +2,7 @@
     "files.associations": {
         "*.aiml": "xml",
         "queue": "cpp",
-        "iostream": "cpp"
+        "iostream": "cpp",
+        "*.tcc": "cpp"
     }
 }

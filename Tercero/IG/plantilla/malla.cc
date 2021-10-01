@@ -22,26 +22,52 @@ void Malla3D::draw_ModoInmediato(visualizacion visualizado)
       break;
     case PUNTOS:
       tipo = GL_POINTS;
+      glPointSize(5);
       break;
     case LINEAS:
-      tipo = GL_LINE_STRIP;
+      tipo = GL_LINES;
       break;
     default:
       tipo = GL_TRIANGLES;
       break;
    }
 
-  glEnableClientState(GL_VERTEX_ARRAY);
-  glVertexPointer(3, GL_FLOAT, 0, v.data() );
-  glEnableClientState(GL_COLOR_ARRAY);
-  glColorPointer(3, GL_FLOAT, 0, c.data() );
   if (visualizado == AJEDREZ) {
-    glColorPointer(3, GL_FLOAT, 0, cAje.data());
+
+    glDisableClientState(GL_COLOR_ARRAY);
+
+    std::vector<Tupla3i> nuevosTriangulos;
+    int mitad;
+
+    for (int i = 0; i < f.size(); i+=2)
+      nuevosTriangulos.push_back(f[i]);
+
+    mitad = nuevosTriangulos.size();
+
+    for (int i = 1; i < f.size(); i+=2)
+      nuevosTriangulos.push_back(f[i]);
+
+    glEnableClientState(GL_VERTEX_ARRAY);
+    glVertexPointer(3, GL_FLOAT, 0, v.data() );
+
     glShadeModel(GL_FLAT);
+    
+    glColor3f(0.5,1,0); //Primera mitad en verde
+    glDrawElements(tipo, mitad*3, GL_UNSIGNED_INT, nuevosTriangulos.data());
+
+    glColor3f(1,0,0.25); //Segunda mitad en rojo
+    glDrawElements(tipo, (nuevosTriangulos.size()-mitad)*3, GL_UNSIGNED_INT, nuevosTriangulos.data()[mitad]);
+
   } else {
+    glEnableClientState(GL_VERTEX_ARRAY);
+    glVertexPointer(3, GL_FLOAT, 0, v.data() );
+    if (c.size() != 0) {
+      glEnableClientState(GL_COLOR_ARRAY);
+      glColorPointer(3, GL_FLOAT, 0, c.data() );
+    }
     glShadeModel(GL_SMOOTH);
+    glDrawElements( tipo, 3*f.size(), GL_UNSIGNED_INT, f.data());
   }
-  glDrawElements( tipo, 3*f.size(), GL_UNSIGNED_INT, f.data());
   glDisableClientState( GL_VERTEX_ARRAY );
 
 }

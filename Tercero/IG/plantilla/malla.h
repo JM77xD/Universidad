@@ -41,7 +41,6 @@ class Malla3D
    std::vector<Tupla3f> v ;   // tabla de coordenadas de vértices (una tupla por vértice, con tres floats)
    std::vector<Tupla3i> f ;   // una terna de 3 enteros por cada cara o triángulo
    std::vector<Tupla3f> c ;    // Una terna de 3 floats para el color de cada cara
-   std::vector<Tupla3f> cAje ;    // Una terna de 3 floats para el color de cada cara para el modo ajedrez, así ahorramos cálculos sin perder demasiada memoria
 
    // completar: tabla de normales de vértices
 } ;

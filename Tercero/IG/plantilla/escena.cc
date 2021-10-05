@@ -58,9 +58,9 @@ void Escena::dibujar()
 	change_observer();
    ejes.draw();
     
-   if (objeto == CUBO)
+   if (objeto == CUBO && cubo != nullptr)
       cubo->draw(modo, visualizado);
-   else if (objeto == TETRAEDRO)
+   else if (objeto == TETRAEDRO && tetraedro != nullptr)
       tetraedro->draw(modo, visualizado);
    
     
@@ -126,22 +126,28 @@ bool Escena::teclaPulsada( unsigned char tecla, int x, int y )
 
       case 'P':
          if (modoMenu == SELVISUALIZACION) {
-            cout << "Mostrando con puntos\n";
-            visualizado = PUNTOS;
+            cout << "Alternando puntos\n";
+            visualizado ^= PUNTOS;
+            if (visualizado == 0)
+               visualizado = SOLIDO;
          }
          break;
       
       case 'L':
          if (modoMenu == SELVISUALIZACION) {
-            cout << "Mostrando con líneas\n";
-            visualizado = LINEAS;
+            cout << "Alternando lineas\n";
+            visualizado ^= LINEAS;
+            if (visualizado == 0)
+               visualizado = SOLIDO;
          }
          break;
 
       case 'S':
          if (modoMenu == SELVISUALIZACION) {
-            cout << "Mostrando como sólido\n";
-            visualizado = SOLIDO;
+            cout << "Alternando solido\n";
+            visualizado ^= SOLIDO;
+            if (visualizado == 0)
+               visualizado = SOLIDO;     
          }
          break;
 

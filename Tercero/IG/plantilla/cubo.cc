@@ -28,14 +28,14 @@ Cubo::Cubo(float lado)
    f.push_back(Tupla3i(3,7,2));
    f.push_back(Tupla3i(2,7,6));
    
-   c.push_back(Tupla3f(1,0,0));
-   c.push_back(Tupla3f(0,1,0));
-   c.push_back(Tupla3f(1,0,0));
-   c.push_back(Tupla3f(0,1,0));
-   c.push_back(Tupla3f(1,0,0));
-   c.push_back(Tupla3f(0,1,0));
-   c.push_back(Tupla3f(1,0,0));
-   c.push_back(Tupla3f(0,1,0));
+   c.push_back(Tupla3f(0,0,1));
+   c.push_back(Tupla3f(0,0,1));
+   c.push_back(Tupla3f(0,0,1));
+   c.push_back(Tupla3f(0,0,1));
+   c.push_back(Tupla3f(0,0,1));
+   c.push_back(Tupla3f(0,0,1));
+   c.push_back(Tupla3f(0,0,1));
+   c.push_back(Tupla3f(0,0,1));
 
 }
 

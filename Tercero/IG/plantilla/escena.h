@@ -36,11 +36,11 @@ class Escena
    menu modoMenu=NADA;
    ObjetoActivo objeto=NINGUNO;
    modoDibujado modo = INMEDIATO;
-   visualizacion visualizado = SOLIDO;
+   int visualizado = SOLIDO;
    // Objetos de la escena
    Ejes ejes;
    Cubo * cubo = nullptr ; // es importante inicializarlo a 'nullptr'
-   Tetraedro * tetraedro= nullptr ; // es importante inicializarlo a 'nullptr'
+   Tetraedro * tetraedro = nullptr ; // es importante inicializarlo a 'nullptr'
 
    
    public:

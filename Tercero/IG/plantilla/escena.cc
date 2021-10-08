@@ -82,80 +82,108 @@ bool Escena::teclaPulsada( unsigned char tecla, int x, int y )
    switch( toupper(tecla) )
    {
       case 'Q' :
-         if (modoMenu!=NADA)
-            modoMenu=NADA;            
-         else {
+         if (modoMenu!=NADA) {
+            modoMenu=NADA;
+            cout << "Saliendo del menú, pulse:\nO para modo selección de objeto\nV para modo selección de visualización\nD para modo selección de dibujado\nQ para salir del programa\n";          
+         } else {
             salir=true ;
          }
          break ;
       case 'O' :
-         // ESTAMOS EN MODO SELECCION DE OBJETO
-         cout << "Entrando en modo selección de objeto, pulse:\nC para mostrar cubo\nT para mostrar tetraedro\nN para no mostrar nada\nQ para salir del menu\n";
-         modoMenu=SELOBJETO; 
+         if (modoMenu == NADA) {
+            // ESTAMOS EN MODO SELECCION DE OBJETO
+            cout << "Entrando en modo selección de objeto, pulse:\nC para mostrar cubo\nT para mostrar tetraedro\nN para no mostrar nada\nQ para salir del menu\n";
+            modoMenu=SELOBJETO;
+         } else
+            cout << "Opción no válida\n";
          break ;
         case 'V' :
-         // ESTAMOS EN MODO SELECCION DE MODO DE VISUALIZACION
-         cout << "Entrando en modo selección de visualización, pulse:\nP para mostrar con puntos\nL para mostrar con líneas\nS para mostrar en sólido\nA para mostrar en ajedrez\nQ para salir del menu\n";
-         modoMenu=SELVISUALIZACION;
+         if (modoMenu == NADA) {
+            // ESTAMOS EN MODO SELECCION DE MODO DE VISUALIZACION
+            cout << "Entrando en modo selección de visualización, pulse:\nP para mostrar con puntos\nL para mostrar con líneas\nS para mostrar en sólido\nA para mostrar en ajedrez\nQ para salir del menu\n";
+            modoMenu=SELVISUALIZACION;
+         } else
+            cout << "Opción no válida\n";
          break ;
        case 'D' :
-         // ESTAMOS EN MODO SELECCION DE DIBUJADO
-         modoMenu=SELDIBUJADO;
+         if (modoMenu == NADA) {
+            // ESTAMOS EN MODO SELECCION DE DIBUJADO
+            cout << "Entrando en modo selección de dibujado, pulse:\n1 para activar dibujado con glDraw\n2 para activar dibujado con VBO\nQ para salir del menu\n";
+            modoMenu=SELDIBUJADO;
+         } else
+            cout << "Opción no válida\n";
          break ;
          // COMPLETAR con los diferentes opciones de teclado     
       case 'C':
          if (modoMenu == SELOBJETO) {
             cout << "Mostrando cubo\n";
             objeto = CUBO;
-         }
+         } else
+            cout << "Opción no válida\n";
          break;
 
       case 'T':
          if (modoMenu == SELOBJETO) {
             cout << "Mostrando tetraedro\n";
             objeto = TETRAEDRO;
-         }
+         } else
+            cout << "Opción no válida\n";
          break;
 
       case 'N':
          if (modoMenu == SELOBJETO) {
             cout << "No mostrando nada\n";
             objeto = NINGUNO;
-         }
+         } else
+            cout << "Opción no válida\n";
          break;
 
       case 'P':
          if (modoMenu == SELVISUALIZACION) {
             cout << "Alternando puntos\n";
             visualizado ^= PUNTOS;
-            if (visualizado == 0)
-               visualizado = SOLIDO;
-         }
+         } else
+            cout << "Opción no válida\n";
          break;
       
       case 'L':
          if (modoMenu == SELVISUALIZACION) {
             cout << "Alternando lineas\n";
             visualizado ^= LINEAS;
-            if (visualizado == 0)
-               visualizado = SOLIDO;
-         }
+         } else
+            cout << "Opción no válida\n";
          break;
 
       case 'S':
          if (modoMenu == SELVISUALIZACION) {
             cout << "Alternando solido\n";
-            visualizado ^= SOLIDO;
-            if (visualizado == 0)
-               visualizado = SOLIDO;     
-         }
+            visualizado ^= SOLIDO;    
+         } else
+            cout << "Opción no válida\n";
          break;
 
       case 'A':
          if (modoMenu == SELVISUALIZACION) {
-            cout << "mostrando en ajedrez\n";
-            visualizado = AJEDREZ;
-         }
+            cout << "Alternando ajedrez\n";
+            visualizado ^= AJEDREZ;
+         } else
+            cout << "Opción no válida\n";
+         break;
+
+      case '1':
+         if (modoMenu == SELDIBUJADO) {
+            cout << "Mostrando con glDraw\n";
+            modo = INMEDIATO;
+         } else
+            cout << "Opción no válida\n";
+         break;
+      
+      case '2':
+         if (modoMenu == SELDIBUJADO) {
+            cout << "Mostrando con VBO\n";
+            modo = DIFERIDO;
+         } else
+            cout << "Opción no válida\n";
          break;
             
    }

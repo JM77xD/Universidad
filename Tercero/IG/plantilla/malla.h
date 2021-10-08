@@ -18,7 +18,7 @@
 //
 // *****************************************************************************
 typedef enum {DIFERIDO, INMEDIATO} modoDibujado;
-typedef enum {AJEDREZ = 0, SOLIDO = 1, PUNTOS = 2, LINEAS = 4} visualizacion;
+typedef enum {AJEDREZ = 1, SOLIDO = 2, PUNTOS = 4, LINEAS = 8} visualizacion;
 class Malla3D
 {
    public:
@@ -36,11 +36,20 @@ class Malla3D
 
    protected:
 
+   GLuint crearVBO(GLuint tipo_vbo, GLuint tamanio_bytes, GLvoid *puntero_ram);
+
    void calcular_normales() ; // calcula tabla de normales de vértices (práctica 3)
 
    std::vector<Tupla3f> v ;   // tabla de coordenadas de vértices (una tupla por vértice, con tres floats)
    std::vector<Tupla3i> f ;   // una terna de 3 enteros por cada cara o triángulo
    std::vector<Tupla3f> c ;    // Una terna de 3 floats para el color de cada cara
+   std::vector<Tupla3i> nuevosTriangulos1, nuevosTriangulos2;  //Triangulos para el modo ajedrez
+
+   GLuint   vbo_vertices = 0,
+            vbo_triangulos = 0,
+            vbo_triangulos_aje1 = 0,
+            vbo_triangulos_aje2 = 0,
+            vbo_colores = 0;
 
    // completar: tabla de normales de vértices
 } ;

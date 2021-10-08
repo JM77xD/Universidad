@@ -104,8 +104,8 @@ void Malla3D::draw_ModoInmediato(int visualizado)
 void Malla3D::draw_ModoDiferido(int visualizado)
 {
   
-  if ((vbo_triangulos_aje1 == 0 || vbo_vertices == 0 || vbo_triangulos_aje2 == 0) && (visualizado & AJEDREZ) == AJEDREZ) {
-
+  if ((vbo_triangulos_aje1 == 0 || vbo_vertices == 0 || vbo_triangulos_aje2 == 0) && (visualizado & AJEDREZ) == AJEDREZ) {  //Comprobamos si están creados los vbo, si no los creamos
+  
     vbo_vertices = crearVBO(GL_ARRAY_BUFFER, v.size()*3*sizeof(float), v.data());
 
     //Separamos los triángulos en 2 mitades, primero todos los pares y luego los impares
@@ -124,16 +124,13 @@ void Malla3D::draw_ModoDiferido(int visualizado)
     vbo_vertices = crearVBO(GL_ARRAY_BUFFER, v.size()*3*sizeof(float), v.data());
     vbo_triangulos = crearVBO(GL_ELEMENT_ARRAY_BUFFER, f.size()*3*sizeof(int), f.data());
   }
-
-  if (vbo_colores == 0) 
-    vbo_colores = crearVBO(GL_ARRAY_BUFFER, c.size()*3*sizeof(float), c.data());
   
-  glBindBuffer(GL_ARRAY_BUFFER, vbo_vertices);
+  glBindBuffer(GL_ARRAY_BUFFER, vbo_vertices);  //Cargamos el buffer de vértices
   glVertexPointer(3,GL_FLOAT,0,0);
-  glBindBuffer(GL_ARRAY_BUFFER, 0);
+  glBindBuffer(GL_ARRAY_BUFFER, 0); //Descargamos
   glEnableClientState(GL_VERTEX_ARRAY);
 
-  if ((visualizado & AJEDREZ) == AJEDREZ) {
+  if ((visualizado & AJEDREZ) == AJEDREZ) { //Mostramos en modo ajedrez
     glEnable(GL_CULL_FACE);
     glShadeModel(GL_FLAT);
     glPolygonMode(GL_FRONT, GL_FILL);
@@ -147,23 +144,24 @@ void Malla3D::draw_ModoDiferido(int visualizado)
   }
 
   //Comprobar si hay colores. Si los hay, cargarlos.
-    if(c.size()!=0) {
-      glEnableClientState(GL_COLOR_ARRAY);
-      glBindBuffer(GL_ARRAY_BUFFER, vbo_colores);
-      glColorPointer(3, GL_FLOAT, 0, 0);
-      glBindBuffer(GL_ARRAY_BUFFER, 0);
-    }
+  if(c.size()!=0 && vbo_colores != 0) {
+    vbo_colores = crearVBO(GL_ARRAY_BUFFER, c.size()*3*sizeof(float), c.data());
+    glEnableClientState(GL_COLOR_ARRAY);
+    glBindBuffer(GL_ARRAY_BUFFER, vbo_colores);
+    glColorPointer(3, GL_FLOAT, 0, 0);
+    glBindBuffer(GL_ARRAY_BUFFER, 0);
+  }
 
-  glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, vbo_triangulos);
+  glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, vbo_triangulos);  //Cambiamos el buffer
 
-  if ((visualizado & SOLIDO) == SOLIDO && (visualizado & AJEDREZ) != AJEDREZ) {
+  if ((visualizado & SOLIDO) == SOLIDO && (visualizado & AJEDREZ) != AJEDREZ) { //Mostramos en sólido
     glShadeModel(GL_SMOOTH);
     glEnable(GL_CULL_FACE);
     glPolygonMode(GL_FRONT, GL_FILL);
     glDrawElements(GL_TRIANGLES, 3*f.size(), GL_UNSIGNED_INT, 0);
   }
 
-  if ((visualizado & LINEAS) == LINEAS) {
+  if ((visualizado & LINEAS) == LINEAS) { //Mostramos como líneas
     glDisableClientState(GL_COLOR_ARRAY);
     glDisable(GL_CULL_FACE);
     glShadeModel(GL_FLAT);
@@ -172,7 +170,7 @@ void Malla3D::draw_ModoDiferido(int visualizado)
     glDrawElements(GL_TRIANGLES, 3*f.size(), GL_UNSIGNED_INT, 0);
   }
 
-  if ((visualizado & PUNTOS) == PUNTOS) {
+  if ((visualizado & PUNTOS) == PUNTOS) { //Mostramos como puntos
     glDisableClientState(GL_COLOR_ARRAY);
     glDisable(GL_CULL_FACE);
     glShadeModel(GL_FLAT);
@@ -182,7 +180,7 @@ void Malla3D::draw_ModoDiferido(int visualizado)
     glDrawElements(GL_TRIANGLES, 3*f.size(), GL_UNSIGNED_INT, 0);
   }
 
-  glDisableClientState(GL_VERTEX_ARRAY);
+  glDisableClientState(GL_VERTEX_ARRAY);  //Desactivamos el array de vértices
 
 }
 // -----------------------------------------------------------------------------

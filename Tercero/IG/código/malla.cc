@@ -144,7 +144,7 @@ void Malla3D::draw_ModoDiferido(int visualizado)
   }
 
   //Comprobar si hay colores. Si los hay, cargarlos.
-  if(c.size()!=0 && vbo_colores != 0) {
+  if(c.size() != 0 || vbo_colores != 0) {
     vbo_colores = crearVBO(GL_ARRAY_BUFFER, c.size()*3*sizeof(float), c.data());
     glEnableClientState(GL_COLOR_ARRAY);
     glBindBuffer(GL_ARRAY_BUFFER, vbo_colores);

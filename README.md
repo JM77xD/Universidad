@@ -18,4 +18,5 @@ Asignaturas cursadas hasta ahora que cuentan con un contenido lo suficientemente
   - Segundo cuatrimestre:
     -  [ALG](./Segundo/ALG)
     -  [IA](./Segundo/IA)
-
+- Tercero:
+    -  [IG](./Tercero/IG)

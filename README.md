@@ -19,4 +19,5 @@ Asignaturas cursadas hasta ahora que cuentan con un contenido lo suficientemente
     -  [ALG](./Segundo/ALG)
     -  [IA](./Segundo/IA)
 - Tercero:
+  - Primer Cuatri:
     -  [IG](./Tercero/IG)

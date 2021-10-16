@@ -1,6 +1,6 @@
 # Universidad
 
-Tareas y actividades mandadas por la Universidad de Granada en el transcurso del Grado en Ingeniería Informática.
+Tareas y actividades realizadas en el transcurso del Grado en Ingeniería Informática en la Universidad de Granada.
 
 Las asignaturas se encuentran ordenadas por año.
 
@@ -19,5 +19,5 @@ Asignaturas cursadas hasta ahora que cuentan con un contenido lo suficientemente
     -  [ALG](./Segundo/ALG)
     -  [IA](./Segundo/IA)
 - Tercero:
-  - Primer Cuatri:
+  - Primer cuatrimestre:
     -  [IG](./Tercero/IG)

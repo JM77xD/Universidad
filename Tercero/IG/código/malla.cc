@@ -144,12 +144,8 @@ void Malla3D::draw_ModoDiferido(int visualizado)
   }
 
   //Comprobar si hay colores. Si los hay, cargarlos.
-  if(c.size() != 0 || vbo_colores != 0) {
+  if(c.size() != 0 && vbo_colores == 0) {
     vbo_colores = crearVBO(GL_ARRAY_BUFFER, c.size()*3*sizeof(float), c.data());
-    glEnableClientState(GL_COLOR_ARRAY);
-    glBindBuffer(GL_ARRAY_BUFFER, vbo_colores);
-    glColorPointer(3, GL_FLOAT, 0, 0);
-    glBindBuffer(GL_ARRAY_BUFFER, 0);
   }
 
   glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, vbo_triangulos);  //Cambiamos el buffer
@@ -158,7 +154,13 @@ void Malla3D::draw_ModoDiferido(int visualizado)
     glShadeModel(GL_SMOOTH);
     glEnable(GL_CULL_FACE);
     glPolygonMode(GL_FRONT, GL_FILL);
+    if (c.size() != 0 && vbo_colores != 0) {
+      glEnableClientState(GL_COLOR_ARRAY);
+      glBindBuffer(GL_ARRAY_BUFFER, vbo_colores);
+      glColorPointer(3, GL_FLOAT, 0, 0);
+    }
     glDrawElements(GL_TRIANGLES, 3*f.size(), GL_UNSIGNED_INT, 0);
+    glBindBuffer(GL_ARRAY_BUFFER, 0);
   }
 
   if ((visualizado & LINEAS) == LINEAS) { //Mostramos como líneas
@@ -179,6 +181,8 @@ void Malla3D::draw_ModoDiferido(int visualizado)
     glColor3f(0,1,0);
     glDrawElements(GL_TRIANGLES, 3*f.size(), GL_UNSIGNED_INT, 0);
   }
+
+  glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);  //Quitamos el buffer de triangulos
 
   glDisableClientState(GL_VERTEX_ARRAY);  //Desactivamos el array de vértices
 

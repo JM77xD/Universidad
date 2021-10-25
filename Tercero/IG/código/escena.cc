@@ -58,9 +58,9 @@ void Escena::dibujar()
 	change_observer();
    ejes.draw();
     
-   if (objeto == CUBO && cubo != nullptr)
+   if ((objeto & CUBO) == CUBO && cubo != nullptr)
       cubo->draw(modo, visualizado);
-   else if (objeto == TETRAEDRO && tetraedro != nullptr)
+   else if ((objeto & TETRAEDRO) == TETRAEDRO && tetraedro != nullptr)
       tetraedro->draw(modo, visualizado);
    
     
@@ -92,7 +92,7 @@ bool Escena::teclaPulsada( unsigned char tecla, int x, int y )
       case 'O' :
          if (modoMenu == NADA) {
             // ESTAMOS EN MODO SELECCION DE OBJETO
-            cout << "Entrando en modo selección de objeto, pulse:\nC para mostrar cubo\nT para mostrar tetraedro\nN para no mostrar nada\nQ para salir del menu\n";
+            cout << "Entrando en modo selección de objeto, pulse:\nC para mostrar cubo\nT para mostrar tetraedro\nQ para salir del menu\n";
             modoMenu=SELOBJETO;
          } else
             cout << "Opción no válida\n";
@@ -116,24 +116,16 @@ bool Escena::teclaPulsada( unsigned char tecla, int x, int y )
          // COMPLETAR con los diferentes opciones de teclado     
       case 'C':
          if (modoMenu == SELOBJETO) {
-            cout << "Mostrando cubo\n";
-            objeto = CUBO;
+            cout << "Alternando cubo\n";
+            objeto ^= CUBO;
          } else
             cout << "Opción no válida\n";
          break;
 
       case 'T':
          if (modoMenu == SELOBJETO) {
-            cout << "Mostrando tetraedro\n";
-            objeto = TETRAEDRO;
-         } else
-            cout << "Opción no válida\n";
-         break;
-
-      case 'N':
-         if (modoMenu == SELOBJETO) {
-            cout << "No mostrando nada\n";
-            objeto = NINGUNO;
+            cout << "Alternando tetraedro\n";
+            objeto ^= TETRAEDRO;
          } else
             cout << "Opción no válida\n";
          break;

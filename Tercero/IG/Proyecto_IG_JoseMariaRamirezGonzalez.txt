@@ -1,0 +1,3 @@
+Mi proyecto consistira en un personaje humanoide complejo, desplazándose en la escena.
+Este personaje se para delante de una mesa (objeto simple) con una lámpara y la enciende.
+Toda la accion de la escena ocurrirá en una habitacion (con una ventana y una cama) formada por planos

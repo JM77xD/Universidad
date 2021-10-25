@@ -7,7 +7,7 @@
 #include "tetraedro.h"
 
 typedef enum {NADA, SELOBJETO,SELVISUALIZACION,SELDIBUJADO} menu;
-typedef enum {CUBO, TETRAEDRO, NINGUNO} ObjetoActivo;
+typedef enum {CUBO = 1, TETRAEDRO = 2} ObjetoActivo;
 class Escena
 {
 
@@ -34,7 +34,7 @@ class Escena
    void clear_window();
 
    menu modoMenu=NADA;
-   ObjetoActivo objeto=NINGUNO;
+   int objeto=0;
    modoDibujado modo = INMEDIATO;
    int visualizado = SOLIDO;
    // Objetos de la escena

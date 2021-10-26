@@ -27,6 +27,8 @@ Escena::Escena()
    cono = new Cono(100,100,50,30);
 
    esfera = new Esfera(100,100,30);
+
+   revolt = new ObjRevolucion("plys/venus.ply",100);
    
 
 }
@@ -88,6 +90,11 @@ void Escena::dibujar()
    if ((objeto & ESFERA) == ESFERA && esfera != nullptr) {
       esfera->draw(modo, visualizado);
    }
+
+   if ((objeto & REVOLT) == REVOLT && revolt != nullptr) {
+      glScalef(75.0,75.0,75.0);
+      revolt->draw(modo, visualizado);
+   }
    
     
 }
@@ -118,7 +125,7 @@ bool Escena::teclaPulsada( unsigned char tecla, int x, int y )
       case 'O' :
          if (modoMenu == NADA) {
             // ESTAMOS EN MODO SELECCION DE OBJETO
-            cout << "Entrando en modo selección de objeto, pulse:\nC para alternar cubo\nT para alternar tetraedro\nS para alternar cilindro\nK para alternar Cono\nE para alternar esfera\nQ para salir del menu\n";
+            cout << "Entrando en modo selección de objeto, pulse:\nC para alternar cubo\nT para alternar tetraedro\nS para alternar cilindro\nK para alternar Cono\nE para alternar esfera\nR para alternar objeto de revolución\nQ para salir del menu\n";
             modoMenu=SELOBJETO;
          } else
             cout << "Opción no válida\n";
@@ -168,6 +175,14 @@ bool Escena::teclaPulsada( unsigned char tecla, int x, int y )
          if (modoMenu == SELOBJETO) {
             cout << "Alternando esfera\n";
             objeto ^= ESFERA;
+         } else
+            cout << "Opción no válida\n";
+         break;
+
+      case 'R':
+         if (modoMenu == SELOBJETO) {
+            cout << "Alternando revolución\n";
+            objeto ^= REVOLT;
          } else
             cout << "Opción no válida\n";
          break;

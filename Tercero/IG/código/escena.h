@@ -10,7 +10,7 @@
 #include "esfera.h"
 #include "objply.h"
 
-typedef enum {NADA, SELOBJETO,SELVISUALIZACION,SELDIBUJADO} menu;
+typedef enum {NADA, SELOBJETO,SELVISUALIZACION,SELDIBUJADO,SELTAPAS} menu;
 typedef enum {CUBO = 1, TETRAEDRO = 2, CILINDRO = 4, CONO = 8, ESFERA = 16, REVOLT = 32} ObjetoActivo;
 class Escena
 {
@@ -41,6 +41,7 @@ class Escena
    int objeto=0;
    modoDibujado modo = INMEDIATO;
    int visualizado = SOLIDO;
+   bool tapa_sup = true, tapa_inf = true;
    // Objetos de la escena
    Ejes ejes;
    Cubo * cubo = nullptr ; // es importante inicializarlo a 'nullptr'

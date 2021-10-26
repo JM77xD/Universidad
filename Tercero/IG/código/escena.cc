@@ -28,7 +28,7 @@ Escena::Escena()
 
    esfera = new Esfera(100,100,30);
 
-   revolt = new ObjRevolucion("plys/venus.ply",100);
+   revolt = new ObjRevolucion("plys/peon.ply",100, tapa_sup, tapa_inf);
    
 
 }
@@ -69,29 +69,30 @@ void Escena::dibujar()
     
    if ((objeto & CUBO) == CUBO && cubo != nullptr) {
       cubo->draw(modo, visualizado);
-      glTranslatef(70.0,0.0,0);
    }
 
    if ((objeto & TETRAEDRO) == TETRAEDRO && tetraedro != nullptr) {
-      tetraedro->draw(modo, visualizado);
       glTranslatef(70.0,0.0,0);
+      tetraedro->draw(modo, visualizado);
    }
 
    if ((objeto & CILINDRO) == CILINDRO && cilindro != nullptr) {
-      cilindro->draw(modo, visualizado);
       glTranslatef(70.0,0.0,0);
+      cilindro->draw(modo, visualizado);
    }
 
    if ((objeto & CONO) == CONO && cono != nullptr) {
-      cono->draw(modo, visualizado);
       glTranslatef(70.0,0.0,0);
+      cono->draw(modo, visualizado);
    }
 
    if ((objeto & ESFERA) == ESFERA && esfera != nullptr) {
+      glTranslatef(70.0,0.0,0);
       esfera->draw(modo, visualizado);
    }
 
    if ((objeto & REVOLT) == REVOLT && revolt != nullptr) {
+      glTranslatef(70.0,0.0,0);
       glScalef(75.0,75.0,75.0);
       revolt->draw(modo, visualizado);
    }
@@ -117,11 +118,12 @@ bool Escena::teclaPulsada( unsigned char tecla, int x, int y )
       case 'Q' :
          if (modoMenu!=NADA) {
             modoMenu=NADA;
-            cout << "Saliendo del menú, pulse:\nO para modo selección de objeto\nV para modo selección de visualización\nD para modo selección de dibujado\nQ para salir del programa\n";          
+            cout << "Saliendo del menú, pulse:\nO para modo selección de objeto\nV para modo selección de visualización\nD para modo selección de dibujado\nT para modo selección de tapas en objetos de revolución\nQ para salir del programa\n";          
          } else {
             salir=true ;
          }
          break ;
+
       case 'O' :
          if (modoMenu == NADA) {
             // ESTAMOS EN MODO SELECCION DE OBJETO
@@ -130,6 +132,7 @@ bool Escena::teclaPulsada( unsigned char tecla, int x, int y )
          } else
             cout << "Opción no válida\n";
          break ;
+
         case 'V' :
          if (modoMenu == NADA) {
             // ESTAMOS EN MODO SELECCION DE MODO DE VISUALIZACION
@@ -138,7 +141,20 @@ bool Escena::teclaPulsada( unsigned char tecla, int x, int y )
          } else
             cout << "Opción no válida\n";
          break ;
-       case 'D' :
+
+       case 'T' :
+         if (modoMenu == NADA) {
+            // ESTAMOS EN MODO SELECCION DE TAPAS
+            cout << "Entrando en modo selección de tapas de objetos de revolución, pulse:\n1 para alternar tapa superior\n2 para alternar tapa inferior\nQ para salir del menu\n";
+            modoMenu=SELTAPAS;
+         } else if (modoMenu == SELOBJETO) {
+            cout << "Alternando tetraedro\n";
+            objeto ^= TETRAEDRO;
+         } else
+            cout << "Opción no válida\n";
+         break ;
+
+         case 'D' :
          if (modoMenu == NADA) {
             // ESTAMOS EN MODO SELECCION DE DIBUJADO
             cout << "Entrando en modo selección de dibujado, pulse:\n1 para activar dibujado con glDraw\n2 para activar dibujado con VBO\nQ para salir del menu\n";
@@ -146,19 +162,12 @@ bool Escena::teclaPulsada( unsigned char tecla, int x, int y )
          } else
             cout << "Opción no válida\n";
          break ;
+
          // COMPLETAR con los diferentes opciones de teclado     
       case 'C':
          if (modoMenu == SELOBJETO) {
             cout << "Alternando cubo\n";
             objeto ^= CUBO;
-         } else
-            cout << "Opción no válida\n";
-         break;
-
-      case 'T':
-         if (modoMenu == SELOBJETO) {
-            cout << "Alternando tetraedro\n";
-            objeto ^= TETRAEDRO;
          } else
             cout << "Opción no válida\n";
          break;
@@ -226,6 +235,9 @@ bool Escena::teclaPulsada( unsigned char tecla, int x, int y )
          if (modoMenu == SELDIBUJADO) {
             cout << "Mostrando con glDraw\n";
             modo = INMEDIATO;
+         } else if (modoMenu == SELTAPAS) {
+            cout << "Alternando tapa superior\n";
+            tapa_sup = !tapa_sup;
          } else
             cout << "Opción no válida\n";
          break;
@@ -234,6 +246,9 @@ bool Escena::teclaPulsada( unsigned char tecla, int x, int y )
          if (modoMenu == SELDIBUJADO) {
             cout << "Mostrando con VBO\n";
             modo = DIFERIDO;
+         } else if (modoMenu == SELTAPAS) {
+            cout << "Alternando tapa inferior\n";
+            tapa_inf = !tapa_inf;
          } else
             cout << "Opción no válida\n";
          break;

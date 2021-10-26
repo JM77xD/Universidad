@@ -42,14 +42,24 @@ class Malla3D
 
    std::vector<Tupla3f> v ;   // tabla de coordenadas de vértices (una tupla por vértice, con tres floats)
    std::vector<Tupla3i> f ;   // una terna de 3 enteros por cada cara o triángulo
-   std::vector<Tupla3f> c ;    // Una terna de 3 floats para el color de cada cara
-   std::vector<Tupla3i> nuevosTriangulos1, nuevosTriangulos2;  //Triangulos para el modo ajedrez
+   std::vector<Tupla3i> f_ajedrez_par ;   // una terna de 3 enteros por cada cara o triángulo par
+   std::vector<Tupla3i> f_ajedrez_impar ;   // una terna de 3 enteros por cada cara o triángulo impar
+   std::vector<Tupla3f> c_solido ;    // Una terna de 3 floats para el color de cada cara solida
+   std::vector<Tupla3f> c_lineas ;    // Una terna de 3 floats para el color de cada lineas
+   std::vector<Tupla3f> c_puntos ;    // Una terna de 3 floats para el color de cada punto
+   std::vector<Tupla3f> c_ajedrez_par ;    // Una terna de 3 floats para el color de cada cara ajedrez par
+   std::vector<Tupla3f> c_ajedrez_impar ;    // Una terna de 3 floats para el color de cada cara ajedrez par
+   
 
    GLuint   vbo_vertices = 0,
             vbo_triangulos = 0,
-            vbo_triangulos_aje1 = 0,
-            vbo_triangulos_aje2 = 0,
-            vbo_colores = 0;
+            vbo_triangulos_aje_par = 0,
+            vbo_triangulos_aje_impar = 0,
+            vbo_colores_solido = 0,
+            vbo_colores_lineas = 0,
+            vbo_colores_puntos = 0,
+            vbo_colores_ajedrez_par = 0,
+            vbo_colores_ajedrez_impar = 0;
 
    // completar: tabla de normales de vértices
 } ;

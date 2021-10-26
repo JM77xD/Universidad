@@ -19,7 +19,21 @@ ObjRevolucion::ObjRevolucion() {}
 
 ObjRevolucion::ObjRevolucion(const std::string & archivo, int num_instancias, bool tapa_sup, bool tapa_inf) {
    ply::read_vertices(archivo,perfil);
-   crearMalla(perfil, num_instancias);
+   crearMalla(perfil, num_instancias, tapa_sup, tapa_inf);
+
+   for (int i = 0; i < v.size(); i++) {
+      c_solido.push_back(Tupla3f(0,0,1));
+      c_lineas.push_back(Tupla3f(1,0,0));
+      c_puntos.push_back(Tupla3f(0,1,0));
+      c_ajedrez_par.push_back(Tupla3f(0.5,1,0));
+      c_ajedrez_impar.push_back(Tupla3f(1,0,0.25));
+   }
+
+   for (int i = 0; i < f.size(); i++)
+      if (i % 2 == 0)
+         f_ajedrez_par.push_back(f[i]);
+      else
+         f_ajedrez_impar.push_back(f[i]);
 }
 
 // *****************************************************************************
@@ -28,11 +42,25 @@ ObjRevolucion::ObjRevolucion(const std::string & archivo, int num_instancias, bo
  
 ObjRevolucion::ObjRevolucion(std::vector<Tupla3f> archivo, int num_instancias, bool tapa_sup, bool tapa_inf) {
 
-   crearMalla(archivo, num_instancias);
+   crearMalla(archivo, num_instancias, tapa_sup, tapa_inf);
+
+   for (int i = 0; i < v.size(); i++) {
+      c_solido.push_back(Tupla3f(0,0,1));
+      c_lineas.push_back(Tupla3f(1,0,0));
+      c_puntos.push_back(Tupla3f(0,1,0));
+      c_ajedrez_par.push_back(Tupla3f(0.5,1,0));
+      c_ajedrez_impar.push_back(Tupla3f(1,0,0.25));
+   }
+
+   for (int i = 0; i < f.size(); i++)
+      if (i % 2 == 0)
+         f_ajedrez_par.push_back(f[i]);
+      else
+         f_ajedrez_impar.push_back(f[i]);
     
 }
 
-void ObjRevolucion::crearMalla(std::vector<Tupla3f> perfil_original, int num_instancias) {
+void ObjRevolucion::crearMalla(std::vector<Tupla3f> perfil_original, int num_instancias, bool tapa_sup, bool tapa_inf) {
 
    v.clear();
    f.clear();
@@ -79,27 +107,28 @@ void ObjRevolucion::crearMalla(std::vector<Tupla3f> perfil_original, int num_ins
    Tupla3f verticeSur(0,perfil[0](Y),0),
            verticeNorte(0,perfil[M-1](Y),0);
 
-   v.push_back(verticeSur);
-   v.push_back(verticeNorte);
+   if (tapa_inf) {
+      v.push_back(verticeSur);
+      //Tapa inferior
+      for (int j = 0; j < N; j++) {
+         int a = M*j;
+         int b = M*((j+1)%N);
 
-   
-   //Tapa inferior
-   for (int j = 0; j < N; j++) {
-      int a = M*j;
-      int b = M*((j+1)%N);
-
-      Tupla3i tri(a,N*M,b);
-      f.push_back(tri);
+         Tupla3i tri(a,N*M,b);
+         f.push_back(tri);
+      }
    }
-   
-   
-   //Tapa superior
-   for (int j = 0; j < N; j++) {
-      int a = M*(j+1) - 1;
-      int b = M*(((j+1)%N) + 1) - 1;
 
-      Tupla3i tri(a,b,N*M+1);
-      f.push_back(tri);
+   if (tapa_sup) {
+      v.push_back(verticeNorte);
+      //Tapa superior
+      for (int j = 0; j < N; j++) {
+         int a = M*(j+1) - 1;
+         int b = M*(((j+1)%N) + 1) - 1;
+
+         Tupla3i tri(a,b,N*M+1);
+         f.push_back(tri);
+      }
    }
    
 }

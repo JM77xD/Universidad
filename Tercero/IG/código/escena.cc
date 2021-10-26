@@ -10,17 +10,24 @@
 
 Escena::Escena()
 {
-    Front_plane       = 50.0;
-    Back_plane        = 2000.0;
-    Observer_distance = 4*Front_plane;
-    Observer_angle_x  = 0.0 ;
-    Observer_angle_y  = 0.0 ;
+   Front_plane       = 50.0;
+   Back_plane        = 2000.0;
+   Observer_distance = 4*Front_plane;
+   Observer_angle_x  = 0.0 ;
+   Observer_angle_y  = 0.0 ;
 
-    ejes.changeAxisSize( 5000 );
+   ejes.changeAxisSize( 5000 );
 
-    // crear los objetos de la escena....
-    cubo = new Cubo(75);
-    tetraedro = new Tetraedro(75);
+   // crear los objetos de la escena....
+   cubo = new Cubo(50);
+   tetraedro = new Tetraedro(50);
+
+   cilindro = new Cilindro(100,100,50,30);
+
+   cono = new Cono(100,100,50,30);
+
+   esfera = new Esfera(100,100,30);
+   
 
 }
 
@@ -58,10 +65,29 @@ void Escena::dibujar()
 	change_observer();
    ejes.draw();
     
-   if ((objeto & CUBO) == CUBO && cubo != nullptr)
+   if ((objeto & CUBO) == CUBO && cubo != nullptr) {
       cubo->draw(modo, visualizado);
-   else if ((objeto & TETRAEDRO) == TETRAEDRO && tetraedro != nullptr)
+      glTranslatef(70.0,0.0,0);
+   }
+
+   if ((objeto & TETRAEDRO) == TETRAEDRO && tetraedro != nullptr) {
       tetraedro->draw(modo, visualizado);
+      glTranslatef(70.0,0.0,0);
+   }
+
+   if ((objeto & CILINDRO) == CILINDRO && cilindro != nullptr) {
+      cilindro->draw(modo, visualizado);
+      glTranslatef(70.0,0.0,0);
+   }
+
+   if ((objeto & CONO) == CONO && cono != nullptr) {
+      cono->draw(modo, visualizado);
+      glTranslatef(70.0,0.0,0);
+   }
+
+   if ((objeto & ESFERA) == ESFERA && esfera != nullptr) {
+      esfera->draw(modo, visualizado);
+   }
    
     
 }
@@ -92,7 +118,7 @@ bool Escena::teclaPulsada( unsigned char tecla, int x, int y )
       case 'O' :
          if (modoMenu == NADA) {
             // ESTAMOS EN MODO SELECCION DE OBJETO
-            cout << "Entrando en modo selección de objeto, pulse:\nC para mostrar cubo\nT para mostrar tetraedro\nQ para salir del menu\n";
+            cout << "Entrando en modo selección de objeto, pulse:\nC para alternar cubo\nT para alternar tetraedro\nS para alternar cilindro\nK para alternar Cono\nE para alternar esfera\nQ para salir del menu\n";
             modoMenu=SELOBJETO;
          } else
             cout << "Opción no válida\n";
@@ -130,6 +156,22 @@ bool Escena::teclaPulsada( unsigned char tecla, int x, int y )
             cout << "Opción no válida\n";
          break;
 
+      case 'K':
+         if (modoMenu == SELOBJETO) {
+            cout << "Alternando cono\n";
+            objeto ^= CONO;
+         } else
+            cout << "Opción no válida\n";
+         break;
+
+      case 'E':
+         if (modoMenu == SELOBJETO) {
+            cout << "Alternando esfera\n";
+            objeto ^= ESFERA;
+         } else
+            cout << "Opción no válida\n";
+         break;
+
       case 'P':
          if (modoMenu == SELVISUALIZACION) {
             cout << "Alternando puntos\n";
@@ -150,6 +192,9 @@ bool Escena::teclaPulsada( unsigned char tecla, int x, int y )
          if (modoMenu == SELVISUALIZACION) {
             cout << "Alternando solido\n";
             visualizado ^= SOLIDO;    
+         } else if (modoMenu == SELOBJETO) {
+            cout << "Alternando cilindro\n";
+            objeto ^= CILINDRO;
          } else
             cout << "Opción no válida\n";
          break;

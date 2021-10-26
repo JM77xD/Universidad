@@ -154,10 +154,13 @@ void Malla3D::draw_ModoDiferido(int visualizado)
     glShadeModel(GL_SMOOTH);
     glEnable(GL_CULL_FACE);
     glPolygonMode(GL_FRONT, GL_FILL);
-    if (c.size() != 0 && vbo_colores != 0) {
+    if (c.size() != 0) {
       glEnableClientState(GL_COLOR_ARRAY);
       glBindBuffer(GL_ARRAY_BUFFER, vbo_colores);
       glColorPointer(3, GL_FLOAT, 0, 0);
+    } else {
+      glDisableClientState(GL_COLOR_ARRAY);
+      glColor3f(0,0,1);
     }
     glDrawElements(GL_TRIANGLES, 3*f.size(), GL_UNSIGNED_INT, 0);
     glBindBuffer(GL_ARRAY_BUFFER, 0);

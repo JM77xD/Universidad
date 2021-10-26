@@ -5,9 +5,13 @@
 #include "malla.h"
 #include "cubo.h"
 #include "tetraedro.h"
+#include "cilindro.h"
+#include "cono.h"
+#include "esfera.h"
+#include "objply.h"
 
 typedef enum {NADA, SELOBJETO,SELVISUALIZACION,SELDIBUJADO} menu;
-typedef enum {CUBO = 1, TETRAEDRO = 2} ObjetoActivo;
+typedef enum {CUBO = 1, TETRAEDRO = 2, CILINDRO = 4, CONO = 8, ESFERA = 16} ObjetoActivo;
 class Escena
 {
 
@@ -41,6 +45,9 @@ class Escena
    Ejes ejes;
    Cubo * cubo = nullptr ; // es importante inicializarlo a 'nullptr'
    Tetraedro * tetraedro = nullptr ; // es importante inicializarlo a 'nullptr'
+   Cilindro * cilindro = nullptr;
+   Cono * cono = nullptr; 
+   Esfera * esfera = nullptr;
 
    
    public:

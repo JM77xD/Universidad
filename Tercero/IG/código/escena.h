@@ -11,7 +11,7 @@
 #include "objply.h"
 
 typedef enum {NADA, SELOBJETO,SELVISUALIZACION,SELDIBUJADO,SELTAPAS} menu;
-typedef enum {CUBO = 1, TETRAEDRO = 2, CILINDRO = 4, CONO = 8, ESFERA = 16, REVOLT = 32} ObjetoActivo;
+typedef enum {CUBO = 1, TETRAEDRO = 2, CILINDRO = 4, CONO = 8, ESFERA = 16, REVOLT = 32, PLY = 64} ObjetoActivo;
 class Escena
 {
 
@@ -50,6 +50,7 @@ class Escena
    Cono * cono = nullptr; 
    Esfera * esfera = nullptr;
    ObjRevolucion * revolt = nullptr;
+   ObjPLY * plyObj = nullptr;
 
    
    public:

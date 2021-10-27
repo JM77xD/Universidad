@@ -27,4 +27,16 @@ Esfera::Esfera(const int vert_perfil, const int instancias_perfil, const float r
         f_ajedrez_par.push_back(f[i]);
       else
         f_ajedrez_impar.push_back(f[i]);
+    
+    for (int i = 0; i < f_tapa_inf.size(); i++)
+      if (i % 2 == 0)
+         f_ajedrez_inf_par.push_back(f_tapa_inf[i]);
+      else
+         f_ajedrez_inf_impar.push_back(f_tapa_inf[i]);
+   
+   for (int i = 0; i < f_tapa_sup.size(); i++)
+      if (i % 2 == 0)
+         f_ajedrez_sup_par.push_back(f_tapa_sup[i]);
+      else
+         f_ajedrez_sup_impar.push_back(f_tapa_sup[i]);
 }

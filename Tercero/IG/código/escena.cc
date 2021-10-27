@@ -11,7 +11,7 @@
 Escena::Escena()
 {
    Front_plane       = 50.0;
-   Back_plane        = 2000.0;
+   Back_plane        = 5000.0;
    Observer_distance = 4*Front_plane;
    Observer_angle_x  = 0.0 ;
    Observer_angle_y  = 0.0 ;
@@ -28,7 +28,9 @@ Escena::Escena()
 
    esfera = new Esfera(100,100,30);
 
-   revolt = new ObjRevolucion("plys/peon.ply",100, tapa_sup, tapa_inf);
+   revolt = new ObjRevolucion("plys/peon.ply",100);
+
+   plyObj = new ObjPLY("plys/ant.ply");
    
 
 }
@@ -68,33 +70,53 @@ void Escena::dibujar()
    ejes.draw();
     
    if ((objeto & CUBO) == CUBO && cubo != nullptr) {
+      glPushMatrix();
+      glTranslatef(-175.0,0.0,0.0);
       cubo->draw(modo, visualizado);
+      glPopMatrix();
    }
 
    if ((objeto & TETRAEDRO) == TETRAEDRO && tetraedro != nullptr) {
-      glTranslatef(70.0,0.0,0);
+      glPushMatrix();
+      glTranslatef(-105.0,0.0,0.0);
       tetraedro->draw(modo, visualizado);
+      glPopMatrix();
    }
 
    if ((objeto & CILINDRO) == CILINDRO && cilindro != nullptr) {
-      glTranslatef(70.0,0.0,0);
-      cilindro->draw(modo, visualizado);
+      glPushMatrix();
+      glTranslatef(-35.0,0.0,0.0);
+      cilindro->draw(modo, visualizado, tapa_sup, tapa_inf);
+      glPopMatrix();
    }
 
    if ((objeto & CONO) == CONO && cono != nullptr) {
-      glTranslatef(70.0,0.0,0);
-      cono->draw(modo, visualizado);
+      glPushMatrix();
+      glTranslatef(35.0,0.0,0.0);
+      cono->draw(modo, visualizado, tapa_sup, tapa_inf);
+      glPopMatrix();
    }
 
    if ((objeto & ESFERA) == ESFERA && esfera != nullptr) {
-      glTranslatef(70.0,0.0,0);
-      esfera->draw(modo, visualizado);
+      glPushMatrix();
+      glTranslatef(105.0,0.0,0.0);
+      esfera->draw(modo, visualizado, tapa_sup, tapa_inf);
+      glPopMatrix();
    }
 
    if ((objeto & REVOLT) == REVOLT && revolt != nullptr) {
-      glTranslatef(70.0,0.0,0);
-      glScalef(75.0,75.0,75.0);
-      revolt->draw(modo, visualizado);
+      glPushMatrix();
+      glTranslatef(175.0,0.0,0.0);
+      glScalef(35.0,35.0,35.0);
+      revolt->draw(modo, visualizado, tapa_sup, tapa_inf);
+      glPopMatrix();
+   }
+
+   if ((objeto & PLY) == PLY && plyObj != nullptr) {
+      glPushMatrix();
+      glTranslatef(0.0,0.0,100.0);
+      plyObj->draw(modo, visualizado);
+      glPopMatrix();
    }
    
     
@@ -127,7 +149,7 @@ bool Escena::teclaPulsada( unsigned char tecla, int x, int y )
       case 'O' :
          if (modoMenu == NADA) {
             // ESTAMOS EN MODO SELECCION DE OBJETO
-            cout << "Entrando en modo selección de objeto, pulse:\nC para alternar cubo\nT para alternar tetraedro\nS para alternar cilindro\nK para alternar Cono\nE para alternar esfera\nR para alternar objeto de revolución\nQ para salir del menu\n";
+            cout << "Entrando en modo selección de objeto, pulse:\nC para alternar cubo\nT para alternar tetraedro\nS para alternar cilindro\nK para alternar Cono\nE para alternar esfera\nR para alternar objeto de revolución\nP para alternar objeto PLY\nQ para salir del menu\n";
             modoMenu=SELOBJETO;
          } else
             cout << "Opción no válida\n";
@@ -200,6 +222,9 @@ bool Escena::teclaPulsada( unsigned char tecla, int x, int y )
          if (modoMenu == SELVISUALIZACION) {
             cout << "Alternando puntos\n";
             visualizado ^= PUNTOS;
+         } else if (modoMenu == SELOBJETO) {
+            cout << "Alternando PLY\n";
+            objeto ^= PLY;
          } else
             cout << "Opción no válida\n";
          break;

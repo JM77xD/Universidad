@@ -81,6 +81,8 @@ void Malla3D::draw_ModoDiferido(int visualizado)
   if (vbo_triangulos == 0 || vbo_vertices == 0 || vbo_triangulos_aje_impar == 0 || vbo_triangulos_aje_par == 0) {
     vbo_vertices = crearVBO(GL_ARRAY_BUFFER, v.size()*3*sizeof(float), v.data());
     vbo_triangulos = crearVBO(GL_ELEMENT_ARRAY_BUFFER, f.size()*3*sizeof(int), f.data());
+    vbo_triangulos_aje_par = crearVBO(GL_ELEMENT_ARRAY_BUFFER, f_ajedrez_par.size()*3*sizeof(int), f_ajedrez_par.data());
+    vbo_triangulos_aje_impar = crearVBO(GL_ELEMENT_ARRAY_BUFFER, f_ajedrez_impar.size()*3*sizeof(int), f_ajedrez_impar.data());
   }
   
   glBindBuffer(GL_ARRAY_BUFFER, vbo_vertices);  //Cargamos el buffer de vértices
@@ -96,39 +98,39 @@ void Malla3D::draw_ModoDiferido(int visualizado)
     vbo_colores_ajedrez_par = crearVBO(GL_ELEMENT_ARRAY_BUFFER, c_ajedrez_par.size()*3*sizeof(float), c_ajedrez_par.data());
     vbo_colores_ajedrez_impar = crearVBO(GL_ELEMENT_ARRAY_BUFFER, c_ajedrez_impar.size()*3*sizeof(float), c_ajedrez_impar.data());
   }
-
-  if(c_solido.size() != 0 && vbo_colores_solido == 0) {
+  
+  if(c_solido.size() != 0 && vbo_colores_solido == 0)
     vbo_colores_solido = crearVBO(GL_ARRAY_BUFFER, c_solido.size()*3*sizeof(float), c_solido.data());
-  }
 
-  if(c_lineas.size() != 0 && vbo_colores_lineas == 0) {
+  if(c_lineas.size() != 0 && vbo_colores_lineas == 0)
     vbo_colores_lineas = crearVBO(GL_ARRAY_BUFFER, c_lineas.size()*3*sizeof(float), c_lineas.data());
-  }
 
-  if(c_puntos.size() != 0 && vbo_colores_puntos == 0) {
+  if(c_puntos.size() != 0 && vbo_colores_puntos == 0)
     vbo_colores_puntos = crearVBO(GL_ARRAY_BUFFER, c_puntos.size()*3*sizeof(float), c_puntos.data());
+  
+
+  if ((visualizado & AJEDREZ) == AJEDREZ) { //Mostramos en modo ajedrez
+    glPolygonMode(GL_FRONT, GL_FILL);
+    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, vbo_triangulos_aje_par);
+    glBindBuffer(GL_ARRAY_BUFFER, vbo_colores_ajedrez_par);
+    glColorPointer(3, GL_FLOAT, 0, 0);
+    glDrawElements(GL_TRIANGLES, 3*f_ajedrez_par.size(), GL_UNSIGNED_INT, 0);
+    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, vbo_triangulos_aje_impar);
+    glBindBuffer(GL_ARRAY_BUFFER, vbo_colores_ajedrez_impar);
+    glColorPointer(3, GL_FLOAT, 0, 0);
+    glDrawElements(GL_TRIANGLES, 3*f_ajedrez_impar.size(), GL_UNSIGNED_INT, 0);
   }
 
   glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, vbo_triangulos);  //Cambiamos el buffer
 
-  if ((visualizado & AJEDREZ) == AJEDREZ) { //Mostramos en modo ajedrez
-    glPolygonMode(GL_FRONT, GL_FILL);
-    glBindBuffer(GL_ARRAY_BUFFER, vbo_colores_ajedrez_par);
-    glColorPointer(3, GL_FLOAT, 0, 0);
-    glDrawElements(GL_TRIANGLES, 3*v.size(), GL_UNSIGNED_INT, 0);
-  }
-
   if ((visualizado & SOLIDO) == SOLIDO && (visualizado & AJEDREZ) != AJEDREZ) { //Mostramos en sólido
-    glShadeModel(GL_SMOOTH);
     glPolygonMode(GL_FRONT, GL_FILL);
     glBindBuffer(GL_ARRAY_BUFFER, vbo_colores_solido);
     glColorPointer(3, GL_FLOAT, 0, 0);
     glDrawElements(GL_TRIANGLES, 3*f.size(), GL_UNSIGNED_INT, 0);
-    glBindBuffer(GL_ARRAY_BUFFER, 0);
   }
 
   if ((visualizado & LINEAS) == LINEAS) { //Mostramos como líneas
-    glShadeModel(GL_FLAT);
     glPolygonMode(GL_FRONT, GL_LINE);
     glBindBuffer(GL_ARRAY_BUFFER, vbo_colores_lineas);
     glColorPointer(3, GL_FLOAT, 0, 0);
@@ -136,13 +138,14 @@ void Malla3D::draw_ModoDiferido(int visualizado)
   }
 
   if ((visualizado & PUNTOS) == PUNTOS) { //Mostramos como puntos
-    glShadeModel(GL_FLAT);
     glPointSize(6); //Indicamos el tamaño de los puntos
     glPolygonMode(GL_FRONT, GL_POINT);
     glBindBuffer(GL_ARRAY_BUFFER, vbo_colores_puntos);
     glColorPointer(3, GL_FLOAT, 0, 0);
     glDrawElements(GL_TRIANGLES, 3*f.size(), GL_UNSIGNED_INT, 0);
   }
+
+  glBindBuffer(GL_ARRAY_BUFFER, 0);
 
   glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);  //Quitamos el buffer de triangulos
 

@@ -59,6 +59,7 @@ class Escena
    LuzPosicional * luzPos = nullptr;
    Material * difuso = nullptr;
    Material * especular = nullptr;
+   Material * ambiente = nullptr;
 
    bool luz[8];
    bool alpha, beta;

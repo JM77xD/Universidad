@@ -26,6 +26,8 @@ Escena::Escena()
 
    especular = new Material(Tupla3f(0.2,0.2,0.2), Tupla3f(1.0,1.0,1.0), Tupla3f(0,0,0), 0.75);
 
+   ambiente = new Material(Tupla3f(0.2,0.2,0.2), Tupla3f(0.2,0.2,0.2), Tupla3f(0.8,0.8,0.8), 0.75);
+
    cubo = new Cubo(50);
    
    tetraedro = new Tetraedro(50);
@@ -46,9 +48,11 @@ Escena::Escena()
 
    plyObj = new ObjPLY("plys/ant.ply");
 
-   luzDir = new LuzDireccional(Tupla2f(120,30), GL_LIGHT0, Tupla4f(1.0, 1.0, 1.0, 1.0), Tupla4f(1.0, 1.0, 1.0, 1.0), Tupla4f(1.0, 1.0, 1.0, 1.0));
-
-   luzPos = new LuzPosicional(Tupla3f(200.0, 0.0, 50.0), GL_LIGHT1, Tupla4f(1.0, 1.0, 1.0, 1.0), Tupla4f(1.0, 1.0, 1.0, 1.0), Tupla4f(1.0, 1.0, 1.0, 1.0));
+   cubo->setMaterial(*ambiente);
+   tetraedro->setMaterial(*ambiente);
+   cilindro->setMaterial(*ambiente);
+   cono->setMaterial(*ambiente);
+   esfera->setMaterial(*ambiente);
    
 
 }
@@ -70,6 +74,10 @@ void Escena::inicializar( int UI_window_width, int UI_window_height )
 	Width  = UI_window_width/10;
 	Height = UI_window_height/10;
 
+   luzDir = new LuzDireccional(Tupla2f(120,30), GL_LIGHT0, Tupla4f(1.0, 1.0, 1.0, 1.0), Tupla4f(1.0, 1.0, 1.0, 1.0), Tupla4f(1.0, 1.0, 1.0, 1.0));
+
+   luzPos = new LuzPosicional(Tupla3f(200.0, 0.0, 50.0), GL_LIGHT1, Tupla4f(0.25, 0.7, 0.3, 1.0), Tupla4f(0.25, 0.7, 0.3, 1.0), Tupla4f(0.25, 0.7, 0.3, 1.0));
+
    change_projection( float(UI_window_width)/float(UI_window_height) );
 	glViewport( 0, 0, UI_window_width, UI_window_height );
 }
@@ -90,9 +98,20 @@ void Escena::dibujar()
    glDisable(GL_LIGHTING);
    ejes.draw();
 
-   if(luces)
+   if (luces) {
       glEnable(GL_LIGHTING);
-
+      if (luz[0])
+         luzDir->activar();
+      else 
+         luzDir->desactivar();
+      if(luz[1])
+         luzPos->activar();
+      else
+         luzPos->desactivar();
+   } else {
+      luzDir->desactivar();
+      luzPos->desactivar();
+   }
     
    if ((objeto & CUBO) == CUBO && cubo != nullptr) {
       glPushMatrix();
@@ -150,20 +169,6 @@ void Escena::dibujar()
       glTranslatef(0.0,0.0,100.0);
       plyObj->draw(modo, visualizado);
       glPopMatrix();
-   }
-
-   if (luces) {
-      if (luz[0])
-         luzDir->activar();
-      else 
-         luzDir->desactivar();
-      if(luz[1])
-         luzPos->activar();
-      else
-         luzPos->desactivar();
-   } else {
-      luzDir->desactivar();
-      luzPos->desactivar();
    }
    
     

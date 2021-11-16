@@ -69,7 +69,8 @@ class Malla3D
             vbo_colores_lineas = 0,
             vbo_colores_puntos = 0,
             vbo_colores_ajedrez_par = 0,
-            vbo_colores_ajedrez_impar = 0;
+            vbo_colores_ajedrez_impar = 0,
+            vbo_normalesVertices = 0;
 
    
    std::vector<Tupla3f> normalesVertices;

@@ -39,4 +39,6 @@ Esfera::Esfera(const int vert_perfil, const int instancias_perfil, const float r
          f_ajedrez_sup_par.push_back(f_tapa_sup[i]);
       else
          f_ajedrez_sup_impar.push_back(f_tapa_sup[i]);
+
+    calcular_normales();
 }

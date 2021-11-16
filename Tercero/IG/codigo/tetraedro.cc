@@ -30,5 +30,6 @@ Tetraedro::Tetraedro(float lado)
       else
         f_ajedrez_impar.push_back(f[i]);
 
+    calcular_normales();
 }
 

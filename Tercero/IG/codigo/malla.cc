@@ -92,6 +92,8 @@ void Malla3D::draw_ModoInmediato(int visualizado)
   glVertexPointer(3, GL_FLOAT, 0, v.data() );
   glEnable(GL_CULL_FACE);
   glEnableClientState(GL_COLOR_ARRAY);
+  glEnableClientState(GL_NORMAL_ARRAY);
+  glNormalPointer(GL_FLOAT, 0, normalesVertices.data());
 
   glPointSize(6); //Indicamos el tamaño de los puntos
 
@@ -133,6 +135,7 @@ void Malla3D::draw_ModoInmediato(int visualizado)
   }
 
   glDisableClientState( GL_VERTEX_ARRAY );
+  glDisableClientState( GL_NORMAL_ARRAY );
 
 }
 // -----------------------------------------------------------------------------
@@ -140,6 +143,11 @@ void Malla3D::draw_ModoInmediato(int visualizado)
 
 void Malla3D::draw_ModoDiferido(int visualizado)
 {
+
+  if (vbo_normalesVertices == 0) {
+    vbo_normalesVertices = crearVBO(GL_ARRAY_BUFFER, normalesVertices.size()*3*sizeof(float), normalesVertices.data());
+  }
+
   if (vbo_triangulos == 0 || vbo_vertices == 0 || vbo_triangulos_aje_impar == 0 || vbo_triangulos_aje_par == 0) {
     vbo_vertices = crearVBO(GL_ARRAY_BUFFER, v.size()*3*sizeof(float), v.data());
     vbo_triangulos = crearVBO(GL_ELEMENT_ARRAY_BUFFER, f.size()*3*sizeof(int), f.data());
@@ -149,8 +157,12 @@ void Malla3D::draw_ModoDiferido(int visualizado)
   
   glBindBuffer(GL_ARRAY_BUFFER, vbo_vertices);  //Cargamos el buffer de vértices
   glVertexPointer(3,GL_FLOAT,0,0);
-  glBindBuffer(GL_ARRAY_BUFFER, 0); //Descargamos
+  glBindBuffer(GL_NORMAL_ARRAY_BUFFER_BINDING, vbo_normalesVertices);
+  glNormalPointer(GL_FLOAT, 0, 0);
+  glBindBuffer(GL_ARRAY_BUFFER, 0);
+  glBindBuffer(GL_NORMAL_ARRAY_BUFFER_BINDING, 0);
   glEnableClientState(GL_VERTEX_ARRAY);
+  glEnableClientState(GL_NORMAL_ARRAY);
   glEnableClientState(GL_COLOR_ARRAY);
   glEnable(GL_CULL_FACE);
 
@@ -212,6 +224,7 @@ void Malla3D::draw_ModoDiferido(int visualizado)
   glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);  //Quitamos el buffer de triangulos
 
   glDisableClientState(GL_VERTEX_ARRAY);  //Desactivamos el array de vértices
+  glDisableClientState(GL_NORMAL_ARRAY);
 
 }
 // -----------------------------------------------------------------------------

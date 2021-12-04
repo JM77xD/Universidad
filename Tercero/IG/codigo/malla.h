@@ -19,7 +19,7 @@
 //
 // *****************************************************************************
 typedef enum {DIFERIDO, INMEDIATO} modoDibujado;
-typedef enum {AJEDREZ = 1, SOLIDO = 2, PUNTOS = 4, LINEAS = 8, PLANO = 16, SUAVE = 32} visualizacion;
+typedef enum {AJEDREZ = 1, SOLIDO = 2, PUNTOS = 4, LINEAS = 8} visualizacion;
 class Malla3D
 {
    public:
@@ -33,7 +33,7 @@ class Malla3D
    // función que redibuja el objeto
    // está función llama a 'draw_ModoInmediato' (modo inmediato)
    // o bien a 'draw_ModoDiferido' (modo diferido, VBOs)
-   void draw(modoDibujado modo, int visualizado) ;
+   void draw(modoDibujado modo, int visualizado);
 
    void setMaterial(Material mat);
 

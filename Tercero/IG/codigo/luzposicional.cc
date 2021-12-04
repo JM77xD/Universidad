@@ -11,9 +11,4 @@ LuzPosicional::LuzPosicional(Tupla3f posicion, GLenum idLuzOpenGL, Tupla4f color
     Tupla4f pos(posicion(X), posicion(Y), posicion(Z), 1.0);
 
     this->posicion = pos;
-
-    glLightfv(id, GL_AMBIENT, colorAmbiente);
-    glLightfv(id, GL_DIFFUSE, colorDifuso);
-    glLightfv(id, GL_SPECULAR, colorEspecular);
-    glLightfv(id, GL_POSITION, this->posicion);
 }

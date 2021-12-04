@@ -26,7 +26,7 @@ Escena::Escena()
 
    especular = new Material(Tupla3f(0.2,0.2,0.2), Tupla3f(1.0,1.0,1.0), Tupla3f(0,0,0), 0.75);
 
-   ambiente = new Material(Tupla3f(0.2,0.2,0.2), Tupla3f(0.2,0.2,0.2), Tupla3f(0.8,0.8,0.8), 0.75);
+   ambiente = new Material(Tupla3f(0.2,0.2,0.2), Tupla3f(0.2,0.2,0.2), Tupla3f(0.4,0.6,0.6), 0.75);
 
    cubo = new Cubo(50);
    
@@ -48,11 +48,14 @@ Escena::Escena()
 
    plyObj = new ObjPLY("plys/ant.ply");
 
+   person = new Person();
+
    cubo->setMaterial(*ambiente);
    tetraedro->setMaterial(*ambiente);
    cilindro->setMaterial(*ambiente);
    cono->setMaterial(*ambiente);
    esfera->setMaterial(*ambiente);
+   person->setMaterial(*ambiente);
    
 
 }
@@ -112,43 +115,32 @@ void Escena::dibujar()
       luzDir->desactivar();
       luzPos->desactivar();
    }
-    
-   if ((objeto & CUBO) == CUBO && cubo != nullptr) {
+      /*
       glPushMatrix();
       glTranslatef(-175.0,0.0,0.0);
       cubo->draw(modo, visualizado);
       glPopMatrix();
-   }
 
-   if ((objeto & TETRAEDRO) == TETRAEDRO && tetraedro != nullptr) {
       glPushMatrix();
       glTranslatef(-105.0,0.0,0.0);
       tetraedro->draw(modo, visualizado);
       glPopMatrix();
-   }
 
-   if ((objeto & CILINDRO) == CILINDRO && cilindro != nullptr) {
       glPushMatrix();
       glTranslatef(-35.0,0.0,0.0);
       cilindro->draw(modo, visualizado, tapa_sup, tapa_inf);
       glPopMatrix();
-   }
 
-   if ((objeto & CONO) == CONO && cono != nullptr) {
       glPushMatrix();
       glTranslatef(35.0,0.0,0.0);
       cono->draw(modo, visualizado, tapa_sup, tapa_inf);
       glPopMatrix();
-   }
 
-   if ((objeto & ESFERA) == ESFERA && esfera != nullptr) {
       glPushMatrix();
       glTranslatef(105.0,0.0,0.0);
       esfera->draw(modo, visualizado, tapa_sup, tapa_inf);
       glPopMatrix();
-   }
 
-   if ((objeto & REVOLT) == REVOLT && revolt != nullptr) {
       //revolt
       glPushMatrix();
       glTranslatef(175.0,0.0,0.0);
@@ -162,14 +154,18 @@ void Escena::dibujar()
       glScalef(35.0,35.0,35.0);
       revolt2->draw(modo, visualizado, tapa_sup, tapa_inf);
       glPopMatrix();
-   }
 
-   if ((objeto & PLY) == PLY && plyObj != nullptr) {
       glPushMatrix();
-      glTranslatef(0.0,0.0,100.0);
+      glTranslatef(0.0,0.0,-100.0);
       plyObj->draw(modo, visualizado);
       glPopMatrix();
-   }
+      */
+
+      glPushMatrix();
+      //glTranslatef(0.0,0.0,100.0);
+      glScalef(7.0,7.0,7.0);
+      person->draw(modo, visualizado);
+      glPopMatrix();
    
     
 }
@@ -192,38 +188,17 @@ bool Escena::teclaPulsada( unsigned char tecla, int x, int y )
       case 'Q' :
          if (modoMenu!=NADA) {
             modoMenu=NADA;
-            cout << "Saliendo del menú, pulse:\nO para modo selección de objeto\nV para modo selección de visualización\nD para modo selección de dibujado\nT para modo selección de tapas en objetos de revolución\nA o B para seleccionar ángulo alpha y beta\n< y > para decrementar o incrementar el ángulo seleccionado\n0 a 7 para alternar las diferentes luces\nQ para salir del programa\n";          
+            cout << "Saliendo del menú, pulse:\nV para modo selección de visualización\nD para modo selección de dibujado\nA o B para seleccionar ángulo alpha y beta\n< y > para decrementar o incrementar el ángulo seleccionado\n0 a 7 para alternar las diferentes luces\nQ para salir del programa\n";          
          } else {
             salir=true ;
          }
          break ;
 
-      case 'O' :
-         if (modoMenu == NADA) {
-            // ESTAMOS EN MODO SELECCION DE OBJETO
-            cout << "Entrando en modo selección de objeto, pulse:\nC para alternar cubo\nT para alternar tetraedro\nS para alternar cilindro\nK para alternar Cono\nE para alternar esfera\nR para alternar objeto de revolución\nP para alternar objeto PLY\nQ para salir del menu\n";
-            modoMenu=SELOBJETO;
-         } else
-            cout << "Opción no válida\n";
-         break ;
-
         case 'V' :
          if (modoMenu == NADA) {
             // ESTAMOS EN MODO SELECCION DE MODO DE VISUALIZACION
-            cout << "Entrando en modo selección de visualización, pulse:\nP para alternar puntos\nL para alternar líneas\nS para alternar sólido\nA para alternar ajedrez\nI para alternar iluminación plana\nR para alternar iluminacion suavizada\nQ para salir del menu\n";
+            cout << "Entrando en modo selección de visualización, pulse:\nP para alternar puntos\nL para alternar líneas\nS para alternar sólido\nA para alternar ajedrez\nI para alternar iluminación\nQ para salir del menu\n";
             modoMenu=SELVISUALIZACION;
-         } else
-            cout << "Opción no válida\n";
-         break ;
-
-       case 'T' :
-         if (modoMenu == NADA) {
-            // ESTAMOS EN MODO SELECCION DE TAPAS
-            cout << "Entrando en modo selección de tapas de objetos de revolución, pulse:\n1 para alternar tapa superior\n2 para alternar tapa inferior\nQ para salir del menu\n";
-            modoMenu=SELTAPAS;
-         } else if (modoMenu == SELOBJETO) {
-            cout << "Alternando tetraedro\n";
-            objeto ^= TETRAEDRO;
          } else
             cout << "Opción no válida\n";
          break ;
@@ -237,47 +212,13 @@ bool Escena::teclaPulsada( unsigned char tecla, int x, int y )
             cout << "Opción no válida\n";
          break ;
 
-         // COMPLETAR con los diferentes opciones de teclado     
-      case 'C':
-         if (modoMenu == SELOBJETO) {
-            cout << "Alternando cubo\n";
-            objeto ^= CUBO;
-         } else
-            cout << "Opción no válida\n";
-         break;
-
-      case 'K':
-         if (modoMenu == SELOBJETO) {
-            cout << "Alternando cono\n";
-            objeto ^= CONO;
-         } else
-            cout << "Opción no válida\n";
-         break;
-
-      case 'E':
-         if (modoMenu == SELOBJETO) {
-            cout << "Alternando esfera\n";
-            objeto ^= ESFERA;
-         } else
-            cout << "Opción no válida\n";
-         break;
-
-      case 'R':
+      case 'I':
          if (modoMenu == SELVISUALIZACION) {
             cout << "Alternando luz suavizada\n";
-            if (luces && (visualizado & SUAVE) != SUAVE) {
-               visualizado ^= SUAVE;
-               visualizado ^= PLANO;
-            } else if (!luces) 
-               visualizado ^= SUAVE;
-
             glShadeModel(GL_SMOOTH);
             if (!luces) {
                luces = true;
             }
-         } else if (modoMenu == SELOBJETO) {
-            cout << "Alternando revolución\n";
-            objeto ^= REVOLT;
          } else
             cout << "Opción no válida\n";
          break;
@@ -291,9 +232,6 @@ bool Escena::teclaPulsada( unsigned char tecla, int x, int y )
                visualizado = PUNTOS;
             } else
                visualizado ^= PUNTOS;
-         } else if (modoMenu == SELOBJETO) {
-            cout << "Alternando PLY\n";
-            objeto ^= PLY;
          } else
             cout << "Opción no válida\n";
          break;
@@ -311,23 +249,6 @@ bool Escena::teclaPulsada( unsigned char tecla, int x, int y )
             cout << "Opción no válida\n";
          break;
 
-      case 'I':
-         if (modoMenu == SELVISUALIZACION) {
-            cout << "Alternando luz plana\n";
-            if (luces && (visualizado & PLANO) != PLANO) {
-               visualizado ^= PLANO;
-               visualizado ^= SUAVE;
-            } else if (!luces) 
-               visualizado ^= PLANO;
-
-            glShadeModel(GL_FLAT);
-            if (!luces) {
-               luces = true;
-            }
-         } else
-            cout << "Opción no válida\n";
-         break;
-
       case 'S':
          if (modoMenu == SELVISUALIZACION) {
             cout << "Alternando solido\n";
@@ -337,9 +258,6 @@ bool Escena::teclaPulsada( unsigned char tecla, int x, int y )
                visualizado = SOLIDO;
             } else
                visualizado ^= SOLIDO;
-         } else if (modoMenu == SELOBJETO) {
-            cout << "Alternando cilindro\n";
-            objeto ^= CILINDRO;
          } else
             cout << "Opción no válida\n";
          break;
@@ -373,11 +291,11 @@ bool Escena::teclaPulsada( unsigned char tecla, int x, int y )
       case '<':
          if (modoMenu == NADA && luces && luz[0] && (alpha || beta)) {
             if (alpha) {
-               luzDir->variarAnguloAlpha(-1.0);
+               luzDir->variarAnguloAlpha(-0.1);
                cout << "Decrementando el ángulo alpha\n";
             }
             else if (beta) {
-               luzDir->variarAnguloBeta(-1.0);
+               luzDir->variarAnguloBeta(-0.1);
                cout << "Decrementando el ángulo beta\n";
             }
          } else
@@ -387,11 +305,11 @@ bool Escena::teclaPulsada( unsigned char tecla, int x, int y )
       case '>':
          if (modoMenu == NADA && luces && luz[0] && (alpha || beta)) {
             if (alpha) {
-               luzDir->variarAnguloAlpha(1.0);
+               luzDir->variarAnguloAlpha(0.1);
                cout << "Incrementando el ángulo alpha\n";
             }
             else if (beta) {
-               luzDir->variarAnguloBeta(1.0);
+               luzDir->variarAnguloBeta(0.1);
                cout << "Incrementando el ángulo beta\n";
             }
          } else
@@ -413,9 +331,6 @@ bool Escena::teclaPulsada( unsigned char tecla, int x, int y )
          } else if (modoMenu == SELDIBUJADO) {
             cout << "Mostrando con glDraw\n";
             modo = INMEDIATO;
-         } else if (modoMenu == SELTAPAS) {
-            cout << "Alternando tapa superior\n";
-            tapa_sup = !tapa_sup;
          } else
             cout << "Opción no válida\n";
          break;
@@ -427,9 +342,6 @@ bool Escena::teclaPulsada( unsigned char tecla, int x, int y )
          } else if (modoMenu == SELDIBUJADO) {
             cout << "Mostrando con VBO\n";
             modo = DIFERIDO;
-         } else if (modoMenu == SELTAPAS) {
-            cout << "Alternando tapa inferior\n";
-            tapa_inf = !tapa_inf;
          } else
             cout << "Opción no válida\n";
          break;

@@ -12,9 +12,9 @@
 #include "luzdireccional.h"
 #include "luzposicional.h"
 #include "material.h"
+#include "person.h"
 
-typedef enum {NADA, SELOBJETO,SELVISUALIZACION,SELDIBUJADO,SELTAPAS} menu;
-typedef enum {CUBO = 1, TETRAEDRO = 2, CILINDRO = 4, CONO = 8, ESFERA = 16, REVOLT = 32, PLY = 64} ObjetoActivo;
+typedef enum {NADA,SELVISUALIZACION,SELDIBUJADO} menu;
 class Escena
 {
 
@@ -41,8 +41,7 @@ class Escena
    void clear_window();
 
    menu modoMenu=NADA;
-   int objeto=0;
-   modoDibujado modo = INMEDIATO;
+   modoDibujado modo = DIFERIDO;
    int visualizado = SOLIDO;
    bool tapa_sup = true, tapa_inf = true, luces = false;
    // Objetos de la escena
@@ -55,6 +54,7 @@ class Escena
    ObjRevolucion * revolt = nullptr;
    ObjRevolucion * revolt2 = nullptr;
    ObjPLY * plyObj = nullptr;
+   Person * person = nullptr;
    LuzDireccional * luzDir = nullptr;
    LuzPosicional * luzPos = nullptr;
    Material * difuso = nullptr;

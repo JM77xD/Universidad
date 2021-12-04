@@ -198,6 +198,22 @@ void ObjRevolucion::crearMalla(std::vector<Tupla3f> perfil_original, int num_ins
        std::reverse(perfil_original.begin(), perfil_original.end());
    }
 
+   Tupla3f verticeSur(0,perfil_original[0](Y),0),
+           verticeNorte(0,perfil_original[M-1](Y),0);
+
+   if (perfil_original[0](X) == 0) {
+      verticeSur = perfil_original[0];
+      perfil_original.erase(perfil_original.begin());
+      M--;
+   }
+
+   if (perfil_original[M-1](X) == 0) {
+      std::cout << "Vertice norte detectado\n";
+      verticeNorte = perfil_original[M-1];
+      perfil_original.erase(--perfil_original.end());
+      M--;
+   }
+
    double incremento_ang = 2*M_PI/N;
 
    //Crear tabla de vértices
@@ -231,11 +247,6 @@ void ObjRevolucion::crearMalla(std::vector<Tupla3f> perfil_original, int num_ins
          f.push_back(tri2);
       }
    }
-
-   //Tapas
-
-   Tupla3f verticeSur(0,perfil_original[0](Y),0),
-           verticeNorte(0,perfil_original[M-1](Y),0);
 
    //Tapa inferior
    if (tapa_inf) {

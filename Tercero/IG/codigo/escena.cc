@@ -21,6 +21,11 @@ Escena::Escena()
    for (int i = 0; i < 8; i++)
       luz[i] = false;
 
+   alpha = false;
+   beta = false;
+   automatico = false;
+   velocidad_auto = 0.0;
+
    // crear los objetos de la escena....
    difuso = new Material(Tupla3f(1.0,1.0,1.0), Tupla3f(0,0,0), Tupla3f(0,0,0), 0.75);
 
@@ -187,14 +192,18 @@ bool Escena::teclaPulsada( unsigned char tecla, int x, int y )
    {
       case 'Q' :
          if (modoMenu!=NADA) {
+            if (modoMenu == ANIMACION_AUTO) {
+               velocidad_auto = 0.0;
+               person->reset();
+            }
             modoMenu=NADA;
-            cout << "Saliendo del menú, pulse:\nV para modo selección de visualización\nD para modo selección de dibujado\nA o B para seleccionar ángulo alpha y beta\n< y > para decrementar o incrementar el ángulo seleccionado\n0 a 7 para alternar las diferentes luces\nQ para salir del programa\n";          
+            cout << "Saliendo del menú, pulse:\nV para modo selección de visualización\nD para modo selección de dibujado\nU para modo de animación automática\nA o B para seleccionar ángulo alpha y beta\n< y > para decrementar o incrementar el ángulo seleccionado\n0 a 7 para alternar las diferentes luces\nQ para salir del programa\n";          
          } else {
             salir=true ;
          }
          break ;
 
-        case 'V' :
+      case 'V' :
          if (modoMenu == NADA) {
             // ESTAMOS EN MODO SELECCION DE MODO DE VISUALIZACION
             cout << "Entrando en modo selección de visualización, pulse:\nP para alternar puntos\nL para alternar líneas\nS para alternar sólido\nA para alternar ajedrez\nI para alternar iluminación\nQ para salir del menu\n";
@@ -203,7 +212,7 @@ bool Escena::teclaPulsada( unsigned char tecla, int x, int y )
             cout << "Opción no válida\n";
          break ;
 
-         case 'D' :
+      case 'D' :
          if (modoMenu == NADA) {
             // ESTAMOS EN MODO SELECCION DE DIBUJADO
             cout << "Entrando en modo selección de dibujado, pulse:\n1 para activar dibujado con glDraw\n2 para activar dibujado con VBO\nQ para salir del menu\n";
@@ -211,6 +220,39 @@ bool Escena::teclaPulsada( unsigned char tecla, int x, int y )
          } else
             cout << "Opción no válida\n";
          break ;
+
+      case 'U' :
+         if (modoMenu == NADA) {
+            // ESTAMOS EN MODO SELECCION DE DIBUJADO
+            cout << "Entrando en modo selección de animación automática\n";
+            modoMenu=ANIMACION_AUTO;
+            automatico = true;
+            velocidad_auto = 0.2;
+         } else
+            cout << "Opción no válida\n";
+         break ;
+
+      case '+' :
+         if (modoMenu == ANIMACION_AUTO) {
+            if (velocidad_auto < 4.5) {
+               cout << "Aumentando velocidad de la animación\n";
+               velocidad_auto += 0.02;
+            } else
+               cout << "Velocidad al máximo\n";
+         } else
+            cout << "Opción no válida\n";
+         break ;
+
+      case '-' :
+         if (modoMenu == ANIMACION_AUTO) {
+            if (velocidad_auto > -4.5) {
+               cout << "Disminuyendo velocidad de la animación\n";
+               velocidad_auto -= 0.02;
+            } else
+               cout << "Velocidad al mínimo\n";
+         } else
+            cout << "Opción no válida\n";
+         break ;   
 
       case 'I':
          if (modoMenu == SELVISUALIZACION) {
@@ -389,6 +431,22 @@ bool Escena::teclaPulsada( unsigned char tecla, int x, int y )
    }
    return salir;
 }
+
+void Escena::animarModeloJerarquico() {
+   if (person != nullptr) {
+      person->modificarGiroLCabeza(velocidad_auto, automatico);
+      person->modificarGiroVCabeza(velocidad_auto, automatico);
+      person->modificarGiroBrazoDrch(velocidad_auto, automatico);
+      person->modificarGiroBrazoIzq(-velocidad_auto, automatico);
+      person->modificarGiroPiernaDrch(-velocidad_auto, automatico);
+      person->modificarGiroPiernaIzq(velocidad_auto, automatico);
+      person->modificarGiroDedosDrch(velocidad_auto, automatico);
+      person->modificarGiroDedosIzq(velocidad_auto, automatico);
+      person->modificarGiroDedoGDrch(velocidad_auto, automatico);
+      person->modificarGiroDedoGIzq(velocidad_auto, automatico);
+   }
+}
+
 //**************************************************************************
 
 void Escena::teclaEspecial( int Tecla1, int x, int y )
@@ -408,10 +466,10 @@ void Escena::teclaEspecial( int Tecla1, int x, int y )
          Observer_angle_x++ ;
          break;
 	   case GLUT_KEY_PAGE_UP:
-         Observer_distance *=1.2 ;
+         Observer_distance *=1.1 ;
          break;
 	   case GLUT_KEY_PAGE_DOWN:
-         Observer_distance /= 1.2 ;
+         Observer_distance /= 1.1 ;
          break;
 	}
 

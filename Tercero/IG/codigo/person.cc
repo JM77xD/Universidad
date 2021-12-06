@@ -28,46 +28,128 @@ Person::Person() {
 
     this->giroPiernaIzq = 0.0;
 
+    this->change = false;
+
 }
 
-void Person::modificarGiroLCabeza(float valor) {
+void Person::reset() {
+    this->giroLCabeza = 0.0;
+
+    this->giroVCabeza = 0.0;
+
+    this->giroBrazoDrch = 0.0;
+
+    this->giroBrazoIzq = 0.0;
+
+    this->giroPiernaDrch = 0.0;
+
+    this->giroPiernaIzq = 0.0;
+
+    this->change = false;
+
+    this->brazoDrch->reset();
+
+    this->brazoIzq->reset();
+}
+
+void Person::modificarGiroLCabeza(float valor, const bool aut) {
+    if (change && aut)
+        valor = -valor;
     this->giroLCabeza += valor;
+    if (this->giroLCabeza > 75.0) {
+        this->giroLCabeza = 75.0;
+        change = !change;
+    }
+    else if (this->giroLCabeza < -75.0) {
+        this->giroLCabeza = -75.0;
+        change = !change;
+    }
 }
 
-void Person::modificarGiroVCabeza(float valor) {
+void Person::modificarGiroVCabeza(float valor, const bool aut) {
+    if (change && aut)
+        valor = -valor;
     this->giroVCabeza += valor;
+    if (this->giroVCabeza > 30.0) {
+        this->giroVCabeza = 30.0;
+        change = !change;
+    }
+    else if (this->giroVCabeza < -30.0) {
+        this->giroVCabeza = -30.0;
+        change = !change;
+    }
 }
 
-void Person::modificarGiroBrazoDrch(float valor) {
+void Person::modificarGiroBrazoDrch(float valor, const bool aut) {
+    if (change && aut)
+        valor = -valor;
     this->giroBrazoDrch += valor;
+    if (this->giroBrazoDrch >= 360.0 || this->giroBrazoDrch <= -360.0) {
+        this->giroBrazoDrch = 0.0;
+        change = !change;
+    }
 }
 
-void Person::modificarGiroBrazoIzq(float valor) {
+void Person::modificarGiroBrazoIzq(float valor, const bool aut) {
+    if (change && aut)
+        valor = -valor;
     this->giroBrazoIzq += valor;
+    if (this->giroBrazoIzq >= 360.0 || this->giroBrazoIzq <= -360.0) {
+        this->giroBrazoIzq = 0.0;
+        change = !change;
+    }
 }
 
-void Person::modificarGiroPiernaDrch(float valor) {
+void Person::modificarGiroPiernaDrch(float valor, const bool aut) {
+    if (change && aut)
+        valor = -valor;
     this->giroPiernaDrch += valor;
+    if (this->giroPiernaDrch > 45.0) {
+        this->giroPiernaDrch = 45.0;
+        change = !change;
+    }
+    else if (this->giroPiernaDrch < -45.0) {
+        this->giroPiernaDrch = -45.0;
+        change = !change;
+    }
 }
 
-void Person::modificarGiroPiernaIzq(float valor) {
+void Person::modificarGiroPiernaIzq(float valor, const bool aut) {
+    if (change && aut)
+        valor = -valor;
     this->giroPiernaIzq += valor;
+    if (this->giroPiernaIzq > 45.0) {
+        this->giroPiernaIzq = 45.0;
+        change = !change;
+    }
+    else if (this->giroPiernaIzq < -45.0) {
+        this->giroPiernaIzq = -45.0;
+        change = !change;
+    }
 }
 
-void Person::modificarGiroDedoGDrch(float valor) {
-    brazoDrch->modificarGiroDedoG(valor);
+void Person::modificarGiroDedoGDrch(float valor, const bool aut) {
+    if (change && aut)
+        valor = -valor;
+    this->brazoDrch->modificarGiroDedoG(valor);
 }
 
-void Person::modificarGiroDedoGIzq(float valor) {
-    brazoIzq->modificarGiroDedoG(valor);
+void Person::modificarGiroDedoGIzq(float valor, const bool aut) {
+    if (change && aut)
+        valor = -valor;
+    this->brazoIzq->modificarGiroDedoG(valor);
 }
 
-void Person::modificarGiroDedosDrch(float valor) {
-    brazoDrch->modificarGiroDedos(valor);
+void Person::modificarGiroDedosDrch(float valor, const bool aut) {
+    if (change && aut)
+        valor = -valor;
+    this->brazoDrch->modificarGiroDedos(valor);
 }
 
-void Person::modificarGiroDedosIzq(float valor) {
-    brazoIzq->modificarGiroDedos(valor);
+void Person::modificarGiroDedosIzq(float valor, const bool aut) {
+    if (change && aut)
+        valor = -valor;
+    this->brazoIzq->modificarGiroDedos(valor);
 }
 
 void Person::setMaterial(Material mat)  {
@@ -86,32 +168,38 @@ void Person::setMaterial(Material mat)  {
 
 void Person::draw(modoDibujado modo, int visualizado) {
     glPushMatrix();
-    glTranslatef(-0.87,6.0,0.0);
-    piernaDrch->draw(modo, visualizado);
+    glTranslatef(-0.94,11.0,0.0);
+    glRotatef(this->giroPiernaDrch, -1.0, 0.0, 0.0);
+    this->piernaDrch->draw(modo, visualizado);
     glPopMatrix();
 
     glPushMatrix();
-    glTranslatef(0.87,6.0,0.0);
-    piernaIzq->draw(modo, visualizado);
+    glTranslatef(0.94,11.0,0.0);
+    glRotatef(this->giroPiernaIzq, -1.0, 0.0, 0.0);
+    this->piernaIzq->draw(modo, visualizado);
     glPopMatrix();
 
     glPushMatrix();
-    glTranslatef(0.0,14.6,0.53);
-    torso->draw(modo, visualizado);
+    glTranslatef(0.0,14.6,0.46);
+    this->torso->draw(modo, visualizado);
     glPopMatrix();
 
     glPushMatrix();
-    glTranslatef(0.0,20.05,0.85);
-    cabeza->draw(modo, visualizado);
+    glTranslatef(0.0,18.5,0.35);
+    glRotatef(this->giroVCabeza, -1.0, 0.0, 0.0);
+    glRotatef(this->giroLCabeza, 0.0, 1.0, 0.0);
+    this->cabeza->draw(modo, visualizado);
     glPopMatrix();
 
     glPushMatrix();
-    glTranslatef(-4.1,14.9,0.25);
-    brazoDrch->draw(modo, visualizado);
+    glTranslatef(-2.0,17.1,0.18);
+    glRotatef(this->giroBrazoDrch, -1.0, 0.0, 0.0);
+    this->brazoDrch->draw(modo, visualizado);
     glPopMatrix();
 
     glPushMatrix();
-    glTranslatef(4.1,15.0,0.25);
-    brazoIzq->draw(modo, visualizado);
+    glTranslatef(2.1,17.2,0.18);
+    glRotatef(this->giroBrazoIzq, -1.0, 0.0, 0.0);
+    this->brazoIzq->draw(modo, visualizado);
     glPopMatrix();
 }

@@ -13,6 +13,8 @@ class BrazoDrch : Malla3D {
 
         void setMaterial(Material mat);
 
+        void reset();
+
         BrazoDrch();
 
     private:

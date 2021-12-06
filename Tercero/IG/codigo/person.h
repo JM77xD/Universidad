@@ -5,33 +5,37 @@
 
 class Person : public Malla3D {
     public:
-        void modificarGiroLCabeza(float valor);
+        void modificarGiroLCabeza(float valor, const bool aut = false);
 
-        void modificarGiroVCabeza(float valor);
+        void modificarGiroVCabeza(float valor, const bool aut = false);
 
-        void modificarGiroBrazoDrch(float valor);
+        void modificarGiroBrazoDrch(float valor, const bool aut = false);
 
-        void modificarGiroBrazoIzq(float valor);
+        void modificarGiroBrazoIzq(float valor, const bool aut = false);
 
-        void modificarGiroPiernaDrch(float valor);
+        void modificarGiroPiernaDrch(float valor, const bool aut = false);
 
-        void modificarGiroPiernaIzq(float valor);
+        void modificarGiroPiernaIzq(float valor, const bool aut = false);
 
-        void modificarGiroDedoGDrch(float valor);
+        void modificarGiroDedoGDrch(float valor, const bool aut = false);
 
-        void modificarGiroDedoGIzq(float valor);
+        void modificarGiroDedoGIzq(float valor, const bool aut = false);
 
-        void modificarGiroDedosDrch(float valor);
+        void modificarGiroDedosDrch(float valor, const bool aut = false);
 
-        void modificarGiroDedosIzq(float valor);
+        void modificarGiroDedosIzq(float valor, const bool aut = false);
 
         void draw(modoDibujado modo, int visualizado);
 
         void setMaterial(Material mat);
 
+        void reset();
+
         Person();
 
     private:
+        
+        bool change;
 
         float   giroLCabeza,
                 giroVCabeza,

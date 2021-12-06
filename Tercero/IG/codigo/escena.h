@@ -14,7 +14,7 @@
 #include "material.h"
 #include "person.h"
 
-typedef enum {NADA,SELVISUALIZACION,SELDIBUJADO} menu;
+typedef enum {NADA, SELVISUALIZACION, SELDIBUJADO, ANIMACION_AUTO} menu;
 class Escena
 {
 
@@ -62,7 +62,8 @@ class Escena
    Material * ambiente = nullptr;
 
    bool luz[8];
-   bool alpha, beta;
+   bool alpha, beta, automatico;
+   float velocidad_auto;
    
    public:
 
@@ -76,6 +77,6 @@ class Escena
 	// Interacción con la escena
 	bool teclaPulsada( unsigned char Tecla1, int x, int y ) ;
 	void teclaEspecial( int Tecla1, int x, int y );
-
+    void animarModeloJerarquico();
 };
 #endif

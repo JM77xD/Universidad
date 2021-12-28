@@ -1,3 +1,6 @@
+#ifndef BRAZODRCH_H_INCLUDED
+#define BRAZODRCH_H_INCLUDED
+
 #include "aux.h"
 #include "objply.h"
 
@@ -27,3 +30,5 @@ class BrazoDrch : Malla3D {
                 *dedoG = nullptr;
 
 };
+
+#endif

@@ -10,9 +10,9 @@ void Cono::crearPerfil(const int vert_perfil, const float altura, const float ra
     }
 }
 
-Cono::Cono(const int vert_perfil, const int instancias_perfil, const float altura, const float radio) {
+Cono::Cono(const int vert_perfil, const int instancias_perfil, const float altura, const float radio, bool textura) {
     crearPerfil(vert_perfil, altura, radio);
-    crearMalla(perfil, instancias_perfil);
+    crearMalla(perfil, instancias_perfil, textura);
 
     for (int i = 0; i < v.size(); i++) {
         c_solido.push_back(Tupla3f(0,0,1));

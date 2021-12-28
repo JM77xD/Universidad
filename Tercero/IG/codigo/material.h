@@ -17,7 +17,7 @@ class Material {
         Tupla4f difuso,
                 especular,
                 ambiente;
-        float brillo;
+        float   brillo;
     
     public:
 

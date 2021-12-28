@@ -108,9 +108,9 @@ void ObjRevolucion::calcular_normales() {
 
 ObjRevolucion::ObjRevolucion() {}
 
-ObjRevolucion::ObjRevolucion(const std::string & archivo, int num_instancias, bool tapa_sup, bool tapa_inf) {
+ObjRevolucion::ObjRevolucion(const std::string & archivo, int num_instancias, bool tapa_sup, bool tapa_inf, bool textura) {
    ply::read_vertices(archivo,perfil);
-   crearMalla(perfil, num_instancias, tapa_sup, tapa_inf);
+   crearMalla(perfil, num_instancias, tapa_sup, tapa_inf, textura);
 
    creada_sup = tapa_sup;
    creada_inf = tapa_inf;
@@ -148,9 +148,9 @@ ObjRevolucion::ObjRevolucion(const std::string & archivo, int num_instancias, bo
 // objeto de revolución obtenido a partir de un perfil (en un vector de puntos)
 
  
-ObjRevolucion::ObjRevolucion(std::vector<Tupla3f> archivo, int num_instancias, bool tapa_sup, bool tapa_inf) {
+ObjRevolucion::ObjRevolucion(std::vector<Tupla3f> archivo, int num_instancias, bool tapa_sup, bool tapa_inf, bool textura) {
 
-   crearMalla(archivo, num_instancias, tapa_sup, tapa_inf);
+   crearMalla(archivo, num_instancias, tapa_sup, tapa_inf, textura);
 
    creada_sup = tapa_sup;
    creada_inf = tapa_inf;
@@ -186,7 +186,7 @@ ObjRevolucion::ObjRevolucion(std::vector<Tupla3f> archivo, int num_instancias, b
     
 }
 
-void ObjRevolucion::crearMalla(std::vector<Tupla3f> perfil_original, int num_instancias, bool tapa_sup, bool tapa_inf) {
+void ObjRevolucion::crearMalla(std::vector<Tupla3f> perfil_original, int num_instancias, bool tapa_sup, bool tapa_inf, bool textura) {
 
    v.clear();
    f.clear();
@@ -201,38 +201,63 @@ void ObjRevolucion::crearMalla(std::vector<Tupla3f> perfil_original, int num_ins
    Tupla3f verticeSur(0,perfil_original[0](Y),0),
            verticeNorte(0,perfil_original[M-1](Y),0);
 
-   if (perfil_original[0](X) == 0) {
+   if (perfil_original[0](X) == 0 and perfil_original[0](Z) == 0) {
       verticeSur = perfil_original[0];
       perfil_original.erase(perfil_original.begin());
       M--;
    }
 
-   if (perfil_original[M-1](X) == 0) {
+   if (perfil_original[M-1](X) == 0 and perfil_original[M-1](Z) == 0) {
       std::cout << "Vertice norte detectado\n";
       verticeNorte = perfil_original[M-1];
       perfil_original.erase(--perfil_original.end());
       M--;
    }
 
+
    double incremento_ang = 2*M_PI/N;
 
-   //Crear tabla de vértices
+   if(textura) {
+      
+      N++;
 
-   for (int i = 0; i < N; i++) {
+      //Crear tabla de vértices
 
-      double angulo = i * incremento_ang;
+      for (int i = 0; i < N; i++) {
 
-      for (int j = 0; j < M; j++) {
-         Tupla3f actual = perfil_original[j];
-         float x = actual(X),z = actual(Z);
+         double angulo = i * incremento_ang;
 
-         actual(X) = (cos(angulo) * x) + (sin(angulo) * z);
-         actual(Z) = (-sin(angulo) * x) + (cos(angulo) * z);
+         for (int j = 0; j < M; j++) {
+            Tupla3f actual = perfil_original[j];
+            float x = actual(X),z = actual(Z);
 
-         v.push_back(actual);
+            actual(X) = (cos(angulo) * x) + (sin(angulo) * z);
+            actual(Z) = (-sin(angulo) * x) + (cos(angulo) * z);
+
+            v.push_back(actual);
+
+            ct.push_back(Tupla2f(float(i)/float(N), -float(j)/float(M+1)));
+         }
 
       }
 
+   } else{
+
+      for (int i = 0; i < N; i++) {
+
+         double angulo = i * incremento_ang;
+
+         for (int j = 0; j < M; j++) {
+            Tupla3f actual = perfil_original[j];
+            float x = actual(X),z = actual(Z);
+
+            actual(X) = (cos(angulo) * x) + (sin(angulo) * z);
+            actual(Z) = (-sin(angulo) * x) + (cos(angulo) * z);
+
+            v.push_back(actual);
+         }
+
+      }
    }
 
    //Crear tabla de triángulos
@@ -314,18 +339,28 @@ void ObjRevolucion::draw_ModoInmediato(int visualizado, bool tapa_sup, bool tapa
     }
 
     } else if ((visualizado & SOLIDO) == SOLIDO) {             //Habilitamos CULL_FACE para no pintar la cara interior del sólido
-        glPolygonMode(GL_FRONT, GL_FILL);   //Indicamos de pintar solo el frente y el modo a pintar
+         glPolygonMode(GL_FRONT, GL_FILL);   //Indicamos de pintar solo el frente y el modo a pintar
 
-
+         if (textura != nullptr and ct.size() != 0) {
+           textura->activar();
+           glEnableClientState(GL_TEXTURE_COORD_ARRAY);
+           glTexCoordPointer(2, GL_FLOAT, 0, ct.data());
+         }
+      
          glColorPointer(3, GL_FLOAT, 0, c_solido.data() );
 
-        glDrawElements( GL_TRIANGLES, 3*f.size(), GL_UNSIGNED_INT, f.data());
+         glDrawElements( GL_TRIANGLES, 3*f.size(), GL_UNSIGNED_INT, f.data());
 
-        if (creada_inf && tapa_inf)
-            glDrawElements( GL_TRIANGLES, 3*f_tapa_inf.size(), GL_UNSIGNED_INT, f_tapa_inf.data());
-        
-        if (creada_sup && tapa_sup)
-            glDrawElements( GL_TRIANGLES, 3*f_tapa_sup.size(), GL_UNSIGNED_INT, f_tapa_sup.data());
+         if (textura != nullptr and ct.size() != 0) {
+           glDisableClientState(GL_TEXTURE_COORD_ARRAY);
+         }
+
+         if (creada_inf && tapa_inf)
+             glDrawElements( GL_TRIANGLES, 3*f_tapa_inf.size(), GL_UNSIGNED_INT, f_tapa_inf.data());
+
+         if (creada_sup && tapa_sup)
+             glDrawElements( GL_TRIANGLES, 3*f_tapa_sup.size(), GL_UNSIGNED_INT, f_tapa_sup.data());
+         
     }
 
     if ((visualizado & LINEAS) == LINEAS) {   //Pintamos líneas
@@ -364,6 +399,7 @@ void ObjRevolucion::draw_ModoInmediato(int visualizado, bool tapa_sup, bool tapa
 
     glDisableClientState( GL_VERTEX_ARRAY );
     glDisableClientState( GL_NORMAL_ARRAY );
+    glDisableClientState(GL_TEXTURE_COORD_ARRAY);
 
 }   
 //   -----------------------------------------------------------------------------
@@ -371,6 +407,10 @@ void ObjRevolucion::draw_ModoInmediato(int visualizado, bool tapa_sup, bool tapa
 
 void ObjRevolucion::draw_ModoDiferido(int visualizado, bool tapa_sup, bool tapa_inf)
 {
+
+  if (vbo_textura == 0 and this->textura != nullptr and this->ct.size() != 0) {
+    vbo_textura = crearVBO(GL_ARRAY_BUFFER, ct.size()*2*sizeof(float), ct.data());
+  }
 
   if (vbo_normalesVertices == 0) {
     vbo_normalesVertices = crearVBO(GL_ARRAY_BUFFER, normalesVertices.size()*3*sizeof(float), normalesVertices.data());
@@ -402,7 +442,7 @@ void ObjRevolucion::draw_ModoDiferido(int visualizado, bool tapa_sup, bool tapa_
 
   //Comprobar si hay colores. Si los hay, cargarlos.
 
-  if ((vbo_colores_ajedrez_par == 0 || vbo_colores_ajedrez_impar) && c_ajedrez_par.size() != 0 && c_ajedrez_impar.size() != 0) {  //Comprobamos si están creados los vbo, si no los creamos
+  if ((vbo_colores_ajedrez_par == 0 || vbo_colores_ajedrez_impar == 0) && c_ajedrez_par.size() != 0 && c_ajedrez_impar.size() != 0) {  //Comprobamos si están creados los vbo, si no los creamos
     vbo_colores_ajedrez_par = crearVBO(GL_ELEMENT_ARRAY_BUFFER, c_ajedrez_par.size()*3*sizeof(float), c_ajedrez_par.data());
     vbo_colores_ajedrez_impar = crearVBO(GL_ELEMENT_ARRAY_BUFFER, c_ajedrez_impar.size()*3*sizeof(float), c_ajedrez_impar.data());
   }
@@ -451,7 +491,20 @@ void ObjRevolucion::draw_ModoDiferido(int visualizado, bool tapa_sup, bool tapa_
     glPolygonMode(GL_FRONT, GL_FILL);
     glBindBuffer(GL_ARRAY_BUFFER, vbo_colores_solido);
     glColorPointer(3, GL_FLOAT, 0, 0);
+    
+    if (vbo_textura != 0) {
+     textura->activar();
+     glEnableClientState(GL_TEXTURE_COORD_ARRAY);
+     glBindBuffer(GL_ARRAY_BUFFER, vbo_textura);
+     glTexCoordPointer(2, GL_FLOAT, 0, 0);
+    }
+
     glDrawElements(GL_TRIANGLES, 3*f.size(), GL_UNSIGNED_INT, 0);
+
+    if (vbo_textura != 0) {
+      glDisableClientState(GL_TEXTURE_COORD_ARRAY);
+    }
+    
     if (creada_sup && tapa_sup) {
         glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, vbo_f_tapa_sup);
         glDrawElements(GL_TRIANGLES, f_tapa_sup.size()*3, GL_UNSIGNED_INT, 0);
@@ -460,6 +513,7 @@ void ObjRevolucion::draw_ModoDiferido(int visualizado, bool tapa_sup, bool tapa_
         glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, vbo_f_tapa_inf);
         glDrawElements(GL_TRIANGLES, f_tapa_inf.size()*3, GL_UNSIGNED_INT, 0);
     }
+
   }
 
   if ((visualizado & LINEAS) == LINEAS) { //Mostramos como líneas
@@ -499,6 +553,7 @@ void ObjRevolucion::draw_ModoDiferido(int visualizado, bool tapa_sup, bool tapa_
 
   glDisableClientState(GL_VERTEX_ARRAY);  //Desactivamos el array de vértices
   glDisableClientState(GL_NORMAL_ARRAY);
+  glDisableClientState(GL_TEXTURE_COORD_ARRAY);
 
 }
 // -----------------------------------------------------------------------------

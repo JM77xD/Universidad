@@ -44,5 +44,14 @@ Cubo::Cubo(float lado)
 
     calcular_normales();
 
+    ct.push_back(Tupla2f(0.0,0.0));
+    ct.push_back(Tupla2f(0.25,0.0));
+    ct.push_back(Tupla2f(0.0,0.25));
+    ct.push_back(Tupla2f(0.25,0.25));
+    ct.push_back(Tupla2f(0.5, 0.5));
+    ct.push_back(Tupla2f(0.75, 0.5));
+    ct.push_back(Tupla2f(0.5, 0.75));
+    ct.push_back(Tupla2f(0.75, 0.75));
+
 }
 

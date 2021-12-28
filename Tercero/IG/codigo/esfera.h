@@ -23,7 +23,7 @@
 class Esfera : public ObjRevolucion
 {
    public:
-    Esfera(const int num_vert_perfil, const int num_instancias_perfil, const float radio);
+    Esfera(const int num_vert_perfil, const int num_instancias_perfil, const float radio, bool textura=true);
 
    private:
     void crearPerfil(const int num_vert_perfil, const float radio);

@@ -14,6 +14,11 @@ LuzDireccional::LuzDireccional(Tupla2f direccion, GLenum idLuzOpenGL, Tupla4f co
     Tupla4f pos(sin(alpha)*cos(beta), sin(beta)*sin(alpha), cos(alpha) , 0.0);
 
     this->posicion = pos;
+
+    glLightfv(id, GL_AMBIENT, this->colorAmbiente);
+    glLightfv(id, GL_DIFFUSE, this->colorDifuso);
+    glLightfv(id, GL_SPECULAR, this->colorEspecular);
+    
 }
 
 void LuzDireccional::variarAnguloAlpha(float incremento) {

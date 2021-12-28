@@ -14,7 +14,7 @@
 #include "material.h"
 #include "person.h"
 
-typedef enum {NADA, SELVISUALIZACION, SELDIBUJADO, ANIMACION_AUTO} menu;
+typedef enum {NADA, SELVISUALIZACION, SELDIBUJADO, ANIMACION_AUTO, ANIMACION_MANUAL} menu;
 class Escena
 {
 
@@ -43,7 +43,7 @@ class Escena
    menu modoMenu=NADA;
    modoDibujado modo = DIFERIDO;
    int visualizado = SOLIDO;
-   bool tapa_sup = true, tapa_inf = true, luces = false;
+   bool tapa_sup = true, tapa_inf = true, luces = true, texturas = true;
    // Objetos de la escena
    Ejes ejes;
    Cubo * cubo = nullptr ; // es importante inicializarlo a 'nullptr'
@@ -60,10 +60,16 @@ class Escena
    Material * difuso = nullptr;
    Material * especular = nullptr;
    Material * ambiente = nullptr;
+   Textura * textura_cubo = nullptr;
+   Textura * textura_cilindro = nullptr;
+   Textura * textura_tierra = nullptr;
 
    bool luz[8];
    bool alpha, beta, automatico;
-   float velocidad_auto;
+   const int num_auto = 7;
+   float velocidad_auto[7];
+   float pos[3];
+   bool animacion_manual[11], animacion_automatica[7];
    
    public:
 

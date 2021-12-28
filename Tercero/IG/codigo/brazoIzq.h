@@ -1,3 +1,6 @@
+#ifndef BRAZOIZQ_H_INCLUDED
+#define BRAZOIZQ_H_INCLUDED
+
 #include "aux.h"
 #include "objply.h"
 
@@ -27,3 +30,5 @@ class BrazoIzq : Malla3D {
                 *dedoG = nullptr;
 
 };
+
+#endif

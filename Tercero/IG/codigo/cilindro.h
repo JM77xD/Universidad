@@ -23,7 +23,7 @@
 class Cilindro : public ObjRevolucion
 {
    public:
-    Cilindro(const int vert_perfil, const int instancias_perfil, const float altura, const float radio);
+    Cilindro(const int vert_perfil, const int instancias_perfil, const float altura, const float radio, bool textura=true);
 
    private:
     void crearPerfil(const int vert_perfil, const float altura, const float radio);

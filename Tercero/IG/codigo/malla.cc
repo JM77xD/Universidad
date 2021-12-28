@@ -16,6 +16,14 @@ void Malla3D::setMaterial(Material mat) {
   this->tieneMaterial = true;
 }
 
+void Malla3D::setTextura(Textura *tex) {
+  this->textura = tex;
+}
+
+bool Malla3D::tieneTextura() {
+  return (this->textura != nullptr);
+}
+
 //Cambiar el color sólido de un objeto
 void Malla3D::setColor(Tupla3f nuevoColor) {
   c_solido.clear();
@@ -109,9 +117,18 @@ void Malla3D::draw_ModoInmediato(int visualizado)
   } else if ((visualizado & SOLIDO) == SOLIDO) {             //Habilitamos CULL_FACE para no pintar la cara interior del sólido
     glPolygonMode(GL_FRONT, GL_FILL);   //Indicamos de pintar solo el frente y el modo a pintar
 
+    if (this->textura != nullptr and this->ct.size() != 0) {
+      textura->activar();
+      glEnableClientState(GL_TEXTURE_COORD_ARRAY);
+      glTexCoordPointer(2, GL_FLOAT, 0, ct.data());
+    }
     glColorPointer(3, GL_FLOAT, 0, c_solido.data() );
 
     glDrawElements( GL_TRIANGLES, 3*f.size(), GL_UNSIGNED_INT, f.data());
+
+    if (this->textura != nullptr and this->ct.size() != 0) {
+      glDisableClientState(GL_TEXTURE_COORD_ARRAY);
+    }
   }
 
   if ((visualizado & LINEAS) == LINEAS) {   //Pintamos líneas
@@ -136,6 +153,7 @@ void Malla3D::draw_ModoInmediato(int visualizado)
 
   glDisableClientState( GL_VERTEX_ARRAY );
   glDisableClientState( GL_NORMAL_ARRAY );
+  glDisableClientState(GL_TEXTURE_COORD_ARRAY);
 
 }
 // -----------------------------------------------------------------------------
@@ -143,6 +161,10 @@ void Malla3D::draw_ModoInmediato(int visualizado)
 
 void Malla3D::draw_ModoDiferido(int visualizado)
 {
+
+  if (vbo_textura == 0 and this->textura != nullptr and this->ct.size() != 0) {
+    vbo_textura = crearVBO(GL_ARRAY_BUFFER, ct.size()*2*sizeof(float), ct.data());
+  }
 
   if (vbo_normalesVertices == 0) {
     vbo_normalesVertices = crearVBO(GL_ARRAY_BUFFER, normalesVertices.size()*3*sizeof(float), normalesVertices.data());
@@ -168,7 +190,7 @@ void Malla3D::draw_ModoDiferido(int visualizado)
 
   //Comprobar si hay colores. Si los hay, cargarlos.
 
-  if ((vbo_colores_ajedrez_par == 0 || vbo_colores_ajedrez_impar) && c_ajedrez_par.size() != 0 && c_ajedrez_impar.size() != 0) {  //Comprobamos si están creados los vbo, si no los creamos
+  if ((vbo_colores_ajedrez_par == 0 || vbo_colores_ajedrez_impar == 0) && c_ajedrez_par.size() != 0 && c_ajedrez_impar.size() != 0) {  //Comprobamos si están creados los vbo, si no los creamos
     vbo_colores_ajedrez_par = crearVBO(GL_ELEMENT_ARRAY_BUFFER, c_ajedrez_par.size()*3*sizeof(float), c_ajedrez_par.data());
     vbo_colores_ajedrez_impar = crearVBO(GL_ELEMENT_ARRAY_BUFFER, c_ajedrez_impar.size()*3*sizeof(float), c_ajedrez_impar.data());
   }
@@ -198,10 +220,24 @@ void Malla3D::draw_ModoDiferido(int visualizado)
   glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, vbo_triangulos);  //Cambiamos el buffer
 
   if ((visualizado & SOLIDO) == SOLIDO && (visualizado & AJEDREZ) != AJEDREZ) { //Mostramos en sólido
+
     glPolygonMode(GL_FRONT, GL_FILL);
     glBindBuffer(GL_ARRAY_BUFFER, vbo_colores_solido);
     glColorPointer(3, GL_FLOAT, 0, 0);
+
+    if (vbo_textura != 0) {
+     textura->activar();
+     glEnableClientState(GL_TEXTURE_COORD_ARRAY);
+     glBindBuffer(GL_ARRAY_BUFFER, vbo_textura);
+     glTexCoordPointer(2, GL_FLOAT, 0, 0);
+    }
+
     glDrawElements(GL_TRIANGLES, 3*f.size(), GL_UNSIGNED_INT, 0);
+
+    if (vbo_textura != 0) {
+      glDisableClientState(GL_TEXTURE_COORD_ARRAY);
+    }
+
   }
 
   if ((visualizado & LINEAS) == LINEAS) { //Mostramos como líneas
@@ -225,6 +261,7 @@ void Malla3D::draw_ModoDiferido(int visualizado)
 
   glDisableClientState(GL_VERTEX_ARRAY);  //Desactivamos el array de vértices
   glDisableClientState(GL_NORMAL_ARRAY);
+  glDisableClientState(GL_TEXTURE_COORD_ARRAY);
 
 }
 // -----------------------------------------------------------------------------

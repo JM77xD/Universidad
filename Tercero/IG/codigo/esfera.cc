@@ -10,9 +10,9 @@ void Esfera::crearPerfil(const int vert_perfil, const float radio) {
     }
 }
 
-Esfera::Esfera(const int vert_perfil, const int instancias_perfil, const float radio) {
+Esfera::Esfera(const int vert_perfil, const int instancias_perfil, const float radio, bool textura) {
     crearPerfil(vert_perfil, radio);
-    crearMalla(perfil, instancias_perfil);
+    crearMalla(perfil, instancias_perfil, textura);
 
     for (int i = 0; i < v.size(); i++) {
         c_solido.push_back(Tupla3f(0,0,1));

@@ -1,7 +1,8 @@
+#ifndef PERSON_H_INCLUDED
+#define PERSON_H_INCLUDED
 #include "aux.h"
-#include "objply.h"
-#include "brazoIzq.h"
-#include "brazoDrch.h"
+#include "parteSuperior.h"
+#include "parteInferior.h"
 
 class Person : public Malla3D {
     public:
@@ -25,6 +26,10 @@ class Person : public Malla3D {
 
         void modificarGiroDedosIzq(float valor, const bool aut = false);
 
+        void modificarGiroTronco(float valor, const bool aut = false);
+
+        void modificarPosBrazoDrch(float valor, const bool aut = false);
+
         void draw(modoDibujado modo, int visualizado);
 
         void setMaterial(Material mat);
@@ -35,20 +40,13 @@ class Person : public Malla3D {
 
     private:
         
-        bool change;
+        bool            change;
 
-        float   giroLCabeza,
-                giroVCabeza,
-                giroBrazoDrch,
-                giroBrazoIzq,
-                giroPiernaDrch,
-                giroPiernaIzq;
+        float           giroTorso;
 
-        ObjPLY  *torso = nullptr,
-                *cabeza = nullptr,
-                *piernaDrch = nullptr,
-                *piernaIzq = nullptr;
-        BrazoDrch *brazoDrch = nullptr;
-        BrazoIzq  *brazoIzq = nullptr;
+        ParteSuperior   *parteSuperior = nullptr;
+        ParteInferior   *parteInferior = nullptr;
 
 };
+
+#endif

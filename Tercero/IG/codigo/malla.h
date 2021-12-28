@@ -12,6 +12,7 @@
 
 #include "aux.h"
 #include "material.h"
+#include "textura.h"
 
 // *****************************************************************************
 //
@@ -37,7 +38,11 @@ class Malla3D
 
    void setMaterial(Material mat);
 
+   void setTextura(Textura *tex);
+
    void setColor(Tupla3f nuevoColor);
+
+   bool tieneTextura();
 
    protected:
 
@@ -56,6 +61,7 @@ class Malla3D
    std::vector<Tupla3f> c_puntos ;    // Una terna de 3 floats para el color de cada punto
    std::vector<Tupla3f> c_ajedrez_par ;    // Una terna de 3 floats para el color de cada cara ajedrez par
    std::vector<Tupla3f> c_ajedrez_impar ;    // Una terna de 3 floats para el color de cada cara ajedrez par
+   std::vector<Tupla2f> ct;
 
    Material m;
    bool tieneMaterial = false;
@@ -70,10 +76,13 @@ class Malla3D
             vbo_colores_puntos = 0,
             vbo_colores_ajedrez_par = 0,
             vbo_colores_ajedrez_impar = 0,
-            vbo_normalesVertices = 0;
+            vbo_normalesVertices = 0,
+            vbo_textura = 0;
 
    
    std::vector<Tupla3f> normalesVertices;
+
+   Textura *textura = nullptr;
 } ;
 
 

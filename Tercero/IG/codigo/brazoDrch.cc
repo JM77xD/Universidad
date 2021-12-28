@@ -7,9 +7,9 @@ BrazoDrch::BrazoDrch() {
 
     this->dedos = new ObjPLY("Persona/dedosDrch.ply");
 
-    this->giroDedoG = 0;
+    this->giroDedoG = 0.0;
 
-    this->giroDedos = 0;
+    this->giroDedos = 0.0;
 }
 
 void BrazoDrch::reset() {

@@ -7,9 +7,9 @@ BrazoIzq::BrazoIzq() {
 
     this->dedos = new ObjPLY("Persona/dedosIzq.ply");
 
-    this->giroDedoG = 0;
+    this->giroDedoG = 0.0;
 
-    this->giroDedos = 0;
+    this->giroDedos = 0.0;
 }
 
 void BrazoIzq::reset() {

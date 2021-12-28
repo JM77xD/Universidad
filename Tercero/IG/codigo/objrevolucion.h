@@ -27,8 +27,8 @@ class ObjRevolucion : public Malla3D
 {
     public:
         ObjRevolucion();
-        ObjRevolucion(const std::string & archivo, int num_instancias, bool tapa_sup=true, bool tapa_inf=true) ;
-        ObjRevolucion(std::vector<Tupla3f> archivo, int num_instancias, bool tapa_sup=true, bool tapa_inf=true) ;
+        ObjRevolucion(const std::string & archivo, int num_instancias, bool tapa_sup=true, bool tapa_inf=true, bool textura=true) ;
+        ObjRevolucion(std::vector<Tupla3f> archivo, int num_instancias, bool tapa_sup=true, bool tapa_inf=true, bool textura=true) ;
         void draw(modoDibujado modo, int visualizado, bool tapa_sup=true, bool tapa_inf=true);
         void draw_ModoDiferido(int visualizado, bool tapa_sup=true, bool tapa_inf=true);
         void draw_ModoInmediato(int visualizado, bool tapa_sup=true, bool tapa_inf=true);
@@ -36,7 +36,7 @@ class ObjRevolucion : public Malla3D
 
         void calcular_normales();
 
-        void crearMalla(std::vector<Tupla3f> perfil_original, int num_instancias, bool tapa_sup=true, bool tapa_inf=true);
+        void crearMalla(std::vector<Tupla3f> perfil_original, int num_instancias, bool tapa_sup=true, bool tapa_inf=true, bool textura=true);
 
         std::vector<Tupla3f> perfil;
 

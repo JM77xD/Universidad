@@ -110,6 +110,8 @@ void Escena::inicializar( int UI_window_width, int UI_window_height )
 
    change_projection( float(UI_window_width)/float(UI_window_height) );
 	glViewport( 0, 0, UI_window_width, UI_window_height );
+
+   std::cout << "Pulse:\nV para modo selección de visualización\nD para modo selección de dibujado\nU para modo de animación automática\nM para modo de animación manual\nT para alternar texturas de los objetos\nA o B para seleccionar ángulo alpha y beta\n< y > para decrementar o incrementar el ángulo seleccionado\n0 a 7 para alternar las diferentes luces\nQ para salir del programa\n";
 }
 
 

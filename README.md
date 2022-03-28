@@ -21,3 +21,6 @@ Asignaturas cursadas hasta ahora que cuentan con un contenido lo suficientemente
 - Tercero:
   - Primer cuatrimestre:
     -  [IG](./Tercero/IG)
+    -  [MH](./Tercero/MH)
+    -  [AA](./Tercero/AA)
+    -  [TSI](./Tercero/TSI)

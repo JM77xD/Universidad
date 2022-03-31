@@ -23,6 +23,22 @@ def sortingKey_Sel(e):
     return e[1]
 
 
+def Int(Sel, Sel_costs, u, v):
+    index = Sel.index(u)
+    newSel = Sel.copy()
+    newSel[index] = v
+
+    newSel_costs = [elem - data_matrix[u, item] + data_matrix[v, item] for elem, item in zip(Sel_costs, Sel)]
+    newSel_costs.pop(index)
+    value = 0
+    for elem in newSel:
+        value += data_matrix[v, elem]
+    
+    newSel_costs.insert(index, value)
+
+    return newSel, newSel_costs
+
+
 data_dir = 'datos/'
 data_filenames = os.listdir(data_dir)
 
@@ -36,10 +52,19 @@ for filename in data_filenames: # Para cada archivo de datos
     mean_time_bl = 0
     mean_value_greedy = 0
     mean_value_bl = 0
+    best_time_greedy = float('inf')
+    best_time_bl = float('inf')
+    best_value_greedy = float('inf')
+    best_value_bl = float('inf')
+    worse_time_greedy = float('-inf')
+    worse_time_bl = float('-inf')
+    worse_value_greedy = float('-inf')
+    worse_value_bl = float('-inf')
+
+     
 
     for l in range(5):
         seed(seeds[l])
-    
         file = open(data_dir+filename)
 
 
@@ -59,11 +84,11 @@ for filename in data_filenames: # Para cada archivo de datos
         file.close()
 
         start_time_greedy = time.process_time()
-        
+
         first_element = possible_options[randint(0,n-1)]
         result_elements = [first_element[0], first_element[1]]
 
-        for i in range(m-2):
+        while len(result_elements) != m:
             min_value = float('inf')
             curr_index = None
 
@@ -123,6 +148,18 @@ for filename in data_filenames: # Para cada archivo de datos
         mean_time_greedy += (end_time_greedy-start_time_greedy)/5
         mean_value_greedy += (delta_values[-1]-delta_values[0])/5
 
+        if end_time_greedy-start_time_greedy > worse_time_greedy:
+            worse_time_greedy = end_time_greedy-start_time_greedy
+        
+        if end_time_greedy-start_time_greedy < best_time_greedy:
+            best_time_greedy = end_time_greedy-start_time_greedy
+        
+        if best_value_greedy > delta_values[-1]-delta_values[0]:
+            best_value_greedy = delta_values[-1]-delta_values[0]
+        
+        if worse_value_greedy < delta_values[-1]-delta_values[0]:
+            worse_value_greedy = delta_values[-1]-delta_values[0]
+
 
         possible_options = [i for i in range(n)]
         start_time_BL = time.process_time()
@@ -143,35 +180,25 @@ for filename in data_filenames: # Para cada archivo de datos
 
         evaluations = 0
 
+        merged = list(zip(Sel, Sel_costs))
+        merged = sorted(merged, key=sortingKey_Sel)
+        Sel = [element[0] for element in merged]
+        Sel_costs = [element[1] for element in merged]
+
         while changing and evaluations < 100000:
             changing = False
-
-            merged = list(zip(Sel, Sel_costs))
-            merged = sorted(merged, key=sortingKey_Sel)
-            Sel = [element[0] for element in merged]
-            Sel_costs = [element[1] for element in merged]
-
+            
+            shuffle(possible_options)
 
             for u in Sel:
                 for v in possible_options:
-                    index = Sel.index(u)
-                    newSel = Sel.copy()
-                    newSel[index] = v
-
-                    newSel_costs = [elem - data_matrix[u, item] + data_matrix[v, item] for elem, item in zip(Sel_costs, Sel)]
-                    newSel_costs.pop(index)
-                    value = 0
-                    for elem in newSel:
-                        value += data_matrix[v, elem]
-                    
-                    newSel_costs.insert(index, value)
+                    newSel, newSel_costs = Int(Sel, Sel_costs, u, v)
 
 
                     new_merged = list(zip(newSel, newSel_costs))
                     new_merged = sorted(new_merged, key=sortingKey_Sel)
                     newSel = [element[0] for element in new_merged]
                     newSel_costs = [element[1] for element in new_merged]
-
 
                     if (newSel_costs[-1] - newSel_costs[0]) < (Sel_costs[-1] - Sel_costs[0]):
                         possible_options.append(u)
@@ -189,17 +216,26 @@ for filename in data_filenames: # Para cada archivo de datos
                 if changing or evaluations >= 100000:
                     break
         
-
-        merged = list(zip(Sel, Sel_costs))
-        merged = sorted(merged, key=sortingKey_Sel)
-        Sel = [element[0] for element in merged]
-        Sel_costs = [element[1] for element in merged]
         
         end_time_BL = time.process_time()
 
         mean_time_bl += (end_time_BL-start_time_BL)/5
         mean_value_bl += (Sel_costs[-1]-Sel_costs[0])/5
+
+        if end_time_BL-start_time_BL > worse_time_bl:
+            worse_time_bl = end_time_BL-start_time_BL
+        
+        if end_time_BL-start_time_BL < best_time_bl:
+            best_time_bl = end_time_BL-start_time_BL
+        
+        if best_value_bl > Sel_costs[-1]-Sel_costs[0]:
+            best_value_bl = Sel_costs[-1]-Sel_costs[0]
+        
+        if worse_value_bl < Sel_costs[-1]-Sel_costs[0]:
+            worse_value_bl = Sel_costs[-1]-Sel_costs[0]
             
 
     print("\n\n--------------------------Valores medios {}--------------------------\nTiempo, valor:\n\tGreedy: {}, {}\n\tBL: {}, {}\n".format(filename, mean_time_greedy, mean_value_greedy, mean_time_bl, mean_value_bl))
-    writeOn.write("{} {} {} {}\n".format(mean_value_greedy, mean_time_greedy, mean_value_bl, mean_time_bl))
+    writeOn.write("{} {} {} {} {} {} {} {} {} {} {} {}\n".format(mean_value_greedy, best_value_greedy, worse_value_greedy, mean_time_greedy, best_time_greedy, worse_time_greedy,  mean_value_bl, best_value_bl, worse_value_bl, mean_time_bl, best_time_bl, worse_time_bl))
+
+writeOn.close()

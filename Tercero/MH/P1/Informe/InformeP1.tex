@@ -344,9 +344,9 @@ Ejemplo:
 Para ejecutar correctamente el ejecutable (\textit{.py}), tan sólo tenemos que hacer uso de \textit{pip} para instalar los requisitos proporcionados en el archivo \textit{requirements.txt}
 con el comando \texttt{pip install -r /path/to/requirements.txt}.
 
-Una vez instalado, tenemos que asegurarnos de cambiar en el ejecutable el valor de la variable \textit{data\_dir} que encontraremos en la línea 42 del mismo por el nombre de nuestra carpeta donde tenemos los datos necesarios para la ejecución y \textbf{solo} esos datos.
+Una vez instalado, tenemos que asegurarnos de comprobar que tenemos en una carpeta localizada los archivos a leer y \textbf{solo} esos archivos, ya que el programa no realiza comprobación sobre los archivos que lee. Esta carpeta se la pasaremos por parámetros al momento de ejecución.
 
-Ahora podemos pasar a ejecutar el archivo con el comando \texttt{python3 <nombreArchivo>.py}.
+Ahora podemos pasar a ejecutar el archivo con el comando \texttt{python3 <nombreArchivo>.py <ruta carpeta datos>}.
 
 Podremos observar los resultado en tiempo real de los valores medios de tiempo y dispersión para ambos algoritmos y, si queremos también los valores mínimo y máximo de tiempo y dispersión, podremos abrir el archivo \textit{resulsts.txt} que aparecerá en el mismo directorio del ejecutable.
 
@@ -360,7 +360,7 @@ Para ambos algoritmos, hemos realizado 5 ejecuciones por fichero, con las cuales
 Vamos primero a observar los valores medios en la figura \ref{fig:valoresMedios} y comentarlos.
 
 Como vemos, podemos ver que los resultados a nivel de tiempo medio son algo peores en el algoritmo de búsqueda local que en el voraz.
-No obstante, impacto en el tiempo tampoco es exagerado, y obtenemos unos resultado bastante mejores de media.
+No obstante, el impacto en el tiempo tampoco es exagerado, y obtenemos unos resultado bastante mejores de media.
 
 Si nos fijamos en los valores óptimos, podemos calcular la dispersión para cada caso y con ello la dispersión media de cada algoritmo.
 
@@ -384,6 +384,19 @@ En la figura \ref{fig:dispYTmedios} podemos ver cuáles serían estos valores.
 Aquí, en la tabla \ref{fig:dispYTmedios}, se aprecia perfectamente que la desviación media respecto al óptimo de la búsqueda local es menor que en el voraz y que el efecto del mismo sobre el tiempo no resulta significativo.
 
 Estos valores pueden variar según la máquina en la que ejecutemos los algoritmos, pero el orden será similar.
+
+Vamos a visualizar unas gráficas en la figura \ref{fig:dispYTmedios_graf}, comparando tiempos de ejecución y dispersión media de cada algoritmo por archivo.
+
+\begin{figure}[H]
+    \centering
+	\includegraphics[width=0.45\textwidth]{data/mean_disps.png}
+	\includegraphics[width=0.45\textwidth]{data/mean_time.png}
+	\caption{dispersión y tiempo por archivo}
+	\label{fig:dispYTmedios_graf}
+\end{figure}
+
+Como observamos, a nivel de dispersión, ambos algoritmos siguen la misma tendencia en todo momento, pero el de búsqueda local se mantiene por debajo del voraz siempre.
+En cuanto a tiempos, ambos comienzan de manera similar, pero llega un punto en el que el de búsqueda local sube su tiempo de ejecución. No obstante, este aumento en el tiempo no resulta descabellado si tenemos en cuenta la mejoría en los resultados frente al voraz.
 
 \newpage
 
@@ -584,6 +597,15 @@ Es destacable que los peores casos del algoritmo de búsqueda local siguen siend
 
 A nivel de tiempo, obviamente gana el voraz, pero, en mi opinión, si esto se tratara de un caso de uso real, sería mucho mejor sacrificar esos segundos en función de obtener un resultado mucho más fiel al óptimo.
 
+Si observamos en la figura \ref{fig:bestVSworseBL} la diferencia de dispersión entre los mejores y peores casos del algoritmo de búsqueda local, podemos ver que por norma general no tienen mucha diferencia y hay algunos casos en los que coinciden.
+Esto es buena señal, ya que nos indica que el algoritmo va a tener, de media, buenos resultados si aumentamos el número de casos del problema.
+
+\begin{figure}[H]
+    \centering
+	\includegraphics[width=0.8\textwidth]{data/best_vs_worse_bl.png}
+	\caption{Diferencia mejor-peor caso por archivo en búsqueda local}
+	\label{fig:bestVSworseBL}
+\end{figure}
 
 \begin{figure}[h]
     \centering

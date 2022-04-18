@@ -1,0 +1,8 @@
+En este directorio antes de ejecutar el programa tan solo contaremos con el script de python y un pequeño archivo de dependencias para el mismo.
+Para instalar las dependencias, podemos ejecutar el comando "pip install -r requirements.txt".
+
+Una vez instaladas las dependecias, podemos ejecutar el script con el comando python3 <script> <ruta a datos>
+
+Se recomienda encarecidamente leer el manual de usuario incluido en el informe antes de ejecutar el script.
+
+Una vez ejecutado, aparecerá en la carpeta de ejecución un archivo llamado results.txt, con datos más detallados sobre los resultados obtenidos.

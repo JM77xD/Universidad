@@ -1,0 +1,14 @@
+En este directorio constaremos del script de python que ejecutaremos y con dos directorios: "fuentes", el cual contendrá clases definidas para facilitar la comprensión, desarrollo y mantenimiento del código y "data", sobre el que nos escribirá el programa la evolución por archivo de cada algoritmo, generación por generación.
+
+OMITIR SI YA TENEMOS NUMPY INSTALADO EN EL SISTEMA
+Para instalar las dependencias, podemos ejecutar el comando "conda create --name <env> --file requirements.txt".
+Este comando nos creará un entorno virtual con conda de nombre "env" con las dependencias satisfechas.
+Si preferimos usar pip podemos usar "pip install numpy", que es la única dependecia real que no venga con el sistema.
+
+Una vez instaladas las dependecias, podemos ejecutar el script con el comando python3 <script> <ruta a datos>
+
+Se recomienda encarecidamente leer el manual de usuario incluido en el informe antes de ejecutar el script.
+
+A su vez, si queremos que se nos redirija la salida estándar del programa, podemos simplmente llamar al programa de la forma python3 <script> <ruta a datos> > <archivoConResultados>, de forma que "archivoConResultados" contendrá la salida estándar del programa.
+
+LOS ALGORITMOS DE BÚSQUEDA LOCAL Y GREEDY VIENEN DESACTIVADOS POR DEFECTO, LEER EL MANUAL DE USUARIO SI SE DESEAN ACTIVAR.

@@ -82,12 +82,12 @@ Para resolver este problema, hemos implementado los siguientes algoritmos:
 \begin{itemize}
 \item Un algoritmo \textbf{Greedy}.
 \item Un algoritmo de \textbf{Búsqueda local}.
-\item Un algoritmo \textbf{Genético Generacional (AGG)}.
-\item Un algoritmo \textbf{Genético Estacional (AGE)}.
-\item Un algoritmo \textbf{Memético (AM)}.
+\item Un algoritmo de \textbf{Enfriamiento Simulado (ES)}.
+\item Un algoritmo de \textbf{Búsqueda Multiarranque Básica (BMB)}.
+\item Un algoritmo de \textbf{Búsqueda Local Reiterada (ILS)}.
 \end{itemize}
 
-El código de los algoritmos de la práctica anterior, \textit{greedy} y \textit{búsqueda local} estará comentado, ya que no es relevante para lo que se remite a esta práctica, no obstante, podremos descomentarlo\footnote{Líneas 173-184, 186-251, 296, 297, 316-322} si queremos probar también estos algoritmos.
+El código de los algoritmos de la práctica 1, \textit{greedy} y \textit{búsqueda local}, no estará en esta práctica.
 
 Más adelante estudiaremos estos algoritmos, pero antes, vamos a comentar algunos elementos comunes a ambos.
 
@@ -240,7 +240,7 @@ A su vez, vamos a restringir el número de vecinos que podemos generar entre cad
 Tendremos cierta probabilidad de aceptar un resultado peor que el actual, esto nos permitirá ampliar el espacio de búsqueda.
 Esta posibilidad se va reduciendo conforme nos acercamos a $T_f$, generando un número aleatorio entre 0 y 1 y comparándolo con la función $\displaystyle e^{-\frac{\Delta C(S)}{T}}$ y si el número es menor o igual que el resultado de la función, aceptamos.
 
-Se puede apreciar que el valor de la función se reduce conforme reducimos la temperatura, ya que si tenemos una $T$ muy pequeña, tendremos un valor muy grande o rozando el 0. Si el valor es muy, tenemos que aceptar (ya que $\Delta C(S)$ será negativo, lo que quiere decir que estamos reduciendo la dispersión), mientras que si el valor es muy pequeño habrá muy pocas posibilidades de que ese valor aleatorio fuera menor. Vamos a denominar a esto que acabamos de explicar como \texttt{aceptarPeor} para que el pseudocódigo del listing \ref{lst:ES}, que contendrá el funcionamiento del algoritmo, sea más simple.
+Se puede apreciar que el valor de la función se reduce conforme reducimos la temperatura, ya que si tenemos una $T$ muy pequeña, tendremos un valor muy grande o rozando el 0. Si el valor es muy grande, tenemos que aceptar (ya que $\Delta C(S)$ será negativo, lo que quiere decir que estamos reduciendo la dispersión), mientras que si el valor es muy pequeño habrá muy pocas posibilidades de que ese valor aleatorio sea menor. Vamos a denominar a esto que acabamos de explicar como \texttt{aceptarPeor} para que el pseudocódigo del listing \ref{lst:ES}, que contendrá el funcionamiento del algoritmo, sea más simple.
 
 \begin{lstlisting}[frame=single, caption={Enfriamiento simulado}, captionpos=b, label=lst:ES]
 mientras que iters < max_iters y n_exitos != 0:
@@ -313,7 +313,7 @@ return dispersion(mejor_sol)
 
 \section{Desarrollo y uso del software}
 
-En esta sección vamos a comentar cómo hemos desarrollado el software para la práctica, a la vez que indicaremos como ejecutar el mismo.
+En esta sección vamos a comentar cómo hemos desarrollado el software para la práctica, a la vez que indicaremos cómo ejecutar el mismo.
 
 
 \subsection{Implementación}
@@ -341,7 +341,7 @@ Una vez instalado, tenemos que asegurarnos de comprobar que tenemos en una carpe
 
 Ahora podemos pasar a ejecutar el archivo con el comando \texttt{python3 <nombreArchivo>.py <ruta carpeta datos>}.
 
-Podremos observar los resultados en tiempo real de los valores medios de tiempo y dispersión para todos los algoritmos y asu vez, se guardarán en el archivo \textit{./data/nombreAlgoritmo}.
+Podremos observar los resultados en tiempo real de los valores medios de tiempo y dispersión para todos los algoritmos y a su vez, se guardarán en el archivo \textit{./data/nombreAlgoritmo}.
 
 \newpage
 
@@ -415,7 +415,7 @@ para nuestra sorpresa, el \textit{ILS} ejecutando búsqueda local resulta muchí
 
 \subsection{Comparativa de los algoritmos de arranque múltiple}
 
-Dado que en el subapartado anterior quedó claro a la vista de los resultados que el \textit{ILS} que implementaba la búsqueda local resultaba muy superior al de enfriamiento simulado, vamos a comparar el \textit{ILS-BL} con \textit{BMB}.
+Dado que en el subapartado anterior quedó claro, a la vista de los resultados, que el \textit{ILS} que implementaba la búsqueda local resultaba muy superior al de enfriamiento simulado, vamos a comparar el \textit{ILS-BL} con \textit{BMB}.
 
 En la figura \ref{tab:compMult} podemos ver la desviación y el tiempo de ejecución medios.
 
@@ -492,14 +492,14 @@ En esta figura podemos apreciar varias cosas:
 
 \begin{itemize}
     \item El pésimo desempeño de \textit{BMB}, siendo tan solo ligeramente superior al algoritmo voraz implementado en la primera práctica.
-    \item Las dos versiones de \textit{ILS}, siendo las que mejores resultados aporta y reforzando la conclusión que alcanzamos en el subapartado anterior: los multiarranque suelen tener un mejor desempeño que los de arranque simple.
+    \item Las dos versiones de \textit{ILS}, siendo las que mejores resultados aportan y reforzando la conclusión que alcanzamos en el subapartado anterior: los multiarranque suelen tener un mejor desempeño que los de arranque simple.
     \item El potencial del arranque múltiple, que consigue mejorar el desempeño del \textit{ES}, pasando la desviación de 55 a 41 con una ligera penalización en el tiempo de ejecución.
 \end{itemize}
 
 
 \subsection{Gráficas para observar características de interés}
 
-En este apartado vamos a mostrar algunas gráficas que nos van a facilitar la comprensión de las conclusiones alcanzadas en los subapartados anteriores, a la vez que nos permitirán apreciar detalles que hemos pasado por alto analizando tan solo la desviación y el tiempo de ejecución medio.
+En este apartado vamos a mostrar algunas gráficas que nos van a facilitar la comprensión de las conclusiones alcanzadas en los subapartados anteriores, a la vez que nos permitirán apreciar detalles que hemos pasado por alto analizando tan solo la desviación y tiempo de ejecución medios.
 
 Para comenzar, vamos a ver la dispersión por archivo de todos los algoritmos probados en esta práctica. En la figura \ref{fig:dispTodos} tenemos la gráfica correspondiente.
 
@@ -510,7 +510,7 @@ Para comenzar, vamos a ver la dispersión por archivo de todos los algoritmos pr
     \label{fig:dispTodos}
 \end{figure}
 
-Como vemos, el \textit{BMB} destaca sobre el resto, por lo que vamos a observar mejor la figura \ref{fig:disp_mejores}, similar a la anterior pero quitando el \textit{BMB}, en la que podremos apreciar mejor la evolución del resto de algoritmos.
+Como vemos, el \textit{BMB} destaca sobre el resto, por lo que vamos a observar la figura \ref{fig:disp_mejores}, similar a la anterior pero quitando el \textit{BMB}, en la que podremos apreciar mejor la evolución del resto de algoritmos.
 
 \begin{figure}[H]
     \centering
